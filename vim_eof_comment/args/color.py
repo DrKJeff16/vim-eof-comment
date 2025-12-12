@@ -100,4 +100,5 @@ class ColorArgParser(ArgumentParser):
             gettext("%(prog)s: Error: %(message)s\n") % {"prog": self.prog, "message": message},
             status=2
         )
+
 # vim:ts=4:sts=4:sw=4:et:ai:si:sta:

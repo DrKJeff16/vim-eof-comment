@@ -20,5 +20,8 @@ sign: build
 stubs:
 	@stubgen .
 
+local-install:
+	@pipenv run python3 -m pip install .
+
 upload: sign
 	@twine upload dist/*

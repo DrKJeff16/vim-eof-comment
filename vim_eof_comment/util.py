@@ -67,4 +67,5 @@ def die(*msg, code: int = 0, end: str = "\n", sep: str = " ", flush: bool = Fals
             error(*msg, end=end, sep=sep, flush=flush)
 
     Exit(code)
+
 # vim:ts=4:sts=4:sw=4:et:ai:si:sta:

@@ -56,7 +56,17 @@ def arg_parser_init() -> Tuple[ColorArgParser, Namespace]:
                 "dest": "exts",
             }
         ),
+        (
+            ["-n", "--newline"],
+            {
+                "required": False,
+                "action": "store_true",
+                "help": "Add newline before EOF comment",
+                "dest": "newline",
+            }
+        ),
     ]
 
     return parser, bootstrap_args(parser, spec)
+
 # vim:ts=4:sts=4:sw=4:et:ai:si:sta:

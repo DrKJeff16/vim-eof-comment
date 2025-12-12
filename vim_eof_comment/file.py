@@ -7,13 +7,9 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 from io import TextIOWrapper
 from os import walk
 from os.path import isdir, join
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 
-from .comments import Comments
 from .util import die, error
-
-
-COMMENTS: Dict[str, str] = Comments().generate()
 
 
 def bootstrap_paths(paths: Tuple[str], exts: Tuple[str]) -> Tuple[Tuple[str, str]]:
@@ -48,11 +44,20 @@ def open_batch_paths(paths: Tuple[Tuple[str, str]]) -> Dict[str, Tuple[TextIOWra
     return result
 
 
-def modify_file(file: TextIOWrapper, ext: str) -> str:
+def modify_file(
+        file: TextIOWrapper,
+        comments: List[str],
+        ext: str,
+        newline: bool,
+        has_nwl: bool
+) -> str:
     """Modifies a file containing a bad EOF comment."""
     data = file.read().split("\n")
-    data[-2] = COMMENTS[ext]
-    # data.insert(-2, "")  # Newline
+    data[-2] = comments[ext]
+
+    if newline and not has_nwl:
+        data.insert(-2, "")  # Newline
 
     return "\n".join(data)
+
 # vim:ts=4:sts=4:sw=4:et:ai:si:sta:
