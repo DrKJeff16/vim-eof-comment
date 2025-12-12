@@ -4,17 +4,31 @@ Ensure Vim EOF comments in given files.
 
 [PyPI Package][pypi] | [Source Code][source]
 
+---
+
 ## Install
 
-```sh
+```bash
 pip install vim-eof-comment
 ```
 
+---
+
 ## Usage
 
-```sh
+General usage is as follows:
+
+```bash
 vim-eof-comment [-h] -e EXT1[,EXT2[,EXT3[,...]]] /path/to/dir1 [/path/to/dir2 [...]]
 ```
+
+### Example
+
+```bash
+vim-eof-comment -e py,md,lua .
+```
+
+---
 
 ## License
 
