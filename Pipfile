@@ -21,6 +21,7 @@ pip = "*"
 pyproject = "*"
 flake8 = "*"
 flake8-docstrings = "*"
+twine = "*"
 
 [scripts]
 lint = "flake8"
