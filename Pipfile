@@ -24,6 +24,7 @@ flake8 = "*"
 flake8-docstrings = "*"
 twine = "*"
 pypi-attestations = "*"
+pre-commit = "*"
 
 [scripts]
 lint = "flake8 --statistics --show-source --color always --max-line-length 100 --docstring-convention numpy --ignore=D401 ."
