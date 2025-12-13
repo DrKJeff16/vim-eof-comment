@@ -14,19 +14,12 @@ python-gettext = "*"
 
 [dev-packages]
 pynvim = "*"
-python-lsp-server = {extras = ["all"], version = "*"}
-mypy = "*"
-mypy-extensions = "*"
 build = "*"
 pip = "*"
 pyproject = "*"
-flake8 = "*"
-flake8-docstrings = "*"
 twine = "*"
 pypi-attestations = "*"
 pre-commit = "*"
-future = "*"
-futures = "*"
 
 [scripts]
 lint = "flake8 --statistics --show-source --color always --max-line-length 100 --docstring-convention numpy --ignore=D401 ."

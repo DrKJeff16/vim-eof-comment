@@ -59,7 +59,7 @@ def modify_file(
     elif data_len == 1:
         data.insert(0, comments[ext])
     elif data_len >= 2:
-        data[-2] = comments[ext]
+        data.insert(-1, comments[ext])
 
     if newline and not has_nwl:
         data.insert(-2, "")  # Newline
