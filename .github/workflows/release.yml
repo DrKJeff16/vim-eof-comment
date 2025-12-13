@@ -1,0 +1,51 @@
+name: Action Release
+on:
+  push:
+    tags:
+      - "*.*.*"
+  merge_group:
+    branches:
+      - main
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Build Project Assets
+        run: |
+          mkdir -pv vim-eof-comment
+          cp -rv vim_eof_comment README.md LICENSE Makefile vim-eof-comment
+          zip -r -9 vim-eof-comment.zip vim-eof-comment
+          tar cvJf vim-eof-comment.tar.xz vim-eof-comment
+          sha512sum vim-eof-comment.zip vim-eof-comment.tar.xz >| sha512sums.txt
+          md5sum vim-eof-comment.zip vim-eof-comment.tar.xz >| md5sums.txt
+          rm -rfv vim-eof-comment
+      - name: Get Release
+        uses: joutvhu/get-release@v1.0.3
+        with:
+          latest: true
+          prerelease: true
+          pattern: '^.*'
+          debug: true
+          throwing: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Release File
+        run: |
+          echo ${{ github.sha }} > Release.txt
+          cat Release.txt
+      - name: Release
+        uses: softprops/action-gh-release@v2.5.0
+        if: github.ref_type == 'tag'
+        with:
+          files: |
+            Release.txt
+            vim-eof-comment.tar.xz
+            vim-eof-comment.zip
+            md5sums.txt
+            sha512sums.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
