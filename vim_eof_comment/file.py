@@ -7,7 +7,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 from io import TextIOWrapper
 from os import walk
 from os.path import isdir, join
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 from .util import die, error
 
@@ -46,7 +46,7 @@ def open_batch_paths(paths: Tuple[Tuple[str, str]]) -> Dict[str, Tuple[TextIOWra
 
 def modify_file(
         file: TextIOWrapper,
-        comments: List[str],
+        comments: Dict[str, str],
         ext: str,
         newline: bool,
         has_nwl: bool

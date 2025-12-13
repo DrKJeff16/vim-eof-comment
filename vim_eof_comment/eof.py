@@ -7,13 +7,10 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 from io import TextIOWrapper
 from typing import Dict, NoReturn, Tuple
 
+from .args.parsing import arg_parser_init, indent_handler
 from .comments import Comments
-from .file import modify_file, bootstrap_paths, open_batch_paths
-from .args.parsing import arg_parser_init
-from .util import die
-
-
-COMMENTS = Comments(lua=(4, True), md=(2, True), py=(4, True)).generate()
+from .file import bootstrap_paths, modify_file, open_batch_paths
+from .util import die, gen_indent_maps
 
 
 def get_last_line(file: TextIOWrapper) -> Tuple[str, bool]:
@@ -37,14 +34,16 @@ def get_last_line(file: TextIOWrapper) -> Tuple[str, bool]:
 
 def eof_comment_search(
         files: Dict[str, Tuple[TextIOWrapper, str]],
+        comments: Comments,
         newline: bool
 ) -> Dict[str, Tuple[Tuple[TextIOWrapper, bool], str, bool]]:
     """Searches through opened files."""
     result = dict()
+    comment_map = comments.generate()
     for path, file in files.items():
         last_line, has_nwl = get_last_line(file[0])
-        comment = COMMENTS[file[1]]
-        if last_line != COMMENTS[file[1]] or (newline and not has_nwl):
+        comment = comment_map[file[1]]
+        if last_line != comment_map[file[1]] or (newline and not has_nwl):
             # FIXME: This tuple only applies to Lua files!
             bad_lines = ("-" + comment, comment.split(" "), "-" + "".join(comment.split(" ")))
             if last_line in bad_lines or (newline and not has_nwl):
@@ -57,13 +56,21 @@ def eof_comment_search(
 
 def append_eof_comment(
         files: Dict[str, Tuple[Tuple[TextIOWrapper, bool], str, bool]],
+        comments: Comments,
         newline: bool
 ) -> NoReturn:
     """Append EOF comment to files missing it."""
+    comment_map = comments.generate()
     for path, file in files.items():
-        txt = f"{COMMENTS[file[1]]}\n"
-        if file[0][1]:
-            txt = modify_file(file[0][0], COMMENTS, file[1], newline, file[2])
+        needs_modify = file[0][1]
+        file_obj = file[0][0]
+        ext = file[1]
+        has_nwl = file[2]
+
+        txt = f"{comment_map[ext]}\n"
+
+        if needs_modify:
+            txt = modify_file(file_obj, comment_map, ext, newline, has_nwl)
             file[0][0] = open(path, "w")
 
         file[0][0].write(txt)
@@ -77,14 +84,22 @@ def main() -> int:
     dirs: Tuple[str] = tuple(namespace.directories)
     exts: Tuple[str] = tuple(namespace.exts.split(","))
     newline: bool = namespace.newline
+    indent = indent_handler(namespace.indent)
+
+    indent = gen_indent_maps(indent.copy())
+
+    if indent is None:
+        comments = Comments()
+    else:
+        comments = Comments(indent)
 
     files = open_batch_paths(bootstrap_paths(dirs, exts))
     if len(files) == 0:
         die("No matching files found!", code=1)
 
-    results = eof_comment_search(files, newline)
+    results = eof_comment_search(files, comments, newline)
     if len(results) > 0:
-        append_eof_comment(results, newline)
+        append_eof_comment(results, comments, newline)
 
     return 0
 
