@@ -8,3 +8,19 @@ repos:
     hooks:
       - id: remove-crlf
       - id: forbid-crlf # Forbid files containing CRLF end-lines to be committed
+  - repo: local
+    hooks:
+      - id: lint
+        name: Lint Using Flake8
+        language: system
+        types: [python]
+        files: ^vim_eof_comment/.*\.py$
+        entry: make lint
+        verbose: true
+      - id: stubgen
+        name: Run stubgen
+        language: system
+        types: [python]
+        files: ^vim_eof_comment/.*\.py$
+        entry: make stubs
+        verbose: true

@@ -6,10 +6,10 @@ clean:
 	@rm -rf build dist *.egg-info
 
 help:
-	@echo -e "Available targets:\n - help\n - lint\n - build\n - sign\n - local-install\n - upload\n - clean\n"
+	@echo -e "Available targets:\n  help\n  lint\n  build\n  sign\n  local-install\n  stubs\n  upload\n  clean\n"
 
 lint:
-	@flake8 --statistics --show-source --color=always --max-line-length=100 --docstring-convention=numpy --ignore=D401 .
+	@flake8 --statistics --show-source --color=always --max-line-length=100 --ignore=D401 .
 
 build: clean stubs
 	@command python -m build &> /dev/null
