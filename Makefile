@@ -11,20 +11,20 @@ help:
 lint:
 	@flake8 --statistics --show-source --color=always --max-line-length=100 --ignore=D401 .
 
-build: clean stubs
-	@python3 -m build &> /dev/null
-
-sign: build
-	@pypi-attestations sign dist/*
-
 stubs:
 	@stubgen -p vim_eof_comment -o .
+
+build: stubs
+	@python3 -m build &> /dev/null
+
+sign:
+	@pypi-attestations sign dist/*
 
 local-install: build
 	@python3 -m pip install .
 
-run-script: local-install
+run-script:
 	@vim-eof-comment -e py,pyi -n .
 
-upload: sign
+upload:
 	@twine upload dist/*
