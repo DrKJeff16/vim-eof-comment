@@ -19,8 +19,7 @@ dependencies = [
     "setuptools",
     "wheel",
     "typing",
-    "argparse",
-    "python-gettext"
+    "argparse"
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
