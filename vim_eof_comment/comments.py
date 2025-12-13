@@ -4,7 +4,9 @@
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-from typing import Dict, NoReturn, Tuple
+from typing import Dict, NoReturn, ReadOnly
+
+from .types.typeddict import IndentMap
 
 formats: Dict[str, str] = {
     "C": "/// vim:ts={}:sts={}:sw={}:et:ai:si:sta:",
@@ -30,28 +32,28 @@ formats: Dict[str, str] = {
     "zsh": "# vim:ts={}:sts={}:sw={}:et:ai:si:sta:",
 }
 
-_DEFAULT: Dict[str, Tuple[int, bool]] = {
-    "C": (2, True),
-    "H": (2, True),
-    "bash": (4, True),
-    "c": (2, True),
-    "cc": (2, True),
-    "cpp": (2, True),
-    "css": (4, True),
-    "fish": (4, True),
-    "h": (2, True),
-    "hh": (2, True),
-    "hpp": (2, True),
-    "htm": (2, True),
-    "html": (2, True),
-    "lua": (4, True),
-    "markdown": (2, True),
-    "md": (2, True),
-    "py": (4, True),
-    "pyi": (4, True),
-    "sh": (4, True),
-    "xml": (2, True),
-    "zsh": (4, True),
+_DEFAULT: Dict[str, IndentMap] = {
+    "C": {"level": 2, "expandtab": True},
+    "H": {"level": 2, "expandtab": True},
+    "bash": {"level": 4, "expandtab": True},
+    "c": {"level": 2, "expandtab": True},
+    "cc": {"level": 2, "expandtab": True},
+    "cpp": {"level": 2, "expandtab": True},
+    "css": {"level": 4, "expandtab": True},
+    "fish": {"level": 4, "expandtab": True},
+    "h": {"level": 2, "expandtab": True},
+    "hh": {"level": 2, "expandtab": True},
+    "hpp": {"level": 2, "expandtab": True},
+    "htm": {"level": 2, "expandtab": True},
+    "html": {"level": 2, "expandtab": True},
+    "lua": {"level": 4, "expandtab": True},
+    "markdown": {"level": 2, "expandtab": True},
+    "md": {"level": 2, "expandtab": True},
+    "py": {"level": 4, "expandtab": True},
+    "pyi": {"level": 4, "expandtab": True},
+    "sh": {"level": 4, "expandtab": True},
+    "xml": {"level": 2, "expandtab": True},
+    "zsh": {"level": 4, "expandtab": True},
 }
 
 
@@ -65,11 +67,10 @@ class Comments():
     """Vim EOF comments class."""
 
     formats: Dict[str, str]
-    langs: Dict[str, Tuple[int, bool]]
+    langs: Dict[str, IndentMap]
+    _DEFAULT: ReadOnly[Dict[str, IndentMap]] = _DEFAULT.copy()
 
-    _DEFAULT: Dict[str, Tuple[int, bool]] = _DEFAULT.copy()
-
-    def __init__(self, mappings: Dict[str, Tuple[int, bool]] = _DEFAULT):
+    def __init__(self, mappings: Dict[str, IndentMap] = _DEFAULT):
         """Creates a new Vim EOF comment object."""
         self.formats = formats.copy()
 
@@ -77,21 +78,19 @@ class Comments():
             self.langs = self._DEFAULT.copy()
             return
 
-        langs = dict()
-        for lang, tup in mappings.items():
-            if not (self.is_available(lang) and isinstance(tup, (tuple, list))):
+        self.langs = dict()
+        for lang, mapping in mappings.items():
+            if not (self.is_available(lang)):
                 continue
 
-            indent, expandtab = tup[0], True
-            if len(tup) == 0:
+            if len(mapping) == 0:
                 continue
 
-            if len(tup) > 1:
-                expandtab = tup[1]
+            indent, expandtab = mapping["level"], True
+            if len(mapping) > 1:
+                expandtab = mapping["expandtab"]
 
-            langs[lang] = (indent, expandtab)
-
-        self.langs = langs.copy()
+            self.langs[lang] = {"level": indent, "expandtab": expandtab}
 
         self.fill_langs()
 
@@ -105,15 +104,15 @@ class Comments():
             self.langs = self._DEFAULT.copy()
             return
 
-        for lang, tup in self._DEFAULT.items():
-            self.langs[lang] = self.langs.get(lang, tup)
+        for lang, mapping in self._DEFAULT.items():
+            self.langs[lang] = self.langs.get(lang, mapping)
 
     def generate(self) -> Dict[str, str]:
         """Generate the comments list."""
         comments: Dict[str, str] = dict()
         for lang, fmt in self.formats.items():
             splitted = fmt.split(":")
-            lvl, expandtab = self.langs[lang][0], self.langs[lang][1]
+            lvl, expandtab = self.langs[lang]["level"], self.langs[lang]["expandtab"]
 
             et = splitted.index("et")
             ts = splitted.index("ts={}")

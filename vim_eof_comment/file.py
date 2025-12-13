@@ -7,12 +7,13 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 from io import TextIOWrapper
 from os import walk
 from os.path import isdir, join
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 
+from .types.typeddict import BatchPairDict, BatchPathDict
 from .util import die, error
 
 
-def bootstrap_paths(paths: Tuple[str], exts: Tuple[str]) -> Tuple[Tuple[str, str]]:
+def bootstrap_paths(paths: Tuple[str], exts: Tuple[str]) -> List[BatchPairDict]:
     """Bootstraps all the matching paths in current dir and below."""
     result = list()
     for path in paths:
@@ -22,24 +23,27 @@ def bootstrap_paths(paths: Tuple[str], exts: Tuple[str]) -> Tuple[Tuple[str, str
         for root, dirs, files in walk(path):
             for file in files:
                 for ext in exts:
-                    if file.endswith(ext):
-                        result.append((join(root, file), ext))
+                    if not file.endswith(ext):
+                        continue
 
-    return tuple(result)
+                    result.append(BatchPairDict(fpath=join(root, file), ext=ext))
+
+    return result
 
 
-def open_batch_paths(paths: Tuple[Tuple[str, str]]) -> Dict[str, Tuple[TextIOWrapper, str]]:
+def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
     """Return a list of TextIO objects given file path strings."""
     result = dict()
     for path in paths:
+        fpath, ext = path["fpath"], path["ext"]
         try:
-            result[path[0]] = (open(path[0], "r"), path[1])
+            result[fpath] = {"file": open(fpath, "r"), "ext": ext}
         except KeyboardInterrupt:
             die("\nProgram interrupted!", code=1)  # Kills the program
         except FileNotFoundError:
-            error(f"File `{path[0]}` is not available!")
+            error(f"File `{fpath}` is not available!")
         except Exception:
-            error(f"Something went wrong while trying to open `{path[0]}`!")
+            error(f"Something went wrong while trying to open `{fpath}`!")
 
     return result
 

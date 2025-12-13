@@ -6,18 +6,19 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from argparse import ArgumentError, ArgumentParser, Namespace
 from sys import stdout as STDOUT
-from typing import Any, Dict, List, Tuple
+from typing import List, Tuple
 
+from ..types.typeddict import IndentHandler, ParserSpec
 from ..util import die
 
 
 def bootstrap_args(
         parser: ArgumentParser,
-        specs: Tuple[Tuple[List[str], Dict[str, Any]]]
+        specs: Tuple[ParserSpec]
 ) -> Namespace:
     """Bootstraps the program arguments."""
     for spec in specs:
-        parser.add_argument(*spec[0], **spec[1])
+        parser.add_argument(*spec["opts"], **spec["kwargs"])
 
     try:
         namespace = parser.parse_args()
@@ -37,36 +38,36 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
         description="Checks for Vim EOF comments in all matching files in specific directories",
         exit_on_error=False
     )
-    spec: Tuple[Tuple[List[str], Dict[str, Any]]] = (
-        (
-            ["directories"],
-            {
+    spec: Tuple[ParserSpec] = (
+        {
+            "opts": ["directories"],
+            "kwargs": {
                 "nargs": "+",
                 "help": "The target directories to be checked",
                 "metavar": "/path/to/directory",
             },
-        ),
-        (
-            ["-e", "--file-extensions"],
-            {
+        },
+        {
+            "opts": ["-e", "--file-extensions"],
+            "kwargs": {
                 "required": True,
                 "metavar": "EXT1[,EXT2[,EXT3[,...]]]",
                 "help": "A comma-separated list of file extensions (e.g. \"lua,c,cpp,cc,c++\")",
                 "dest": "exts",
             }
-        ),
-        (
-            ["-n", "--newline"],
-            {
+        },
+        {
+            "opts": ["-n", "--newline"],
+            "kwargs": {
                 "required": False,
                 "action": "store_true",
                 "help": "Add newline before EOF comment",
                 "dest": "newline",
             }
-        ),
-        (
-            ["-i", "--indent-levels"],
-            {
+        },
+        {
+            "opts": ["-i", "--indent-levels"],
+            "kwargs": {
                 "required": False,
                 "metavar": "EXT1:INDENT1[:<Y|N>][,EXT2:INDENT2[:<Y|N>][,...]]",
                 "help": """
@@ -77,31 +78,29 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
                 "default": "",
                 "dest": "indent",
             },
-        )
+        },
     )
 
     return parser, bootstrap_args(parser, spec)
 
 
-def indent_handler(indent: str) -> List[Tuple[str, int, bool]]:
+def indent_handler(indent: str) -> List[IndentHandler]:
     """Parse indent levels defined by the user."""
     if indent == "":
         return list()
 
     indents: List[str] = indent.split(",")
-    maps: List[Tuple[str, int, bool]] = list()
+    maps: List[IndentHandler] = list()
     for ind in indents:
         inds: List[str] = ind.split(":")
         if len(inds) <= 1:
             continue
 
         ext, ind_level, et = inds[0], int(inds[1]), True
-        if len(inds) >= 3:
-            if inds[2].upper() in ("Y", "N"):
-                et = False if inds[2].upper() == "N" else True
+        if len(inds) >= 3 and inds[2].upper() in ("Y", "N"):
+            et = False if inds[2].upper() == "N" else True
 
-        append = [ext, ind_level, et]
-        maps.append(tuple(append))
+        maps.append(IndentHandler(ext=ext, level=ind_level, expandtab=et))
 
     return maps
 

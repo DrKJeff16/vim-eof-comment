@@ -6,7 +6,9 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from sys import exit as Exit
 from sys import stderr as STDERR
-from typing import Dict, List, NoReturn, Tuple
+from typing import Dict, List, NoReturn
+
+from .types.typeddict import IndentHandler, IndentMap
 
 
 def error(*msg, end: str = "\n", sep: str = " ", flush: bool = False) -> NoReturn:
@@ -70,23 +72,27 @@ def die(*msg, code: int = 0, end: str = "\n", sep: str = " ", flush: bool = Fals
 
 
 def gen_indent_maps(
-        maps: List[Tuple[str, int, bool]]
-) -> Dict[str, Tuple[int] | Tuple[int, bool]] | None:
+        maps: List[IndentHandler]
+) -> Dict[str, IndentMap] | None:
     """Generate a dictionary from the custom indent maps."""
     if len(maps) == 0:
         return None
 
-    map_d: Dict[str, Tuple[int, bool]] = dict()
+    map_d: Dict[str, IndentMap] = dict()
     for mapping in maps:
         mapping_len = len(mapping)
         if mapping_len <= 1:
             raise ValueError(f"One of the custom mappings is not formatted properly! (`{mapping}`)")
 
-        if mapping[0] in map_d.keys():
+        ext, level = mapping["ext"], mapping["level"]
+        if ext in map_d.keys():
             continue
 
         mapping_len = mapping_len if mapping_len <= 3 else 3
-        map_d[mapping[0]] = (mapping[1], True) if mapping_len == 2 else (mapping[1], mapping[2])
+        map_d[ext] = {
+            "level": level,
+            "expandtab": True if mapping_len == 2 else mapping["expandtab"],
+        }
 
     return map_d
 
