@@ -38,5 +38,5 @@ classifiers = [
 vim-eof-comment = "vim_eof_comment.eof:main"
 
 [project.urls]
-Homepage = "https://github.com/DrKJeff16/vim-eof-comment"
+Repository = "https://github.com/DrKJeff16/vim-eof-comment"
 Issues = "https://github.com/DrKJeff16/vim-eof-comment/issues"
