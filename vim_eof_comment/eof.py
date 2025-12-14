@@ -17,7 +17,7 @@ from .util import die, gen_indent_maps
 
 def get_last_line(file: TextIOWrapper) -> LineBool:
     """Returns the last line of a file."""
-    data = file.read().split("\n")
+    data: List[str] = file.read().split("\n")
     has_newline = False
     if len(data) == 1:
         line: str = data[0]
@@ -49,14 +49,9 @@ def eof_comment_search(
         wrapper = get_last_line(file_obj)
         last_line, has_nwl = wrapper["line"], wrapper["has_nwl"]
 
-        comment = comment_map[ext]
         if last_line != comment_map[ext]:
             # FIXME: This tuple only applies to Lua files!
-            bad_lines = ("-" + comment, comment.split(" "), "-" + "".join(comment.split(" ")))
-            if last_line in bad_lines or (newline and not has_nwl):
-                state = IOWrapperBool(file=open(path, "r"), has_nwl=True)
-            else:
-                state = IOWrapperBool(file=open(path, "a"), has_nwl=False)
+            state = IOWrapperBool(file=open(path, "r"), has_nwl=has_nwl)
 
             result[path] = EOFCommentSearch(state=state, lang=ext)
 
@@ -73,13 +68,11 @@ def append_eof_comment(
     for path, file in files.items():
         has_nwl, file_obj, ext = file["state"]["has_nwl"], file["state"]["file"], file["lang"]
 
-        txt = f"{comment_map[ext]}\n"
-        if has_nwl:
-            txt = modify_file(file_obj, comment_map, ext, newline, has_nwl)
-            file["state"]["file"] = open(path, "w")
+        txt = modify_file(file_obj, comment_map, ext, newline, has_nwl)
+        file_obj = open(path, "w" if has_nwl else "a")
 
-        file["state"]["file"].write(txt)
-        file["state"]["file"].close()
+        file_obj.write(txt)
+        file_obj.close()
 
 
 def main() -> int:
