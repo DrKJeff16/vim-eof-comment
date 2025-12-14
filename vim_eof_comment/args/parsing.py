@@ -5,7 +5,6 @@
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from argparse import ArgumentError, ArgumentParser, Namespace
-from sys import stdout as STDOUT
 from typing import List, Tuple
 
 from ..types.typeddict import IndentHandler, ParserSpec
@@ -18,16 +17,13 @@ def bootstrap_args(
 ) -> Namespace:
     """Bootstraps the program arguments."""
     for spec in specs:
-        parser.add_argument(*spec["opts"], **spec["kwargs"])
+        opts, kwargs = spec["opts"], spec["kwargs"]
+        parser.add_argument(*opts, **kwargs)
 
     try:
-        namespace = parser.parse_args()
-    except KeyboardInterrupt:
-        die(code=130)
+        namespace: Namespace = parser.parse_args()
     except ArgumentError:
-        parser.print_help(STDOUT)
-        die(code=1)
-
+        die(code=1, func=parser.print_usage)
     return namespace
 
 

@@ -5,13 +5,13 @@
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from io import TextIOWrapper
-from typing import Any, Dict, List, TypedDict
+from typing import Any, Dict, Tuple, TypedDict
 
 
 class ParserSpec(TypedDict):
     """A TypeDict container."""
 
-    opts: List[str]
+    opts: Tuple[str]
     kwargs: Dict[str, Any]
 
 

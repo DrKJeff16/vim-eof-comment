@@ -4,11 +4,11 @@
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-from typing import Dict, Iterator, NoReturn, ReadOnly
+from typing import Dict, Iterator, NoReturn, Optional
 
 from .types.typeddict import IndentMap
 
-formats: Dict[str, str] = {
+_formats: Dict[str, str] = {
     "C": "/// vim:ts={}:sts={}:sw={}:et:ai:si:sta:",
     "H": "/// vim:ts={}:sts={}:sw={}:et:ai:si:sta:",
     "bash": "# vim:ts={}:sts={}:sw={}:et:ai:si:sta:",
@@ -68,19 +68,19 @@ class Comments():
 
     formats: Dict[str, str]
     langs: Dict[str, IndentMap]
-    _DEFAULT: ReadOnly[Dict[str, IndentMap]] = _DEFAULT.copy()
+    __DEFAULT: Dict[str, IndentMap] = _DEFAULT.copy()
 
-    def __init__(self, mappings: Dict[str, IndentMap] = _DEFAULT):
+    def __init__(self, mappings: Optional[Dict[str, IndentMap]] = _DEFAULT):
         """Creates a new Vim EOF comment object."""
-        self.formats = formats.copy()
+        self.formats = _formats.copy()
 
         if len(mappings) == 0:
-            self.langs = self._DEFAULT.copy()
+            self.langs = self.__DEFAULT.copy()
             return
 
         self.langs = dict()
         for lang, mapping in mappings.items():
-            if not (self.is_available(lang)):
+            if not (self.__is_available(lang)):
                 continue
 
             if len(mapping) == 0:
@@ -92,24 +92,24 @@ class Comments():
 
             self.langs[lang] = {"level": indent, "expandtab": expandtab}
 
-        self.fill_langs()
+        self.__fill_langs()
 
     def __iter__(self) -> Iterator[str]:
         """Iterate through comment langs."""
         for k, v in self.langs.items():
             yield (k, v)
 
-    def is_available(self, lang: str) -> bool:
+    def __is_available(self, lang: str) -> bool:
         """Checks if a given lang is available within the class."""
-        return lang in self._DEFAULT.keys()
+        return lang in self.__DEFAULT.keys()
 
-    def fill_langs(self) -> NoReturn:
+    def __fill_langs(self) -> NoReturn:
         """Fill languages dict."""
         if len(self.langs) == 0:
-            self.langs = self._DEFAULT.copy()
+            self.langs = self.__DEFAULT.copy()
             return
 
-        for lang, mapping in self._DEFAULT.items():
+        for lang, mapping in self.__DEFAULT.items():
             self.langs[lang] = self.langs.get(lang, mapping)
 
     def generate(self) -> Dict[str, str]:

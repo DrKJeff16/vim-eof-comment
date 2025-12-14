@@ -6,7 +6,8 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from sys import exit as Exit
 from sys import stderr as STDERR
-from typing import Dict, List, NoReturn
+from sys import stdout as STDOUT
+from typing import Callable, Dict, List, NoReturn, TextIO
 
 from .types.typeddict import IndentHandler, IndentMap
 
@@ -37,7 +38,14 @@ def error(*msg, end: str = "\n", sep: str = " ", flush: bool = False) -> NoRetur
     print(*msg, end=end, sep=sep, flush=flush, file=STDERR)
 
 
-def die(*msg, code: int = 0, end: str = "\n", sep: str = " ", flush: bool = False) -> NoReturn:
+def die(
+        *msg,
+        code: int = 0,
+        end: str = "\n",
+        sep: str = " ",
+        flush: bool = False,
+        func: Callable[[TextIO], None] | None = None,
+) -> NoReturn:
     """Kill program execution."""
     try:
         code = int(code)
@@ -61,6 +69,9 @@ def die(*msg, code: int = 0, end: str = "\n", sep: str = " ", flush: bool = Fals
     except Exception:
         flush = False
         code = 1
+
+    if func is not None and callable(func):
+        func(STDERR if code != 0 else STDOUT)
 
     if msg and len(msg) > 0:
         if code == 0:

@@ -20,6 +20,7 @@ def bootstrap_paths(paths: Tuple[str], exts: Tuple[str]) -> List[BatchPairDict]:
         if not isdir(path):
             continue
 
+        file: str
         for root, dirs, files in walk(path):
             for file in files:
                 for ext in exts:
@@ -56,7 +57,7 @@ def modify_file(
         has_nwl: bool
 ) -> str:
     """Modifies a file containing a bad EOF comment."""
-    data = file.read().split("\n")
+    data: List[str] = file.read().split("\n")
     data_len = len(data)
     if data_len == 0:
         data = [comments[ext], ""]

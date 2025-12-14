@@ -17,7 +17,7 @@ lint:
 		.
 
 stubs:
-	@stubgen -p vim_eof_comment -o .
+	@stubgen --include-docstrings --include-private -p vim_eof_comment -o .
 
 build: stubs
 	@python3 -m build &> /dev/null
