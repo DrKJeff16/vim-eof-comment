@@ -6,6 +6,21 @@
 
 Ensure Vim EOF comments in given files.
 
+---
+
+## Table of Contents
+
+- [About](#about)
+- [Install](#install)
+- [Usage](#usage)
+  - [Example](#example)
+- [License](#license)
+
+---
+
+## About
+
+This tool adds a [Vim modeline comment](https://neovim.io/doc/user/options.html#_2.-automatically-setting-options) at the end of the target files.
 
 ---
 
@@ -40,3 +55,5 @@ vim-eof-comment -e py,md,lua .
 [license]: https://github.com/DrKJeff16/vim_eof_comment/blob/main/LICENSE
 [pypi]: https://pypi.org/project/vim-eof-comment/
 [source]: https://github.com/DrKJeff16/vim_eof_comment
+
+<!-- vim: set ts=2 sts=2 sw=2 et ai si sta: -->
