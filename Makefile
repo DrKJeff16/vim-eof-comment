@@ -3,10 +3,10 @@
 all: help
 
 clean:
-	@rm -rfv build dist *.egg-info
+	@rm -rf build dist *.egg-info
 
 distclean: clean
-	@rm -rfv .mypy_cache .ropeproject
+	@rm -rf .mypy_cache .ropeproject
 
 help:
 	@echo -e "Available targets:\n  help\n  lint\n  build\n  sign\n  local-install\n  stubs\n  run-script\n  upload\n  clean\n"
