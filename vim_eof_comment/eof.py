@@ -17,7 +17,7 @@ from .types.typeddict import (BatchPathDict, EOFCommentSearch, IndentHandler,
                               IOWrapperBool)
 from .util import die, gen_indent_maps, verbose_print, version_print
 
-__VERSION__: str = "0.1.27"
+__VERSION__: str = "0.1.28"
 
 _RED: int = Fore.LIGHTRED_EX
 _GREEN: int = Fore.LIGHTGREEN_EX
