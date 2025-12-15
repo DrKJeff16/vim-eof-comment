@@ -31,7 +31,7 @@ def bootstrap_args(
 def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
     """Generates the argparse namespace."""
     parser = ArgumentParser(
-        prog="ensure_eof_comment.py",
+        prog="vim-eof-comment",
         description="Checks for Vim EOF comments in all matching files in specific directories",
         exit_on_error=False
     )
@@ -39,7 +39,7 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
         {
             "opts": ["directories"],
             "kwargs": {
-                "nargs": "+",
+                "nargs": "*",
                 "help": "The target directories to be checked",
                 "metavar": "/path/to/directory",
             },
@@ -56,7 +56,7 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
         {
             "opts": ["-e", "--extensions"],
             "kwargs": {
-                "required": True,
+                "required": False,
                 "metavar": "EXT1[,EXT2[,EXT3[,...]]]",
                 "help": "A comma-separated list of file extensions (e.g. \"lua,c,cpp,cc,c++\")",
                 "dest": "exts",

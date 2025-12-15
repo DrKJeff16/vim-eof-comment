@@ -78,15 +78,17 @@ def main() -> int:
     """Execute main workflow."""
     parser, namespace = arg_parser_init()
 
+    if namespace.version:
+        version_print(str(version_info))
+
+    if not (namespace.directories and namespace.exts):
+        die(code=1, func=parser.print_usage)
+
     dirs: Tuple[str] = tuple(namespace.directories)
     exts: Tuple[str] = tuple(namespace.exts.split(","))
     newline: bool = namespace.newline
     indent: List[IndentHandler] = indent_handler(namespace.indent)
     verbose: bool = namespace.verbose
-    version: bool = namespace.version
-
-    if version:
-        version_print(str(version_info))
 
     indent = gen_indent_maps(indent.copy())
 

@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 class _VersionInfo:
     """
     A sys-inspired version_info object type.
@@ -18,5 +16,5 @@ class _VersionInfo:
     def __str__(self) -> str:
         """Representate this object as a string."""
 
-version_info: Incomplete
+version_info: _VersionInfo
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
