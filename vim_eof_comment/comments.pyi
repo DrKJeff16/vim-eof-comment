@@ -1,5 +1,6 @@
-from .types.typeddict import IndentMap as IndentMap
 from typing import Iterator, NoReturn
+
+from .types.typeddict import IndentMap as IndentMap
 
 _formats: dict[str, str]
 _DEFAULT: dict[str, IndentMap]

@@ -11,16 +11,16 @@ repos:
   - repo: local
     hooks:
       - id: lint
-        name: Lint Using Flake8
+        name: Lint Script
         language: system
         types: [python]
-        files: ^vim_eof_comment/.*\.py$
+        files: ^(vim_eof_comment/.*\.py|Makefile)$
         entry: make lint
         verbose: true
       - id: run_script
         name: Install and Run Script Locally
         language: system
         types: [python]
-        files: ^vim_eof_comment/.*\.py$
+        files: ^(vim_eof_comment/.*\.py|Makefile)$
         entry: make run-script
         verbose: true

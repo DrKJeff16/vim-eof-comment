@@ -1,5 +1,7 @@
-from .types.typeddict import IndentHandler as IndentHandler, IndentMap as IndentMap
 from typing import Callable, NoReturn, TextIO
+
+from .types.typeddict import IndentHandler as IndentHandler
+from .types.typeddict import IndentMap as IndentMap
 
 def error(*msg, end: str = '\n', sep: str = ' ', flush: bool = False) -> NoReturn:
     """Prints to stderr."""
