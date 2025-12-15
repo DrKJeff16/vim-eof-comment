@@ -8,16 +8,6 @@ Ensure Vim EOF comments in given files.
 
 ---
 
-## Table of Contents
-
-- [About](#about)
-- [Install](#install)
-- [Usage](#usage)
-  - [Example](#example)
-- [License](#license)
-
----
-
 ## About
 
 This tool adds a [Vim modeline comment](https://neovim.io/doc/user/options.html#_2.-automatically-setting-options) at the end of the target files.
