@@ -1,10 +1,6 @@
+from .types.typeddict import BatchPairDict as BatchPairDict, BatchPathDict as BatchPathDict, LineBool as LineBool
+from .util import die as die, error as error
 from io import TextIOWrapper
-
-from .types.typeddict import BatchPairDict as BatchPairDict
-from .types.typeddict import BatchPathDict as BatchPathDict
-from .types.typeddict import LineBool as LineBool
-from .util import die as die
-from .util import error as error
 
 def bootstrap_paths(paths: tuple[str], exts: tuple[str]) -> list[BatchPairDict]:
     """

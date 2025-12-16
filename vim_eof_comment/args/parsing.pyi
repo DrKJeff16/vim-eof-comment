@@ -1,8 +1,6 @@
-from argparse import ArgumentParser, Namespace
-
-from ..types.typeddict import IndentHandler as IndentHandler
-from ..types.typeddict import ParserSpec as ParserSpec
+from ..types.typeddict import IndentHandler as IndentHandler, ParserSpec as ParserSpec
 from ..util import die as die
+from argparse import ArgumentParser, Namespace
 
 def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace:
     """

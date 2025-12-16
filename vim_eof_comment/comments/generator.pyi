@@ -1,8 +1,6 @@
-from typing import Iterator, NoReturn
-
 from ..types.typeddict import IndentMap as IndentMap
-from .types import GeneratedEOFComments as GeneratedEOFComments
-from .types import IndentMapDict as IndentMapDict
+from .types import GeneratedEOFComments as GeneratedEOFComments, IndentMapDict as IndentMapDict
+from typing import Iterator, NoReturn
 
 _formats: GeneratedEOFComments
 _DEFAULT: IndentMapDict
