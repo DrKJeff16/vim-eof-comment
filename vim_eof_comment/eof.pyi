@@ -2,7 +2,7 @@ from typing import NoReturn
 
 from .args.parsing import arg_parser_init as arg_parser_init
 from .args.parsing import indent_handler as indent_handler
-from .comments import Comments as Comments
+from .comments.generator import Comments as Comments
 from .file import bootstrap_paths as bootstrap_paths
 from .file import get_last_line as get_last_line
 from .file import modify_file as modify_file

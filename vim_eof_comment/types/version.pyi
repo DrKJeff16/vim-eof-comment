@@ -21,7 +21,7 @@ class _VersionInfo:
 
         Parameters
         ----------
-        all_versions : List[VersioningTriad]
+        all_versions : List[Tuple[int, int, int]]
         """
     def __str__(self) -> str:
         """

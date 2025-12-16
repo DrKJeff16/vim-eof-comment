@@ -33,7 +33,7 @@ class _VersionInfo():
 
         Parameters
         ----------
-        all_versions : List[VersioningTriad]
+        all_versions : List[Tuple[int, int, int]]
         """
         self._all_versions = all_versions.copy()
 
