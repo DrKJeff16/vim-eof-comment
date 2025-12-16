@@ -1,4 +1,4 @@
-.PHONY: all help lint build local-install upload clean sign run-script
+.PHONY: all help lint build local-install upload clean sign run-script docs
 
 all: help
 
@@ -8,8 +8,11 @@ clean:
 distclean: clean
 	@rm -rf .mypy_cache .ropeproject
 
+docs:
+	$(MAKE) -C docs html
+
 help:
-	@echo -e "Available targets:\n  help\n  lint\n  build\n  sign\n  local-install\n  stubs\n  run-script\n  upload\n  clean\n"
+	@echo -e "Available targets:\n  help\n  docs\n  lint\n  build\n  sign\n  local-install\n  stubs\n  run-script\n  upload\n  clean\n"
 
 lint:
 	@flake8 --statistics --show-source --color=always --max-line-length=100 --ignore=D401 \
