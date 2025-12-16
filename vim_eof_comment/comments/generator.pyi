@@ -1,6 +1,8 @@
-from ..types.typeddict import IndentMap as IndentMap
-from .types import GeneratedEOFComments as GeneratedEOFComments, IndentMapDict as IndentMapDict
 from typing import Iterator, NoReturn
+
+from ..types.typeddict import IndentMap as IndentMap
+from .types import GeneratedEOFComments as GeneratedEOFComments
+from .types import IndentMapDict as IndentMapDict
 
 _formats: GeneratedEOFComments
 _DEFAULT: IndentMapDict
@@ -26,6 +28,14 @@ class Comments:
         """Checks if a given lang is available within the class."""
     def __fill_langs(self) -> NoReturn:
         """Fill languages dict."""
+    def get_defaults(self) -> IndentMapDict:
+        """
+        Retrieve the default comment dictionary.
+
+        Returns
+        -------
+        IndentMapDict
+        """
     def generate(self) -> GeneratedEOFComments:
         """
         Generate the comments list.

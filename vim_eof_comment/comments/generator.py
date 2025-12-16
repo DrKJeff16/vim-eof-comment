@@ -63,7 +63,7 @@ class Comments():
     """Vim EOF comments class."""
 
     __DEFAULT: IndentMapDict = _DEFAULT.copy()
-    __formats: GeneratedEOFComments
+    __formats: GeneratedEOFComments = _formats.copy()
     comments: GeneratedEOFComments
     langs: IndentMapDict
 
@@ -76,8 +76,6 @@ class Comments():
         mappings : IndentMapDict, optional, default=None
             The ``str`` to ``IndentMap`` dictionary.
         """
-        self.__formats = _formats.copy()
-
         if mappings is None or len(mappings) == 0:
             self.langs = self.__DEFAULT.copy()
             self.__fill_langs()
@@ -113,6 +111,16 @@ class Comments():
 
         for lang, mapping in self.__DEFAULT.items():
             self.langs[lang] = self.langs.get(lang, mapping)
+
+    def get_defaults(self) -> IndentMapDict:
+        """
+        Retrieve the default comment dictionary.
+
+        Returns
+        -------
+        IndentMapDict
+        """
+        return self.__DEFAULT
 
     def generate(self) -> GeneratedEOFComments:
         """
