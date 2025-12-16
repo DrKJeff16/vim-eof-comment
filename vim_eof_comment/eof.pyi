@@ -30,9 +30,9 @@ def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, newl
     Parameters
     ----------
     files : Dict[str, BatchPathDict]
-        A dictionary of `str` to `BatchPathDict` objects.
+        A dictionary of ``str`` to ``BatchPathDict`` objects.
     comments : Comments
-        The `Comments` object containing the hardcoded comments per file extension.
+        The ``Comments`` object containing the hardcoded comments per file extension.
     newline : bool
         Indicates whether a newline should be added before the comment.
     verbose : bool
@@ -41,7 +41,7 @@ def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, newl
     Returns
     -------
     result : Dict[str, EOFCommentSearch]
-        A dictionary of `str` to `EOFCommentSearch` objects.
+        A dictionary of ``str`` to ``EOFCommentSearch`` objects.
     """
 def append_eof_comment(files: dict[str, EOFCommentSearch], comments: Comments, newline: bool) -> NoReturn:
     """
@@ -50,9 +50,9 @@ def append_eof_comment(files: dict[str, EOFCommentSearch], comments: Comments, n
     Parameters
     ----------
     files : Dict[str, EOFCommentSearch]
-        A dictionary of `str` to `EOFCommentSearch` objects.
+        A dictionary of ``str`` to ``EOFCommentSearch`` objects.
     comments : Comments
-        The `Comments` object containing the hardcoded comments per file extension.
+        The ``Comments`` object containing the hardcoded comments per file extension.
     newline : bool
         Indicates whether a newline should be added before the comment.
     """

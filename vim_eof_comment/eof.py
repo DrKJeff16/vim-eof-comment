@@ -38,9 +38,9 @@ def eof_comment_search(
     Parameters
     ----------
     files : Dict[str, BatchPathDict]
-        A dictionary of `str` to `BatchPathDict` objects.
+        A dictionary of ``str`` to ``BatchPathDict`` objects.
     comments : Comments
-        The `Comments` object containing the hardcoded comments per file extension.
+        The ``Comments`` object containing the hardcoded comments per file extension.
     newline : bool
         Indicates whether a newline should be added before the comment.
     verbose : bool
@@ -49,7 +49,7 @@ def eof_comment_search(
     Returns
     -------
     result : Dict[str, EOFCommentSearch]
-        A dictionary of `str` to `EOFCommentSearch` objects.
+        A dictionary of ``str`` to ``EOFCommentSearch`` objects.
     """
     result: Dict[str, EOFCommentSearch] = dict()
     comment_map = comments.generate()
@@ -64,7 +64,6 @@ def eof_comment_search(
         wrapper = get_last_line(file_obj)
         last_line, has_nwl = wrapper["line"], wrapper["has_nwl"]
 
-        verbose_print(f"Last Line `{path}`: `{last_line}`", verbose=verbose)
         verbose_print(f"{_RESET} - {path} ==> ", verbose=verbose, end="", sep="")
         if last_line != comment_map[ext]:
             verbose_print(f"{_BRIGHT}{_RED}CHANGED", verbose=verbose)
@@ -90,9 +89,9 @@ def append_eof_comment(
     Parameters
     ----------
     files : Dict[str, EOFCommentSearch]
-        A dictionary of `str` to `EOFCommentSearch` objects.
+        A dictionary of ``str`` to ``EOFCommentSearch`` objects.
     comments : Comments
-        The `Comments` object containing the hardcoded comments per file extension.
+        The ``Comments`` object containing the hardcoded comments per file extension.
     newline : bool
         Indicates whether a newline should be added before the comment.
     """

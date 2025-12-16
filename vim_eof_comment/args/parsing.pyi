@@ -11,9 +11,9 @@ def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace
     Parameters
     ----------
     parser : argparse.ArgumentParser
-        The `argparse.ArgumentParser` object.
+        The ``argparse.ArgumentParser`` object.
     specs : List[vim_eof_comment.types.typeddict.ParserSpec]
-        A list containing `ParserSpec` objects.
+        A list containing ``ParserSpec`` objects.
 
     Returns
     -------
@@ -27,9 +27,9 @@ def arg_parser_init() -> tuple[ArgumentParser, Namespace]:
     Returns
     -------
     parser : argparse.ArgumentParser
-        The generated `argparse.ArgumentParser` object.
+        The generated ``argparse.ArgumentParser`` object.
     namespace : argparse.Namespace
-        The generated `argparse.Namespace` object.
+        The generated ``argparse.Namespace`` object.
     """
 def indent_handler(indent: str) -> list[IndentHandler]:
     """
@@ -38,12 +38,12 @@ def indent_handler(indent: str) -> list[IndentHandler]:
     Parameters
     ----------
     indent : str
-        The `-i` option argument string.
+        The ``-i`` option argument string.
 
     Returns
     -------
     maps : List[vim_eof_comment.types.typeddict.IndentHandler]
-        A list of `IndentHandler` objects.
+        A list of ``IndentHandler`` objects.
     """
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

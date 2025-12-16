@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-Custom vim-eof-comment TypeDict objects.
+Custom vim-eof-comment ``TypedDict`` objects.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
@@ -10,27 +10,27 @@ from typing import Any, Dict, Tuple, TypedDict
 
 
 class ParserSpec(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     opts: Tuple[str]
     kwargs: Dict[str, Any]
 
 
 class CommentMap(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     level: int
 
 
 class IndentMap(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     level: int
     expandtab: bool
 
 
 class IndentHandler(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     ext: str
     level: str
@@ -38,35 +38,35 @@ class IndentHandler(TypedDict):
 
 
 class IOWrapperBool(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     file: TextIOWrapper
     has_nwl: bool
 
 
 class LineBool(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     line: str
     has_nwl: bool
 
 
 class BatchPathDict(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     file: TextIOWrapper
     ext: str
 
 
 class BatchPairDict(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     fpath: str
     ext: str
 
 
 class EOFCommentSearch(TypedDict):
-    """A TypeDict container."""
+    """A ``TypedDict`` container."""
 
     state: IOWrapperBool
     lang: str

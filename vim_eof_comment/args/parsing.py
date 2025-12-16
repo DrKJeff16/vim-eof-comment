@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-Argument parsing utilities for `vim-eof-comment`.
+Argument parsing utilities for ``vim-eof-comment``.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
@@ -19,9 +19,9 @@ def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace
     Parameters
     ----------
     parser : argparse.ArgumentParser
-        The `argparse.ArgumentParser` object.
+        The ``argparse.ArgumentParser`` object.
     specs : List[vim_eof_comment.types.typeddict.ParserSpec]
-        A list containing `ParserSpec` objects.
+        A list containing ``ParserSpec`` objects.
 
     Returns
     -------
@@ -47,9 +47,9 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
     Returns
     -------
     parser : argparse.ArgumentParser
-        The generated `argparse.ArgumentParser` object.
+        The generated ``argparse.ArgumentParser`` object.
     namespace : argparse.Namespace
-        The generated `argparse.Namespace` object.
+        The generated ``argparse.Namespace`` object.
     """
     parser = ArgumentParser(
         prog="vim-eof-comment",
@@ -127,12 +127,12 @@ def indent_handler(indent: str) -> List[IndentHandler]:
     Parameters
     ----------
     indent : str
-        The `-i` option argument string.
+        The ``-i`` option argument string.
 
     Returns
     -------
     maps : List[vim_eof_comment.types.typeddict.IndentHandler]
-        A list of `IndentHandler` objects.
+        A list of ``IndentHandler`` objects.
     """
     if indent == "":
         return list()

@@ -135,7 +135,7 @@ def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> NoReturn:
     verbose : bool or None, default=None
         Flag to signal whether to execute this function or not.
     **kwargs
-        Extra arguments for the `print()` function.
+        Extra arguments for the ``print()`` function.
 
     See Also
     --------

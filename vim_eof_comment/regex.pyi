@@ -1,5 +1,3 @@
-from .util import verbose_print as verbose_print
-
 def matches(s: str, verbose: bool) -> bool:
     """
     Check if given string matches any of the given patterns.

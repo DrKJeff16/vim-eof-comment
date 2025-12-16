@@ -7,8 +7,6 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from re import compile
 
-from .util import verbose_print
-
 
 def matches(s: str, verbose: bool) -> bool:
     """
@@ -33,12 +31,6 @@ def matches(s: str, verbose: bool) -> bool:
     for pattern in [compile(pat) for pat in pats]:
         match = pattern.search(s)
         if match is not None:
-            verbose_print(
-                f"- Match: `{s}` (match str: `{match.string}`)\n",
-                f"  - Group: `{match.group()}`\n",
-                verbose=verbose,
-                sep=""
-            )
             return True
 
     return False
