@@ -30,11 +30,11 @@ lint:
 	@flake8 --statistics --show-source --color=always --max-line-length=100 --ignore=D401 \
 		--exclude .tox,.git,*staticfiles*,build,locale,docs,tools,venv,.venv,*migrations*,*.pyc,*.pyi,__pycache__,test_*.py \
 		.
-	@isort vim_eof_comment
 	@mypy vim_eof_comment
 
-stubs:
+stubs: lint
 	@stubgen --include-docstrings --include-private -p vim_eof_comment -o .
+	@isort vim_eof_comment
 
 build: stubs
 	@python3 -m build &> /dev/null
