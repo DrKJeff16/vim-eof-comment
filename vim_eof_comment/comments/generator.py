@@ -78,7 +78,6 @@ class Comments():
         """
         if mappings is None or len(mappings) == 0:
             self.langs = self.__DEFAULT.copy()
-            self.__fill_langs()
             return
 
         langs = dict()
@@ -92,7 +91,7 @@ class Comments():
 
             langs[lang] = {"level": indent, "expandtab": expandtab}
 
-        self.__fill_langs()
+        self.__fill_langs(langs)
 
     def __iter__(self) -> Iterator[str]:
         """Iterate through comment langs."""
@@ -103,14 +102,16 @@ class Comments():
         """Checks if a given lang is available within the class."""
         return lang in self.__DEFAULT.keys()
 
-    def __fill_langs(self) -> NoReturn:
+    def __fill_langs(self, langs: IndentMapDict) -> NoReturn:
         """Fill languages dict."""
-        if len(self.langs) == 0:
+        if len(langs) == 0:
             self.langs = self.__DEFAULT.copy()
             return
 
         for lang, mapping in self.__DEFAULT.items():
-            self.langs[lang] = self.langs.get(lang, mapping)
+            langs[lang] = langs.get(lang, mapping)
+
+        self.langs = IndentMapDict(**langs)
 
     def get_defaults(self) -> IndentMapDict:
         """

@@ -26,7 +26,7 @@ class Comments:
         """Iterate through comment langs."""
     def __is_available(self, lang: str) -> bool:
         """Checks if a given lang is available within the class."""
-    def __fill_langs(self) -> NoReturn:
+    def __fill_langs(self, langs: IndentMapDict) -> NoReturn:
         """Fill languages dict."""
     def get_defaults(self) -> IndentMapDict:
         """
