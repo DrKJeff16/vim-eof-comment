@@ -141,10 +141,7 @@ def main() -> int:
 
     indent = gen_indent_maps(indent.copy())
 
-    if indent is None:
-        comments = Comments()
-    else:
-        comments = Comments(indent)
+    comments = Comments(indent)
 
     files = open_batch_paths(bootstrap_paths(dirs, exts))
     if len(files) == 0:
