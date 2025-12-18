@@ -176,6 +176,6 @@ def list_filetypes() -> NoReturn:
     for ext, indents in defaults.items():
         txt.append(f"- {ext} - {indents}")
 
-    die(*txt, code=0)
+    die(*txt, code=0, sep="\n")
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

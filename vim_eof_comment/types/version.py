@@ -123,6 +123,6 @@ version_info: _VersionInfo = _VersionInfo([
 def list_versions() -> NoReturn:
     """List all versions."""
     all_versions = version_info.get_all_versions()
-    die(*all_versions, code=0)
+    die(*all_versions, code=0, sep="\n")
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
