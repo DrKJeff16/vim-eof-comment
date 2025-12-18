@@ -2,20 +2,16 @@ name: Lint with mypy
 on:
   push:
     paths:
+      - "*.py"
+      - "*.pyi"
       - .github/workflows/mypy-lint.yml
-      - vim_eof_comment/*.pyi
-      - vim_eof_comment/args/*.pyi
-      - vim_eof_comment/comments/*.pyi
-      - vim_eof_comment/types/*.pyi
     branches:
       - main
   pull_request:
     paths:
+      - "*.py"
+      - "*.pyi"
       - .github/workflows/mypy-lint.yml
-      - vim_eof_comment/*.pyi
-      - vim_eof_comment/args/*.pyi
-      - vim_eof_comment/comments/*.pyi
-      - vim_eof_comment/types/*.pyi
     branches:
       - main
 jobs:
