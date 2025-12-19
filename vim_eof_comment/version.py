@@ -119,6 +119,7 @@ version_info: _VersionInfo = _VersionInfo([
     (0, 2, 1),
     (0, 2, 2),
     (0, 2, 3),
+    (0, 3, 0),
 ])
 
 
