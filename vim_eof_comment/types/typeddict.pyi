@@ -33,7 +33,21 @@ class ParserSpec(TypedDict):
     completer: DirectoriesCompleter | None
 
 class CommentMap(TypedDict):
-    """A ``TypedDict`` container."""
+    """
+    Stores a dict with a ``level`` key.
+
+    This is a ``TypedDict``-like object.
+
+    Attributes
+    ----------
+    level : int
+        The indentation level.
+
+    Parameters
+    ----------
+    level : int
+        The indentation level.
+    """
     level: int
 
 class IndentMap(TypedDict):
@@ -42,7 +56,27 @@ class IndentMap(TypedDict):
     expandtab: bool
 
 class IndentHandler(TypedDict):
-    """A ``TypedDict`` container."""
+    """
+    A dict containing ``ext``, ``level`` and ``expandtab`` as keys.
+
+    Attributes
+    ----------
+    ext : str
+        The file extension.
+    level : str
+        The string representation of the indent level.
+    expandtab : bool
+        Whether to expand tabs or not.
+
+    Parameters
+    ----------
+    ext : str
+        The file extension.
+    level : str
+        The string representation of the indent level.
+    expandtab : bool
+        Whether to expand tabs or not.
+    """
     ext: str
     level: str
     expandtab: bool

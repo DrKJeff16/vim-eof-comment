@@ -8,14 +8,13 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = ["die", "error", "gen_indent_maps", "verbose_print", "version_print"]
 
 from sys import exit as Exit
-from sys import stderr as STDERR
-from sys import stdout as STDOUT
+from sys import stderr, stdout
 from typing import Callable, Dict, List, NoReturn, TextIO
 
 from .types.typeddict import IndentHandler, IndentMap
 
 
-def error(*msg, end: str = "\n", sep: str = " ", flush: bool = False) -> NoReturn:
+def error(*msg, **kwargs) -> NoReturn:
     r"""
     Print to stderr.
 
@@ -23,49 +22,17 @@ def error(*msg, end: str = "\n", sep: str = " ", flush: bool = False) -> NoRetur
     ----------
     *msg
         The data to be printed to stderr.
-    end : str, default="\n", optional
-        The string to be printed when finishing all the data printing.
-    sep : str, default=" ", optional
-        The string to be printed between each data element to be printed.
-    flush : bool, default=False, optional
-        Forcefully makes the output file to be flushed.
+    **kwargs
+        Extra arguments for the ``print()`` function.
 
     See Also
     --------
     print : This function is essentially being wrapped around here.
     """
-    try:
-        end = str(end)
-    except KeyboardInterrupt:
-        Exit(1)
-    except Exception:
-        end = "\n"
-
-    try:
-        sep = str(sep)
-    except KeyboardInterrupt:
-        Exit(1)
-    except Exception:
-        sep = " "
-
-    try:
-        flush = bool(flush)
-    except KeyboardInterrupt:
-        Exit(1)
-    except Exception:
-        flush = False
-
-    print(*msg, end=end, sep=sep, flush=flush, file=STDERR)
+    print(*msg, file=stderr, **kwargs)
 
 
-def die(
-    *msg,
-    code: int = 0,
-    end: str = "\n",
-    sep: str = " ",
-    flush: bool = False,
-    func: Callable[[TextIO], None] | None = None,
-) -> NoReturn:
+def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> NoReturn:
     r"""
     Kill the program execution.
 
@@ -78,14 +45,10 @@ def die(
         Data to be printed.
     code : int, default=0
         The exit code.
-    end : str, default="\n", optional
-        The string to be printed when finishing all the data printing.
-    sep : str, default=" ", optional
-        The string to be printed between each data element to be printed.
-    flush : bool, default=False, optional
-        Forcefully makes the output file to be flushed.
     func : Callable[[TextIO], None], optional
         A function to be called with a TextIO object if provided.
+    **kwargs
+        Extra arguments for the ``print()`` function.
 
     See Also
     --------
@@ -115,32 +78,14 @@ def die(
     except Exception:
         code = 1
 
-    try:
-        end = str(end)
-    except Exception:
-        end = "\n"
-        code = 1
-
-    try:
-        sep = str(sep)
-    except Exception:
-        sep = " "
-        code = 1
-
-    try:
-        flush = bool(flush)
-    except Exception:
-        flush = False
-        code = 1
-
     if func is not None and callable(func):
-        func(STDERR if code != 0 else STDOUT)
+        func(stderr if code != 0 else stdout)
 
     if msg and len(msg) > 0:
         if code == 0:
-            print(*msg, end=end, sep=sep, flush=flush)
+            print(*msg, **kwargs)
         else:
-            error(*msg, end=end, sep=sep, flush=flush)
+            error(*msg, **kwargs)
 
     Exit(code)
 

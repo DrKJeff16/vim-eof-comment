@@ -4,15 +4,15 @@ from .types.typeddict import BatchPairDict, BatchPathDict, LineBool
 
 __all__ = ['bootstrap_paths', 'open_batch_paths', 'modify_file', 'get_last_line']
 
-def bootstrap_paths(paths: tuple[str], exts: tuple[str]) -> list[BatchPairDict]:
+def bootstrap_paths(paths: list[str], exts: list[str]) -> list[BatchPairDict]:
     """
     Bootstrap all the matching paths in current dir and below.
 
     Parameters
     ----------
-    paths : array_like
+    paths : List[str]
         A list of specified file paths.
-    exts : array_like
+    exts : List[str]
         A list of specified file extensions.
 
     Returns

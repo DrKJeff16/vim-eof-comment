@@ -50,7 +50,7 @@ class VersionInfo():
         Parameters
         ----------
         all_versions : List[Tuple[int, int, int]]
-            A list of three number tuples, containing (in order) the major, minor and patch
+            A list of tuples of three-integers, containing (in order) the major, minor and patch
             components.
         """
         self.all_versions = all_versions.copy()

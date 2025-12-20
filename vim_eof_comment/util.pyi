@@ -4,26 +4,22 @@ from .types.typeddict import IndentHandler, IndentMap
 
 __all__ = ['die', 'error', 'gen_indent_maps', 'verbose_print', 'version_print']
 
-def error(*msg, end: str = '\n', sep: str = ' ', flush: bool = False) -> NoReturn:
-    '''
+def error(*msg, **kwargs) -> NoReturn:
+    """
     Print to stderr.
 
     Parameters
     ----------
     *msg
         The data to be printed to stderr.
-    end : str, default="\\n", optional
-        The string to be printed when finishing all the data printing.
-    sep : str, default=" ", optional
-        The string to be printed between each data element to be printed.
-    flush : bool, default=False, optional
-        Forcefully makes the output file to be flushed.
+    **kwargs
+        Extra arguments for the ``print()`` function.
 
     See Also
     --------
     print : This function is essentially being wrapped around here.
-    '''
-def die(*msg, code: int = 0, end: str = '\n', sep: str = ' ', flush: bool = False, func: Callable[[TextIO], None] | None = None) -> NoReturn:
+    """
+def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> NoReturn:
     '''
     Kill the program execution.
 
@@ -36,14 +32,10 @@ def die(*msg, code: int = 0, end: str = '\n', sep: str = ' ', flush: bool = Fals
         Data to be printed.
     code : int, default=0
         The exit code.
-    end : str, default="\\n", optional
-        The string to be printed when finishing all the data printing.
-    sep : str, default=" ", optional
-        The string to be printed between each data element to be printed.
-    flush : bool, default=False, optional
-        Forcefully makes the output file to be flushed.
     func : Callable[[TextIO], None], optional
         A function to be called with a TextIO object if provided.
+    **kwargs
+        Extra arguments for the ``print()`` function.
 
     See Also
     --------

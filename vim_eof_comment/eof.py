@@ -9,7 +9,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = ["append_eof_comment", "eof_comment_search", "main"]
 
 from io import TextIOWrapper
-from typing import Dict, List, NoReturn, Tuple
+from typing import Dict, List, NoReturn
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -151,8 +151,8 @@ def main() -> int:
     if not (ns.directories and ns.exts) or len(ns.directories) == 0 or ns.exts == "":
         die(code=1, func=parser.print_usage)
 
-    dirs: Tuple[str] = tuple(ns.directories)
-    exts: Tuple[str] = tuple(ns.exts.split(","))
+    dirs: List[str] = ns.directories
+    exts: List[str] = ns.exts.split(",")
     newline: bool = ns.newline
     indent: List[IndentHandler] = indent_handler(ns.indent)
     verbose: bool = ns.verbose

@@ -27,7 +27,7 @@ def matches(s: str, verbose: bool) -> bool:
     bool
         Whether the string matches the default regex.
     """
-    pats: Tuple[str] = (
+    pats: Tuple[str, str] = (
         "vim:([a-zA-Z]+(=[a-zA-Z0-9_]*)?:)+",
         "vim:\\sset(\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?)*\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?:"
     )

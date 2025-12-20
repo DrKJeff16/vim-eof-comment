@@ -10,21 +10,21 @@ __all__ = ["bootstrap_paths", "open_batch_paths", "modify_file", "get_last_line"
 from io import TextIOWrapper
 from os import walk
 from os.path import isdir, join
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from .types.typeddict import BatchPairDict, BatchPathDict, LineBool
 from .util import die, error
 
 
-def bootstrap_paths(paths: Tuple[str], exts: Tuple[str]) -> List[BatchPairDict]:
+def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
     """
     Bootstrap all the matching paths in current dir and below.
 
     Parameters
     ----------
-    paths : array_like
+    paths : List[str]
         A list of specified file paths.
-    exts : array_like
+    exts : List[str]
         A list of specified file extensions.
 
     Returns
