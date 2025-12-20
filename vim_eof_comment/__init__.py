@@ -5,7 +5,19 @@ Ensure EOF Vim comments.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-from . import args, comments, eof, file, regex
+__all__ = [
+    "args",
+    "comments",
+    "eof",
+    "file",
+    "main",
+    "regex",
+    "util",
+    "version",
+    "version_info",
+]
+
+from . import args, comments, eof, file, regex, util
 from .eof import main
 from .version import version_info
 
