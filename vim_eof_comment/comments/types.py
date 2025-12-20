@@ -5,6 +5,8 @@ Per-filetype modeline comment class.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = ["GeneratedEOFComments", "IndentMapDict"]
+
 from typing import TypedDict
 
 from ..types.typeddict import IndentMap

@@ -1,6 +1,8 @@
 from typing import Any, TextIO, TypedDict
 
-from argcomplete.completers import DirectoriesCompleter as DirectoriesCompleter
+from argcomplete.completers import DirectoriesCompleter
+
+__all__ = ['BatchPairDict', 'BatchPathDict', 'CommentMap', 'EOFCommentSearch', 'IOWrapperBool', 'IndentHandler', 'IndentMap', 'LineBool', 'ParserSpec']
 
 class ParserSpec(TypedDict):
     """

@@ -1,29 +1,9 @@
 from typing import NoReturn
 
-from .args.parsing import arg_parser_init as arg_parser_init
-from .args.parsing import indent_handler as indent_handler
-from .comments.generator import Comments as Comments
-from .comments.generator import list_filetypes as list_filetypes
-from .file import bootstrap_paths as bootstrap_paths
-from .file import get_last_line as get_last_line
-from .file import modify_file as modify_file
-from .file import open_batch_paths as open_batch_paths
-from .regex import matches as matches
-from .types.typeddict import BatchPathDict as BatchPathDict
-from .types.typeddict import EOFCommentSearch as EOFCommentSearch
-from .types.typeddict import IndentHandler as IndentHandler
-from .types.typeddict import IOWrapperBool as IOWrapperBool
-from .util import die as die
-from .util import gen_indent_maps as gen_indent_maps
-from .util import verbose_print as verbose_print
-from .util import version_print as version_print
-from .version import list_versions as list_versions
-from .version import version_info as version_info
+from .comments.generator import Comments
+from .types.typeddict import BatchPathDict, EOFCommentSearch
 
-_RED: int
-_GREEN: int
-_BRIGHT: int
-_RESET: int
+__all__ = ['append_eof_comment', 'eof_comment_search', 'main']
 
 def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, newline: bool, verbose: bool) -> dict[str, EOFCommentSearch]:
     """

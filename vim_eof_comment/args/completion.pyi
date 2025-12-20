@@ -1,6 +1,8 @@
 from argparse import ArgumentParser
 from typing import NoReturn
 
+__all__ = ['complete_parser']
+
 def complete_parser(parser: ArgumentParser, **kwargs) -> NoReturn:
     """
     Complete the script argument parser.

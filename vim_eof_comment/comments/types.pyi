@@ -1,6 +1,8 @@
 from typing import TypedDict
 
-from ..types.typeddict import IndentMap as IndentMap
+from ..types.typeddict import IndentMap
+
+__all__ = ['GeneratedEOFComments', 'IndentMapDict']
 
 class GeneratedEOFComments(TypedDict):
     """A ``TypedDict`` object containing all the file-extension to comment elements."""

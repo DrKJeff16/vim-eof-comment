@@ -1,3 +1,5 @@
+__all__ = ['matches']
+
 def matches(s: str, verbose: bool) -> bool:
     """
     Check if given string matches any of the given patterns.

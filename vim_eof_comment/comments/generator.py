@@ -5,6 +5,8 @@ Per-filetype modeline comment class.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = ["list_filetypes", "Comments"]
+
 from typing import Dict, Iterator, List, NoReturn
 
 from ..types.typeddict import IndentMap

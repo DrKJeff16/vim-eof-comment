@@ -1,12 +1,8 @@
 from typing import Iterator, NoReturn
 
-from ..types.typeddict import IndentMap as IndentMap
-from ..util import die as die
-from .types import GeneratedEOFComments as GeneratedEOFComments
-from .types import IndentMapDict as IndentMapDict
+from .types import GeneratedEOFComments, IndentMapDict
 
-_formats: GeneratedEOFComments
-_DEFAULT: IndentMapDict
+__all__ = ['list_filetypes', 'Comments']
 
 class Comments:
     """

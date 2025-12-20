@@ -5,6 +5,8 @@ EOF comments checker utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = ["die", "error", "gen_indent_maps", "verbose_print", "version_print"]
+
 from sys import exit as Exit
 from sys import stderr as STDERR
 from sys import stdout as STDOUT

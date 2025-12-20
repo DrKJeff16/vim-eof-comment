@@ -6,6 +6,8 @@ Ensure EOF Vim comment in specific filetypes.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = ["append_eof_comment", "eof_comment_search", "main"]
+
 from io import TextIOWrapper
 from typing import Dict, List, NoReturn, Tuple
 

@@ -5,6 +5,8 @@ EOF comments checker regex matching utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = ["matches"]
+
 from re import compile
 from typing import Tuple
 

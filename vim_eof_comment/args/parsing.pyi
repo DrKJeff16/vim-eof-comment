@@ -1,9 +1,8 @@
 from argparse import ArgumentParser, Namespace
 
-from ..types.typeddict import IndentHandler as IndentHandler
-from ..types.typeddict import ParserSpec as ParserSpec
-from ..util import die as die
-from .completion import complete_parser as complete_parser
+from ..types.typeddict import IndentHandler, ParserSpec
+
+__all__ = ['gen_parser_specs', 'bootstrap_args', 'arg_parser_init', 'indent_handler']
 
 def gen_parser_specs(*specs) -> tuple[ParserSpec]:
     """

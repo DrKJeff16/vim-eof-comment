@@ -5,6 +5,8 @@ File management utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = ["bootstrap_paths", "open_batch_paths", "modify_file", "get_last_line"]
+
 from io import TextIOWrapper
 from os import walk
 from os.path import isdir, join

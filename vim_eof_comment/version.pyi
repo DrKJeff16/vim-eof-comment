@@ -1,6 +1,6 @@
 from typing import NoReturn
 
-from .util import die as die
+__all__ = ['VersionInfo', 'list_versions', 'version_info']
 
 class VersionInfo:
     """

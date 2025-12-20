@@ -5,6 +5,18 @@ Custom vim-eof-comment ``TypedDict`` objects.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+__all__ = [
+    "BatchPairDict",
+    "BatchPathDict",
+    "CommentMap",
+    "EOFCommentSearch",
+    "IOWrapperBool",
+    "IndentHandler",
+    "IndentMap",
+    "LineBool",
+    "ParserSpec",
+]
+
 from typing import Any, Dict, List, TextIO, TypedDict
 
 from argcomplete.completers import DirectoriesCompleter
