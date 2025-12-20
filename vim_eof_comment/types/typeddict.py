@@ -5,15 +5,37 @@ Custom vim-eof-comment ``TypedDict`` objects.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-from typing import Any, Dict, TextIO, Tuple, TypedDict
+from typing import Any, Dict, List, TextIO, TypedDict
 
 from argcomplete.completers import DirectoriesCompleter
 
 
 class ParserSpec(TypedDict):
-    """A ``TypedDict`` container."""
+    """
+    Stores the spec for ``argparse`` operations in a constant value.
 
-    opts: Tuple[str]
+    This is a ``TypedDict``-like object.
+
+    Attributes
+    ----------
+    opts : List[str]
+        A list containing all the relevant iterations of the same option.
+    kwargs : Dict[str, str]
+        Extra arguments for ``argparse.ArgumentParser``.
+    completer : argcomplete.DirectoriesCompleter, optional, default=None
+        An optional ``argcomplete`` completer object.
+
+    Parameters
+    ----------
+    opts : List[str]
+        A list containing all the relevant iterations of the same option.
+    kwargs : Dict[str, str]
+        Extra arguments for ``argparse.ArgumentParser``.
+    completer : argcomplete.DirectoriesCompleter, optional, default=None
+        An optional ``argcomplete`` completer object.
+    """
+
+    opts: List[str]
     kwargs: Dict[str, Any]
     completer: DirectoriesCompleter | None
 
@@ -31,11 +53,25 @@ class IndentMap(TypedDict):
     expandtab: bool
 
     def __str__(self) -> str:
-        """Return string representation."""
+        """
+        Return string representation.
+
+        Returns
+        -------
+        str
+            The string representation for ``IndentMap``.
+        """
         return "{" + f"level={self.level}, expandtab={self.expandtab}" + "}"
 
     def __repr__(self) -> str:
-        """Return string representation."""
+        """
+        Return string representation.
+
+        Returns
+        -------
+        str
+            The string representation for ``IndentMap``.
+        """
         return self.__str__()
 
 

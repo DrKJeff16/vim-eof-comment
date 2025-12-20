@@ -5,7 +5,21 @@ from ..types.typeddict import ParserSpec as ParserSpec
 from ..util import die as die
 from .completion import complete_parser as complete_parser
 
-def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace:
+def gen_parser_specs(*specs) -> tuple[ParserSpec]:
+    """
+    Generate a ``ParserSpec`` object.
+
+    Parameters
+    ----------
+    *specs
+        All the list-like dictionaries.
+
+    Returns
+    -------
+    Tuple[ParserSpec]
+        The converted dictionaries inside a tuple.
+    """
+def bootstrap_args(parser: ArgumentParser, specs: tuple[ParserSpec]) -> Namespace:
     """
     Bootstrap the program arguments.
 
@@ -21,9 +35,14 @@ def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace
     argparse.Namespace
         The generated ``argparse.Namespace`` object.
     """
-def arg_parser_init() -> tuple[ArgumentParser, Namespace]:
-    """
+def arg_parser_init(prog: str = 'vim-eof-comment') -> tuple[ArgumentParser, Namespace]:
+    '''
     Generate the argparse namespace.
+
+    Parameters
+    ----------
+    prog : str, optional, default="vim-eof-comment"
+        The program name.
 
     Returns
     -------
@@ -31,7 +50,7 @@ def arg_parser_init() -> tuple[ArgumentParser, Namespace]:
         The generated ``argparse.ArgumentParser`` object.
     namespace : argparse.Namespace
         The generated ``argparse.Namespace`` object.
-    """
+    '''
 def indent_handler(indent: str) -> list[IndentHandler]:
     """
     Parse indent levels defined by the user.

@@ -77,12 +77,12 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
 
 
 def modify_file(
-        file: TextIOWrapper,
-        comments: Dict[str, str],
-        ext: str,
-        newline: bool,
-        has_nwl: bool,
-        matching: bool
+    file: TextIOWrapper,
+    comments: Dict[str, str],
+    ext: str,
+    newline: bool,
+    has_nwl: bool,
+    matching: bool
 ) -> str:
     """
     Modify a file containing a bad EOF comment.

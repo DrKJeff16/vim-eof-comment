@@ -3,8 +3,30 @@ from typing import Any, TextIO, TypedDict
 from argcomplete.completers import DirectoriesCompleter as DirectoriesCompleter
 
 class ParserSpec(TypedDict):
-    """A ``TypedDict`` container."""
-    opts: tuple[str]
+    """
+    Stores the spec for ``argparse`` operations in a constant value.
+
+    This is a ``TypedDict``-like object.
+
+    Attributes
+    ----------
+    opts : List[str]
+        A list containing all the relevant iterations of the same option.
+    kwargs : Dict[str, str]
+        Extra arguments for ``argparse.ArgumentParser``.
+    completer : argcomplete.DirectoriesCompleter, optional, default=None
+        An optional ``argcomplete`` completer object.
+
+    Parameters
+    ----------
+    opts : List[str]
+        A list containing all the relevant iterations of the same option.
+    kwargs : Dict[str, str]
+        Extra arguments for ``argparse.ArgumentParser``.
+    completer : argcomplete.DirectoriesCompleter, optional, default=None
+        An optional ``argcomplete`` completer object.
+    """
+    opts: list[str]
     kwargs: dict[str, Any]
     completer: DirectoriesCompleter | None
 

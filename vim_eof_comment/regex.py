@@ -6,6 +6,7 @@ EOF comments checker regex matching utilities.
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 from re import compile
+from typing import Tuple
 
 
 def matches(s: str, verbose: bool) -> bool:
@@ -24,7 +25,7 @@ def matches(s: str, verbose: bool) -> bool:
     bool
         Whether the string matches the default regex.
     """
-    pats = (
+    pats: Tuple[str] = (
         "vim:([a-zA-Z]+(=[a-zA-Z0-9_]*)?:)+",
         "vim:\\sset(\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?)*\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?:"
     )
@@ -34,4 +35,5 @@ def matches(s: str, verbose: bool) -> bool:
             return True
 
     return False
+
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

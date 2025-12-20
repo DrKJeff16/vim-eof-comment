@@ -57,12 +57,12 @@ def error(*msg, end: str = "\n", sep: str = " ", flush: bool = False) -> NoRetur
 
 
 def die(
-        *msg,
-        code: int = 0,
-        end: str = "\n",
-        sep: str = " ",
-        flush: bool = False,
-        func: Callable[[TextIO], None] | None = None,
+    *msg,
+    code: int = 0,
+    end: str = "\n",
+    sep: str = " ",
+    flush: bool = False,
+    func: Callable[[TextIO], None] | None = None,
 ) -> NoReturn:
     r"""
     Kill the program execution.

@@ -5,7 +5,8 @@ Argument parsing utilities for ``vim-eof-comment``.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-from argparse import ArgumentError, ArgumentParser, Namespace
+from argparse import (ArgumentDefaultsHelpFormatter, ArgumentError,
+                      ArgumentParser, Namespace)
 from typing import List, Tuple
 
 from argcomplete.completers import DirectoriesCompleter
@@ -15,7 +16,24 @@ from ..util import die
 from .completion import complete_parser
 
 
-def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace:
+def gen_parser_specs(*specs) -> Tuple[ParserSpec]:
+    """
+    Generate a ``ParserSpec`` object.
+
+    Parameters
+    ----------
+    *specs
+        All the list-like dictionaries.
+
+    Returns
+    -------
+    Tuple[ParserSpec]
+        The converted dictionaries inside a tuple.
+    """
+    return tuple([ParserSpec(**d) for d in [*specs]])
+
+
+def bootstrap_args(parser: ArgumentParser, specs: Tuple[ParserSpec]) -> Namespace:
     """
     Bootstrap the program arguments.
 
@@ -48,9 +66,14 @@ def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace
     return namespace
 
 
-def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
+def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Namespace]:
     """
     Generate the argparse namespace.
+
+    Parameters
+    ----------
+    prog : str, optional, default="vim-eof-comment"
+        The program name.
 
     Returns
     -------
@@ -60,11 +83,15 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
         The generated ``argparse.Namespace`` object.
     """
     parser = ArgumentParser(
-        prog="vim-eof-comment",
+        prog=prog,
         description="Checks for Vim EOF comments in all matching files in specific directories",
-        exit_on_error=False
+        epilog="Both the directory path(s) and the `-e` option are required!",
+        exit_on_error=False,
+        formatter_class=ArgumentDefaultsHelpFormatter,
+        add_help=True,
+        allow_abbrev=True
     )
-    spec: Tuple[ParserSpec] = (
+    spec: Tuple[ParserSpec] = gen_parser_specs(
         {
             "opts": ["directories"],
             "kwargs": {
@@ -115,27 +142,28 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
             "completer": None,
         },
         {
+            "opts": ["-n", "--newline"],
+            "completer": None,
+            "kwargs": {
+                "required": False,
+                "action": "store_true",
+                "help": "Add newline before inserted comment",
+                "dest": "newline",
+            },
+        },
+        {
             "opts": ["-e", "--extensions"],
+            "completer": None,
             "kwargs": {
                 "required": False,
                 "metavar": "EXT1[,EXT2[,EXT3[,...]]]",
                 "help": "A comma-separated list of file extensions (e.g. \"lua,c,cpp,cc,c++\")",
                 "dest": "exts",
             },
-            "completer": None,
-        },
-        {
-            "opts": ["-n", "--newline"],
-            "kwargs": {
-                "required": False,
-                "action": "store_true",
-                "help": "Add newline before EOF comment",
-                "dest": "newline",
-            },
-            "completer": None,
         },
         {
             "opts": ["-i", "--indents"],
+            "completer": None,
             "kwargs": {
                 "required": False,
                 "metavar": "EXT1:INDENT1[:<Y|N>][,...]",
@@ -147,7 +175,6 @@ def arg_parser_init() -> Tuple[ArgumentParser, Namespace]:
                 "default": "",
                 "dest": "indent",
             },
-            "completer": None,
         },
     )
 

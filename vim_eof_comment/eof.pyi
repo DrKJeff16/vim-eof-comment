@@ -69,6 +69,8 @@ def main() -> int:
     """
     Execute the main workflow.
 
+    This must be passed as an argument for ``sys.exit()``.
+
     Returns
     -------
     int

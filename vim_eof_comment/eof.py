@@ -28,10 +28,10 @@ _RESET: int = Style.RESET_ALL
 
 
 def eof_comment_search(
-        files: Dict[str, BatchPathDict],
-        comments: Comments,
-        newline: bool,
-        verbose: bool
+    files: Dict[str, BatchPathDict],
+    comments: Comments,
+    newline: bool,
+    verbose: bool
 ) -> Dict[str, EOFCommentSearch]:
     """
     Search through opened files.
@@ -87,9 +87,9 @@ def eof_comment_search(
 
 
 def append_eof_comment(
-        files: Dict[str, EOFCommentSearch],
-        comments: Comments,
-        newline: bool
+    files: Dict[str, EOFCommentSearch],
+    comments: Comments,
+    newline: bool
 ) -> NoReturn:
     """
     Append a Vim EOF comment to files missing it.
@@ -127,6 +127,8 @@ def append_eof_comment(
 def main() -> int:
     """
     Execute the main workflow.
+
+    This must be passed as an argument for ``sys.exit()``.
 
     Returns
     -------
