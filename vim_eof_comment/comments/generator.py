@@ -28,13 +28,16 @@ _formats: GeneratedEOFComments = GeneratedEOFComments(
     hpp="/* vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta: */",
     htm="<!-- vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta: -->",
     html="<!-- vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta: -->",
+    latex="% vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
     lua="-- vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
     markdown="<!-- vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta: -->",
     md="<!-- vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta: -->",
     mk="# vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
     py="# vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
     pyi="# vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
+    rb="# vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
     sh="# vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
+    tex="% vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
     xml="<!-- vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta: -->",
     zsh="# vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:",
 )
@@ -54,13 +57,16 @@ _DEFAULT: IndentMapDict = IndentMapDict(
     hpp=IndentMap(level=2, expandtab=True),
     htm=IndentMap(level=2, expandtab=True),
     html=IndentMap(level=2, expandtab=True),
+    latex=IndentMap(level=2, expandtab=True),
     lua=IndentMap(level=4, expandtab=True),
     markdown=IndentMap(level=2, expandtab=True),
     md=IndentMap(level=2, expandtab=True),
     mk=IndentMap(level=4, expandtab=False),
     py=IndentMap(level=4, expandtab=True),
     pyi=IndentMap(level=4, expandtab=True),
+    rb=IndentMap(level=4, expandtab=True),
     sh=IndentMap(level=4, expandtab=True),
+    tex=IndentMap(level=2, expandtab=True),
     xml=IndentMap(level=2, expandtab=True),
     zsh=IndentMap(level=4, expandtab=True),
 )
@@ -221,7 +227,7 @@ def list_filetypes() -> NoReturn:
     c: Comments = Comments()
     defaults: IndentMapDict = c.get_defaults()
     for ext, indents in defaults.items():
-        txt.append(f"- {ext} - {indents}")
+        txt.append(f"- {ext}: {indents}")
 
     die(*txt, code=0, sep="\n")
 
