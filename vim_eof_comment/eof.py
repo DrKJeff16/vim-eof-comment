@@ -32,7 +32,6 @@ _RESET: int = Style.RESET_ALL
 def eof_comment_search(
     files: Dict[str, BatchPathDict],
     comments: Comments,
-    newline: bool,
     verbose: bool
 ) -> Dict[str, EOFCommentSearch]:
     """
@@ -44,8 +43,6 @@ def eof_comment_search(
         A dictionary of ``str`` to ``BatchPathDict`` objects.
     comments : Comments
         The ``Comments`` object containing the hardcoded comments per file extension.
-    newline : bool
-        Indicates whether a newline should be added before the comment.
     verbose : bool
         Sets verbose mode.
 
@@ -165,7 +162,7 @@ def main() -> int:
     if len(files) == 0:
         die("No matching files found!", code=1)
 
-    results = eof_comment_search(files, comments, newline, verbose)
+    results = eof_comment_search(files, comments, verbose)
     if len(results) > 0:
         append_eof_comment(results, comments, newline)
 

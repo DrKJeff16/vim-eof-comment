@@ -5,7 +5,7 @@ from .types.typeddict import BatchPathDict, EOFCommentSearch
 
 __all__ = ['append_eof_comment', 'eof_comment_search', 'main']
 
-def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, newline: bool, verbose: bool) -> dict[str, EOFCommentSearch]:
+def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, verbose: bool) -> dict[str, EOFCommentSearch]:
     """
     Search through opened files.
 
@@ -15,8 +15,6 @@ def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, newl
         A dictionary of ``str`` to ``BatchPathDict`` objects.
     comments : Comments
         The ``Comments`` object containing the hardcoded comments per file extension.
-    newline : bool
-        Indicates whether a newline should be added before the comment.
     verbose : bool
         Sets verbose mode.
 
