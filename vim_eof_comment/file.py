@@ -12,7 +12,7 @@ from os import walk
 from os.path import isdir, join
 from typing import Dict, List
 
-from .types.typeddict import BatchPairDict, BatchPathDict, LineBool
+from .types import BatchPairDict, BatchPathDict, LineBool
 from .util import die, error
 
 

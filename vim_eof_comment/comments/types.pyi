@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-from ..types.typeddict import IndentMap
+from ..types import IndentMap
 
 __all__ = ['GeneratedEOFComments', 'IndentMapDict']
 

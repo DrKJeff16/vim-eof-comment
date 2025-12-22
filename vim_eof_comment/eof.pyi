@@ -1,7 +1,7 @@
 from typing import NoReturn
 
 from .comments.generator import Comments
-from .types.typeddict import BatchPathDict, EOFCommentSearch
+from .types import BatchPathDict, EOFCommentSearch
 
 __all__ = ['append_eof_comment', 'eof_comment_search', 'main']
 

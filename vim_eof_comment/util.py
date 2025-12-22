@@ -11,7 +11,7 @@ from sys import exit as Exit
 from sys import stderr, stdout
 from typing import Callable, Dict, List, NoReturn, TextIO
 
-from .types.typeddict import IndentHandler, IndentMap
+from .types import IndentHandler, IndentMap
 
 
 def error(*msg, **kwargs) -> NoReturn:

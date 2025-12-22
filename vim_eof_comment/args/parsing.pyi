@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace
 
-from ..types.typeddict import IndentHandler, ParserSpec
+from ..types import IndentHandler, ParserSpec
 
 __all__ = ['gen_parser_specs', 'bootstrap_args', 'arg_parser_init', 'indent_handler']
 
@@ -26,7 +26,7 @@ def bootstrap_args(parser: ArgumentParser, specs: tuple[ParserSpec]) -> Namespac
     ----------
     parser : argparse.ArgumentParser
         The ``argparse.ArgumentParser`` object.
-    specs : List[vim_eof_comment.types.typeddict.ParserSpec]
+    specs : List[vim_eof_comment.types.ParserSpec]
         A list containing ``ParserSpec`` objects.
 
     Returns
@@ -61,7 +61,7 @@ def indent_handler(indent: str) -> list[IndentHandler]:
 
     Returns
     -------
-    List[vim_eof_comment.types.typeddict.IndentHandler]
+    List[vim_eof_comment.types.IndentHandler]
         A list of ``IndentHandler`` objects.
     """
 

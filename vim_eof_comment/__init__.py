@@ -12,12 +12,13 @@ __all__ = [
     "file",
     "main",
     "regex",
+    "types",
     "util",
     "version",
     "version_info",
 ]
 
-from . import args, comments, eof, file, regex, util
+from . import args, comments, eof, file, regex, types, util
 from .eof import main
 from .version import version_info
 

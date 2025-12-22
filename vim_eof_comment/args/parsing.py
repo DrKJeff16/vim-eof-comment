@@ -13,7 +13,7 @@ from typing import List, Tuple
 
 from argcomplete.completers import DirectoriesCompleter
 
-from ..types.typeddict import IndentHandler, ParserSpec
+from ..types import IndentHandler, ParserSpec
 from ..util import die
 from .completion import complete_parser
 
@@ -43,7 +43,7 @@ def bootstrap_args(parser: ArgumentParser, specs: Tuple[ParserSpec]) -> Namespac
     ----------
     parser : argparse.ArgumentParser
         The ``argparse.ArgumentParser`` object.
-    specs : List[vim_eof_comment.types.typeddict.ParserSpec]
+    specs : List[vim_eof_comment.types.ParserSpec]
         A list containing ``ParserSpec`` objects.
 
     Returns
@@ -194,7 +194,7 @@ def indent_handler(indent: str) -> List[IndentHandler]:
 
     Returns
     -------
-    List[vim_eof_comment.types.typeddict.IndentHandler]
+    List[vim_eof_comment.types.IndentHandler]
         A list of ``IndentHandler`` objects.
     """
     if indent == "":

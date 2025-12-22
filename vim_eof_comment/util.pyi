@@ -1,6 +1,6 @@
 from typing import Callable, NoReturn, TextIO
 
-from .types.typeddict import IndentHandler, IndentMap
+from .types import IndentHandler, IndentMap
 
 __all__ = ['die', 'error', 'gen_indent_maps', 'verbose_print', 'version_print']
 

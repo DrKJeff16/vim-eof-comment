@@ -1,6 +1,6 @@
 from io import TextIOWrapper
 
-from .types.typeddict import BatchPairDict, BatchPathDict, LineBool
+from .types import BatchPairDict, BatchPathDict, LineBool
 
 __all__ = ['bootstrap_paths', 'open_batch_paths', 'modify_file', 'get_last_line']
 

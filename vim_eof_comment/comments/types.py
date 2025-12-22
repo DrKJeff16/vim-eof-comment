@@ -9,7 +9,7 @@ __all__ = ["GeneratedEOFComments", "IndentMapDict"]
 
 from typing import TypedDict
 
-from ..types.typeddict import IndentMap
+from ..types import IndentMap
 
 
 class GeneratedEOFComments(TypedDict):

@@ -9,7 +9,7 @@ __all__ = ["list_filetypes", "Comments"]
 
 from typing import Dict, Iterator, List, NoReturn
 
-from ..types.typeddict import IndentMap
+from ..types import IndentMap
 from ..util import die
 from .types import GeneratedEOFComments, IndentMapDict
 
