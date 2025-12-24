@@ -54,7 +54,7 @@ def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwarg
     str
         The modified contents of the given file.
     """
-def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
+def get_last_line(file: TextIOWrapper) -> LineBool:
     """
     Return the last line of a file and indicates whether it already has a newline.
 
@@ -62,8 +62,6 @@ def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
     ----------
     file : TextIOWrapper
         The file to retrieve the last line data from.
-    verbose : bool
-        The verbose flag bool.
 
     Returns
     -------

@@ -12,13 +12,8 @@ from os import walk
 from os.path import isdir, join
 from typing import Dict, List
 
-from colorama import Style
-from colorama import init as color_init
-
 from .types import BatchPairDict, BatchPathDict, LineBool
-from .util import die, error, verbose_print
-
-color_init()
+from .util import die, error
 
 
 def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
@@ -133,7 +128,7 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     return "\n".join(data)
 
 
-def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
+def get_last_line(file: TextIOWrapper) -> LineBool:
     """
     Return the last line of a file and indicates whether it already has a newline.
 
@@ -141,15 +136,12 @@ def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
     ----------
     file : TextIOWrapper
         The file to retrieve the last line data from.
-    verbose : bool
-        The verbose flag bool.
 
     Returns
     -------
     LineBool
         An object containing both the last line in a string and a boolean indicating a newline.
     """
-    name: str = file.name
     data: List[str] = file.read().split("\n")
     file.close()
 
@@ -161,7 +153,6 @@ def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
 
         if len(data) >= 3:
             has_newline = data[-3] == ""
-            verbose_print(f"`{Style.RESET_ALL}{name}` ==> Newline: {has_newline}", verbose=verbose)
 
     return LineBool(line=line, has_nwl=has_newline)
 
