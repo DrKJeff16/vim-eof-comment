@@ -12,8 +12,13 @@ from os import walk
 from os.path import isdir, join
 from typing import Dict, List
 
+from colorama import Style
+from colorama import init as color_init
+
 from .types import BatchPairDict, BatchPathDict, LineBool
-from .util import die, error
+from .util import die, error, verbose_print
+
+color_init()
 
 
 def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
@@ -91,14 +96,13 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     ext : str
         The filetype extension given by the user.
     **kwargs
-        Contains the ``newline``, ``has_nwl`` and ``matching`` boolean attributes.
+        Contains the ``newline``, and ``matching`` boolean attributes.
 
     Returns
     -------
     str
         The modified contents of the given file.
     """
-    has_nwl: bool = kwargs.get("has_nwl", False)
     matching: bool = kwargs.get("matching", False)
     newline: bool = kwargs.get("newline", False)
 
@@ -106,7 +110,7 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     file.close()
 
     data_len = len(data)
-    comment = comments[ext] if not (newline and not has_nwl) else f"\n{comments[ext]}"
+    comment = comments[ext]
     if data_len == 0:
         data = [comment, ""]
     elif data_len == 1:
@@ -120,10 +124,16 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
         else:
             data.insert(-1, comment)
 
+    if newline and data[-3] != "":
+        data.insert(-2, "")
+
+    if not newline and data[-3] == "":
+        data.pop(-3)
+
     return "\n".join(data)
 
 
-def get_last_line(file: TextIOWrapper) -> LineBool:
+def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
     """
     Return the last line of a file and indicates whether it already has a newline.
 
@@ -131,23 +141,27 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     ----------
     file : TextIOWrapper
         The file to retrieve the last line data from.
+    verbose : bool
+        The verbose flag bool.
 
     Returns
     -------
     LineBool
         An object containing both the last line in a string and a boolean indicating a newline.
     """
+    name: str = file.name
     data: List[str] = file.read().split("\n")
     file.close()
 
     has_newline, line = False, ""
-    if len(data) == 1:
+    if len(data) <= 1:
         line = data[0]
-    else:
+    elif len(data) >= 2:
+        line: str = data[-2]
+
         if len(data) >= 3:
             has_newline = data[-3] == ""
-
-        line: str = data[-2]
+            verbose_print(f"`{Style.RESET_ALL}{name}` ==> Newline: {has_newline}", verbose=verbose)
 
     return LineBool(line=line, has_nwl=has_newline)
 

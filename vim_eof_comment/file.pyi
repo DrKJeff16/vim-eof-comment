@@ -47,14 +47,14 @@ def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwarg
     ext : str
         The filetype extension given by the user.
     **kwargs
-        Contains the ``newline``, ``has_nwl`` and ``matching`` boolean attributes.
+        Contains the ``newline``, and ``matching`` boolean attributes.
 
     Returns
     -------
     str
         The modified contents of the given file.
     """
-def get_last_line(file: TextIOWrapper) -> LineBool:
+def get_last_line(file: TextIOWrapper, verbose: bool) -> LineBool:
     """
     Return the last line of a file and indicates whether it already has a newline.
 
@@ -62,6 +62,8 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     ----------
     file : TextIOWrapper
         The file to retrieve the last line data from.
+    verbose : bool
+        The verbose flag bool.
 
     Returns
     -------

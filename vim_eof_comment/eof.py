@@ -71,7 +71,7 @@ def eof_comment_search(
         file_obj: TextIOWrapper = file["file"]
         ext: str = file["ext"]
 
-        wrapper = get_last_line(file_obj)
+        wrapper = get_last_line(file_obj, verbose)
         last_line, has_nwl = wrapper["line"], wrapper["has_nwl"]
 
         verbose_print(f"{_RESET} - {path} ==> ", verbose=verbose, end="", sep="")
