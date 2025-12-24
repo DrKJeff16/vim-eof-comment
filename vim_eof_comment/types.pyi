@@ -18,15 +18,6 @@ class ParserSpec(TypedDict):
         Extra arguments for ``argparse.ArgumentParser``.
     completer : argcomplete.DirectoriesCompleter, optional, default=None
         An optional ``argcomplete`` completer object.
-
-    Parameters
-    ----------
-    opts : List[str]
-        A list containing all the relevant iterations of the same option.
-    kwargs : Dict[str, str]
-        Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.DirectoriesCompleter, optional, default=None
-        An optional ``argcomplete`` completer object.
     """
     opts: list[str]
     kwargs: dict[str, Any]
@@ -39,11 +30,6 @@ class CommentMap(TypedDict):
     This is a ``TypedDict``-like object.
 
     Attributes
-    ----------
-    level : int
-        The indentation level.
-
-    Parameters
     ----------
     level : int
         The indentation level.
@@ -60,15 +46,6 @@ class IndentHandler(TypedDict):
     A dict containing ``ext``, ``level`` and ``expandtab`` as keys.
 
     Attributes
-    ----------
-    ext : str
-        The file extension.
-    level : str
-        The string representation of the indent level.
-    expandtab : bool
-        Whether to expand tabs or not.
-
-    Parameters
     ----------
     ext : str
         The file extension.
