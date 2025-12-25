@@ -84,6 +84,29 @@ recursive       = true
 verbose         = true
 
 [tool.isort]
-line_length = 100
-skip_glob = ["docs/*"]
+line_length    = 100
 skip_gitignore = true
+skip_glob      = ["docs/*"]
+
+[tool.rope]
+automatic_soa = true
+ignored_resources = [
+    "*.pyc",
+    "*~",
+    ".git",
+    ".hg",
+    ".ropeproject",
+    ".svn",
+    ".tox",
+    ".venv",
+    "_svn",
+    "build",
+    "docs",
+    "venv",
+]
+indent_size = 4
+perform_doa = true
+save_history = true
+save_objectdb = true
+split_imports = false
+validate_objectdb = true
