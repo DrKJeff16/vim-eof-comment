@@ -1,6 +1,6 @@
 from typing import NoReturn
 
-__all__ = ['VersionInfo', 'list_versions', 'version_info']
+__all__ = ['VersionInfo', 'list_versions', 'version_info', '__version__']
 
 class VersionInfo:
     """
@@ -125,6 +125,7 @@ class VersionInfo:
         """
 
 version_info: VersionInfo
+__version__: str
 
 def list_versions() -> NoReturn:
     """List all versions."""

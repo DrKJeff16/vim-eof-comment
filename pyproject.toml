@@ -5,7 +5,7 @@ requires      = ["setuptools", "setuptools-scm>=8.0"]
 [project]
 authors = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com" }]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Intended Audience :: End Users/Desktop",
@@ -29,7 +29,18 @@ dependencies = [
     "wheel",
 ]
 description = "Adds Vim EOF comments for given filetypes in given directories"
+keywords = [
+    "eof comments",
+    "eof",
+    "files",
+    "preprocessing",
+    "text",
+    "vim modeline",
+    "vim",
+    "vim-eof",
+]
 license = "GPL-2.0-only"
+license-files = ["LICEN[CS]E"]
 maintainers = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com" }]
 name = "vim-eof-comment"
 readme = "README.md"
@@ -61,7 +72,14 @@ exclude = [
 ]
 exclude_files = ['^module/gui.*', '^tests/.*']
 
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-dir]
+vim-eof-comment = "vim_eof_comment"
+
 [tool.setuptools.package-data]
+"docs"            = ["*.rst"]
 "vim_eof_comment" = ["*.json", "*.py", "*.pyi"]
 
 [tool.mypy]

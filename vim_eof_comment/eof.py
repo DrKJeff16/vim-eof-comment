@@ -20,7 +20,7 @@ from .file import bootstrap_paths, get_last_line, modify_file, open_batch_paths
 from .regex import matches
 from .types import BatchPathDict, EOFCommentSearch, IndentHandler, IOWrapperBool
 from .util import die, gen_indent_maps, verbose_print, version_print
-from .version import list_versions, version_info
+from .version import __version__, list_versions
 
 _RED: int = Fore.LIGHTRED_EX
 _GREEN: int = Fore.LIGHTGREEN_EX
@@ -139,7 +139,7 @@ def main() -> int:
     parser, ns = arg_parser_init()
 
     if ns.version:
-        version_print(str(version_info))
+        version_print(__version__)
 
     if ns.list_fts:
         list_filetypes()

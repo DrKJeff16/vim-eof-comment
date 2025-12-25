@@ -58,7 +58,7 @@ stubs: lint
 
 build: stubs
 	@echo -e "Building...\n"
-	@python3 -m build &> /dev/null
+	@python3 -m build
 	@echo -e "\nDone!"
 
 sign: build

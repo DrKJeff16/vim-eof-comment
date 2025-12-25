@@ -6,6 +6,7 @@ Ensure EOF Vim comments.
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 __all__ = [
+    "__version__",
     "args",
     "comments",
     "eof",
@@ -15,13 +16,10 @@ __all__ = [
     "types",
     "util",
     "version",
-    "version_info",
 ]
 
 from . import args, comments, eof, file, regex, types, util
 from .eof import main
-from .version import version_info
-
-version: str = str(version_info)
+from .version import __version__
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

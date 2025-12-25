@@ -5,7 +5,7 @@ Custom vim-eof-comment versioning objects.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["VersionInfo", "list_versions", "version_info"]
+__all__ = ["VersionInfo", "list_versions", "version_info", "__version__"]
 
 from typing import List, NoReturn, Tuple
 
@@ -218,6 +218,8 @@ version_info: VersionInfo = VersionInfo([
     (0, 3, 9),
     (0, 3, 10),
 ])
+
+__version__: str = str(version_info)
 
 
 def list_versions() -> NoReturn:
