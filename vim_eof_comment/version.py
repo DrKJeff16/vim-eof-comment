@@ -215,6 +215,7 @@ version_info: VersionInfo = VersionInfo([
     (0, 3, 6),
     (0, 3, 7),
     (0, 3, 8),
+    (0, 3, 9),
 ])
 
 
