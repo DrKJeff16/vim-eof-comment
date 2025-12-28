@@ -13,6 +13,7 @@ pyproject = "*"
 colorama = "*"
 argcomplete = "*"
 python-magic = "*"
+pynvim = "*"
 
 [dev-packages]
 pynvim = "*"
