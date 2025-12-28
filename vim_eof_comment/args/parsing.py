@@ -220,7 +220,7 @@ def indent_handler(indent: str) -> List[IndentHandler]:
         if len(inds) >= 3 and inds[2].upper() in ("Y", "N"):
             et = not inds[2].upper() == "N"
 
-        maps.append(IndentHandler(ext=ext, level=ind_level, expandtab=et))
+        maps.append(IndentHandler(ft_ext=ext, level=ind_level, expandtab=et))
 
     return maps
 
