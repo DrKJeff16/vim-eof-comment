@@ -13,10 +13,19 @@ from io import TextIOWrapper
 from os.path import exists, isdir, realpath
 from typing import Dict, Iterator, List, NoReturn, Tuple
 
+from colorama import Fore, Style
+from colorama import init as color_init
+
 from ..types import IndentMap
 from ..util import die
 
 _JSON_FILE: str = realpath("./vim_eof_comment/comments/filetypes.json")
+
+_BLUE: int = Fore.BLUE
+_YELLOW: int = Fore.YELLOW
+_CYAN: int = Fore.CYAN
+_BRIGHT: int = Style.BRIGHT
+_RESET: int = Style.RESET_ALL
 
 
 def import_json() -> Tuple[Dict[str, str], Dict[str, IndentMap]]:
@@ -195,15 +204,48 @@ class Comments():
         return comments.get(ext, None)
 
 
+def generate_list_items(ft: str, level: int, expandtab: str) -> str:
+    """
+    Generate a colored string for filetypes listing.
+
+    Parameters
+    ----------
+    ft : str
+        The filetype item in question.
+    level : int
+        Indent size.
+    expandtab : str
+        Either ``"Yes"`` or ``"No"``.
+
+    Returns
+    -------
+    str
+        The generated string.
+    """
+    txt = f"{_RESET}{_BRIGHT}{_BLUE}{ft}\n"
+    txt += f"   {_RESET}{_BRIGHT}indent size{_RESET}{_BRIGHT} ==> {_CYAN}{level}\n"
+    txt += f"   {_RESET}{_BRIGHT}expandtab{_RESET}{_BRIGHT} ==> {_CYAN}{expandtab}"
+
+    return txt
+
+
 def list_filetypes() -> NoReturn:
     """List all available filetypes."""
-    txt: List[str] = [""]
+    color_init()
 
-    c: Comments = Comments()
-    defaults: Dict[str, IndentMap] = c.get_defaults()
-    for ext, indents in defaults.items():
-        txt.append(f"- {ext}: {indents}")
+    defaults = Comments().get_defaults()
+    items: Dict[str, Tuple[int, str]] = dict()
+    for ft_ext, indents in defaults.items():
+        level: int = indents.get("level", 4)
+        et = "Yes" if indents.get("expandtab") else "No"
+        items[ft_ext] = (level, et)
 
+    keys: List[str] = list(items.keys())
+    keys.sort()
+
+    sorted_items: Dict[str, Tuple[int, str]] = {i: items[i] for i in keys}
+
+    txt = [generate_list_items(k, v[0], v[1]) for k, v in sorted_items.items()]
     die(*txt, code=0, sep="\n")
 
 
