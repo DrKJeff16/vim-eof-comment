@@ -11,7 +11,7 @@ from re import compile
 from typing import Tuple
 
 
-def matches(s: str, verbose: bool) -> bool:
+def matches(s: str, verbose: bool = False) -> bool:
     """
     Check if given string matches any of the given patterns.
 
@@ -19,7 +19,7 @@ def matches(s: str, verbose: bool) -> bool:
     ----------
     s : str
         The string to be matched.
-    verbose : bool
+    verbose : bool, optional, default=False
         Enables verbose mode.
 
     Returns
