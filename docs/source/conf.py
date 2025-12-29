@@ -22,8 +22,10 @@ release: str = '0.1.33'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions: List[str] = [
+    'numpydoc',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autosummary',
     'sphinx.ext.duration',
 ]
 
@@ -35,5 +37,20 @@ exclude_patterns: List[str] = []
 
 html_theme: str = 'sphinx_rtd_theme'
 html_static_path: List[str] = ['_static']
+
+# -- Options for numpydoc ----------------------------------------------------
+numpydoc_xref_param_type = True
+numpydoc_validation_checks = {
+    "all",  # report on all checks, except the below
+    "ES01",
+    "EX01",
+    "SA01",
+}
+numpydoc_xref_aliases = {
+    'TextIO': 'typing.TextIO',
+    'List': 'list',
+    'Dict': 'dict',
+    'Tuple': 'tuple',
+}
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
