@@ -12,7 +12,7 @@ def complete_parser(parser: ArgumentParser, **kwargs) -> NoReturn:
     parser : argparse.ArgumentParser
         The ``ArgumentParser`` object.
     **kwargs
-        Extra parameters.
+        Extra parameters to be passed to ``argcomplete.autocomplete()``.
     """
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
