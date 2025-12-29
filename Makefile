@@ -43,6 +43,8 @@ lint:
 		vim_eof_comment
 	@pydocstyle --convention=numpy --match='.*\.py' vim_eof_comment
 	@autopep8 --aggressive --aggressive --aggressive --in-place --recursive vim_eof_comment
+	$(eval files := $(shell fd --full-path vim_eof_comment -e py))
+	@numpydoc lint $(files)
 	@echo -e "\nDone!"
 
 stubs: lint
