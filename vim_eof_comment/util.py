@@ -5,7 +5,7 @@ EOF comments checker utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["die", "error", "gen_indent_maps", "verbose_print", "version_print"]
+__all__ = ["die", "error", "gen_indent_maps", "verbose_print"]
 
 from sys import exit as Exit
 from sys import stderr, stdout
@@ -115,22 +115,6 @@ def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> NoReturn:
         return
 
     print(*msg, end=end, sep=sep, flush=flush)
-
-
-def version_print(version: str) -> NoReturn:
-    """
-    Print project version, then exit.
-
-    Parameters
-    ----------
-    version : str
-        The version string.
-
-    See Also
-    --------
-    vim_eof_comment.util.die : The function used for this function.
-    """
-    die(f"vim-eof-comment-{version}", code=0)
 
 
 def gen_indent_maps(maps: List[IndentHandler]) -> Dict[str, IndentMap] | None:

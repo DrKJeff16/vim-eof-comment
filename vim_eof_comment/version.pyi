@@ -1,6 +1,8 @@
 from typing import NoReturn
 
-__all__ = ['VersionInfo', 'list_versions', 'version_info', '__version__']
+from _typeshed import Incomplete
+
+__all__ = ['VersionInfo', 'list_versions', 'version_info', 'version_print', '__version__']
 
 class VersionInfo:
     """
@@ -82,7 +84,7 @@ class VersionInfo:
         Only one definition in constructor.
 
         >>> from vim_eof_comment.version import VersionInfo
-        >>> print(VersionInfo([(0, 0, 1)]))
+        >>> print(repr(VersionInfo([(0, 0, 1)])))
         0.0.1
 
         Multiple definitions in constructor.
@@ -124,10 +126,19 @@ class VersionInfo:
         0.0.3 (latest)
         """
 
-version_info: VersionInfo
+version_info: Incomplete
 __version__: str
 
 def list_versions() -> NoReturn:
     """List all versions."""
+def version_print(version: str) -> NoReturn:
+    """
+    Print project version, then exit.
+
+    Parameters
+    ----------
+    version : str
+        The version string.
+    """
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

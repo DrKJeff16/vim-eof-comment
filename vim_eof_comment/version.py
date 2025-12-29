@@ -5,7 +5,7 @@ Custom vim-eof-comment versioning objects.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["VersionInfo", "list_versions", "version_info", "__version__"]
+__all__ = ["VersionInfo", "list_versions", "version_info", "version_print", "__version__"]
 
 from typing import List, NoReturn, Tuple
 
@@ -103,7 +103,7 @@ class VersionInfo():
         Only one definition in constructor.
 
         >>> from vim_eof_comment.version import VersionInfo
-        >>> print(VersionInfo([(0, 0, 1)]))
+        >>> print(repr(VersionInfo([(0, 0, 1)])))
         0.0.1
 
         Multiple definitions in constructor.
@@ -163,7 +163,7 @@ class VersionInfo():
         return result
 
 
-version_info: VersionInfo = VersionInfo([
+version_info = VersionInfo([
     (0, 1, 1),
     (0, 1, 2),
     (0, 1, 3),
@@ -226,7 +226,18 @@ __version__: str = str(version_info)
 
 def list_versions() -> NoReturn:
     """List all versions."""
-    all_versions: str = version_info.get_all_versions()
-    die(all_versions, code=0)
+    die(version_info.get_all_versions(), code=0)
+
+
+def version_print(version: str) -> NoReturn:
+    """
+    Print project version, then exit.
+
+    Parameters
+    ----------
+    version : str
+        The version string.
+    """
+    die(f"vim-eof-comment-{version}", code=0)
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

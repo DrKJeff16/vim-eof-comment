@@ -19,8 +19,8 @@ from .comments.generator import Comments, list_filetypes
 from .file import bootstrap_paths, get_last_line, modify_file, open_batch_paths
 from .regex import matches
 from .types import BatchPathDict, EOFCommentSearch, IndentHandler, IOWrapperBool
-from .util import die, gen_indent_maps, verbose_print, version_print
-from .version import __version__, list_versions
+from .util import die, gen_indent_maps, verbose_print
+from .version import __version__, list_versions, version_print
 
 _RED: int = Fore.LIGHTRED_EX
 _GREEN: int = Fore.LIGHTGREEN_EX

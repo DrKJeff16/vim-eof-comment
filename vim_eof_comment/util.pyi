@@ -2,7 +2,7 @@ from typing import Callable, NoReturn, TextIO
 
 from .types import IndentHandler, IndentMap
 
-__all__ = ['die', 'error', 'gen_indent_maps', 'verbose_print', 'version_print']
+__all__ = ['die', 'error', 'gen_indent_maps', 'verbose_print']
 
 def error(*msg, **kwargs) -> NoReturn:
     """
@@ -76,19 +76,6 @@ def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> NoReturn:
     See Also
     --------
     print : This function is essentially being wrapped around here.
-    """
-def version_print(version: str) -> NoReturn:
-    """
-    Print project version, then exit.
-
-    Parameters
-    ----------
-    version : str
-        The version string.
-
-    See Also
-    --------
-    vim_eof_comment.util.die : The function used for this function.
     """
 def gen_indent_maps(maps: list[IndentHandler]) -> dict[str, IndentMap] | None:
     """
