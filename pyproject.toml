@@ -131,3 +131,4 @@ save_history = true
 save_objectdb = true
 split_imports = false
 validate_objectdb = true
+# vim: set ts=4 sts=4 sw=4 et ai si sta:

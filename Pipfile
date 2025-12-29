@@ -32,6 +32,7 @@ sphinx-rtd-theme = "*"
 renku-sphinx-theme = "*"
 sphinxawesome-theme = "*"
 numpydoc = "*"
+vim-eof-comment = "*"
 
 [scripts]
 lint = "flake8 --statistics --show-source --color always --max-line-length 100 --docstring-convention numpy --ignore=D401 ."
