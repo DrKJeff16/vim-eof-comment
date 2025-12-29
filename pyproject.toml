@@ -10,6 +10,8 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: End Users/Desktop",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -56,10 +58,10 @@ version = "0.3.11"
 
 [tool.numpydoc_validation]
 checks = [
+    "all",  # report on all checks, except the below
     "ES01",
     "EX01",
     "SA01",
-    "all",  # report on all checks, except the below
 ]
 exclude = [
     '\.undocumented_method$',
