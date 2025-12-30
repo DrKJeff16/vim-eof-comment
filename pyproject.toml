@@ -25,7 +25,6 @@ dependencies = [
     "argcomplete",
     "argparse",
     "colorama",
-    "python-magic",
     "setuptools",
     "typing",
     "wheel",
@@ -47,7 +46,7 @@ maintainers = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com
 name = "vim-eof-comment"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.3.13"
+version = "0.3.14"
 
     [project.scripts]
     vim-eof-comment = "vim_eof_comment.eof:main"
