@@ -71,13 +71,13 @@ def eof_comment_search(
         ext: str = file["ft_ext"]
 
         wrapper = get_last_line(file_obj)
-        last_line, has_nwl = wrapper["line"], wrapper["has_nwl"]
+        last_line, had_nwl = wrapper["line"], wrapper["had_nwl"]
 
         verbose_print(f"{_RESET} - {path} ==> ", verbose=verbose, end="", sep="")
-        if last_line != comment_map[ext] or (newline and not has_nwl):
+        if last_line != comment_map[ext] or (newline and not had_nwl):
             verbose_print(f"{_BRIGHT}{_RED}CHANGED", verbose=verbose)
             result[path] = EOFCommentSearch(
-                state=IOWrapperBool(file=open(path, "r"), has_nwl=has_nwl),
+                state=IOWrapperBool(file=open(path, "r"), had_nwl=had_nwl),
                 lang=ext,
                 match=matches(last_line, verbose)
             )
@@ -107,7 +107,7 @@ def append_eof_comment(
     comment_map = comments.generate()
     for path, file in files.items():
         file_obj = file["state"]["file"]
-        has_nwl = file["state"]["has_nwl"]
+        had_nwl = file["state"]["had_nwl"]
         matching = file["match"]
         ext = file["lang"]
 
@@ -116,7 +116,7 @@ def append_eof_comment(
             comment_map,
             ext=ext,
             newline=newline,
-            has_nwl=has_nwl,
+            had_nwl=had_nwl,
             matching=matching
         )
         file_obj = open(path, "w")

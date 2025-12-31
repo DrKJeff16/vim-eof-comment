@@ -73,7 +73,7 @@ class IndentHandler(TypedDict):
 
 class IOWrapperBool(TypedDict):
     """
-    A dict containing ``file`` and ``has_nwl`` as keys.
+    A dict containing ``file`` and ``had_nwl`` as keys.
 
     This is a ``TypedDict``-like object.
 
@@ -81,15 +81,15 @@ class IOWrapperBool(TypedDict):
     ----------
     file : TextIO
         The opened file as a ``TextIO`` wrapper.
-    has_nwl : bool
+    had_nwl : bool
         Whether the file has a newline or not.
     """
     file: TextIO
-    has_nwl: bool
+    had_nwl: bool
 
 class LineBool(TypedDict):
     """
-    A dict containing ``line`` and ``has_nwl`` as keys.
+    A dict containing ``line`` and ``had_nwl`` as keys.
 
     This is a ``TypedDict``-like object.
 
@@ -97,11 +97,11 @@ class LineBool(TypedDict):
     ----------
     line : str
         The last line of the target file.
-    has_nwl : bool
+    had_nwl : bool
         Whether the file has a newline or not.
     """
     line: str
-    has_nwl: bool
+    had_nwl: bool
 
 class BatchPathDict(TypedDict):
     """

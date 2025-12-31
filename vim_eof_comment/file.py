@@ -146,15 +146,15 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     data: List[str] = file.read().split("\n")
     file.close()
 
-    has_newline, line = False, ""
+    had_newline, line = False, ""
     if len(data) <= 1:
         line = data[0]
     elif len(data) >= 2:
         line: str = data[-2]
 
         if len(data) >= 3:
-            has_newline = data[-3] == ""
+            had_newline = data[-3] == ""
 
-    return LineBool(line=line, has_nwl=has_newline)
+    return LineBool(line=line, had_nwl=had_newline)
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

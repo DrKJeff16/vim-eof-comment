@@ -21,14 +21,7 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-dependencies = [
-    "argcomplete",
-    "argparse",
-    "colorama",
-    "setuptools",
-    "typing",
-    "wheel",
-]
+dependencies = ["argcomplete", "argparse", "colorama", "setuptools", "typing", "wheel"]
 description = "Adds Vim EOF comments for given filetypes in given directories"
 keywords = [
     "eof comments",
@@ -52,9 +45,9 @@ version = "0.3.14"
     vim-eof-comment = "vim_eof_comment.eof:main"
 
     [project.urls]
+    Download   = "https://github.com/DrKJeff16/vim-eof-comment/releases/latest"
     Issues     = "https://github.com/DrKJeff16/vim-eof-comment/issues"
     Repository = "https://github.com/DrKJeff16/vim-eof-comment"
-    Download   = "https://github.com/DrKJeff16/vim-eof-comment/releases/latest"
 
 [tool.numpydoc_validation]
 checks = [

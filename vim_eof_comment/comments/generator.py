@@ -19,6 +19,8 @@ from colorama import init as color_init
 from ..types import IndentMap
 from ..util import die
 
+COMMENT_STR: str = "vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:"
+
 _JSON_FILE: str = realpath("./vim_eof_comment/comments/filetypes.json")
 
 _BLUE: int = Fore.BLUE
@@ -49,8 +51,13 @@ def import_json() -> Tuple[Dict[str, str], Dict[str, IndentMap]]:
     file.close()
 
     result: Tuple[Dict[str, str], Dict[str, IndentMap]] = json.loads(data)
+    comments = result[0]
+    maps = result[1]
 
-    return result[0], result[1]
+    for k, v in comments.items():
+        comments[k] = v.format(comment=COMMENT_STR)
+
+    return comments, maps
 
 
 _formats, _DEFAULT = import_json()
