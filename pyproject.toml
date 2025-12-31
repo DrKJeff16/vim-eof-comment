@@ -22,7 +22,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = ["argcomplete", "argparse", "colorama", "setuptools", "typing", "wheel"]
-description = "Adds Vim EOF comments for given filetypes in given directories"
+description = "Adds Vim EOF modeline comments for given filetypes in given directories"
 keywords = [
     "eof comments",
     "eof",
@@ -39,7 +39,7 @@ maintainers = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com
 name = "vim-eof-comment"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.3.15"
+version = "0.3.16"
 
     [project.scripts]
     vim-eof-comment = "vim_eof_comment.eof:main"
