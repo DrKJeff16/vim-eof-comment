@@ -15,6 +15,64 @@ from typing import Dict, List
 from .types import BatchPairDict, BatchPathDict, LineBool
 from .util import die, error
 
+EXCLUDED_DIRS: List[str] = [
+    ".git",
+    ".mypy_cache",
+    ".ropeproject",
+    ".venv",
+    "build",
+    "venv",
+]
+
+
+def try_open(fpath: str) -> bool:
+    """
+    Try to open a file, unless a ``UnicodeDecodeError`` triggers.
+
+    Parameters
+    ----------
+    fpath : str
+        The file path to try and open.
+
+    Returns
+    -------
+    bool
+        Whether the file triggers a ``UnicodeDecodeError`` or not.
+    """
+    file = open(fpath, "rb")
+    success: bool = True
+    try:
+        file.read().decode(encoding="utf8")
+    except UnicodeDecodeError:
+        success = False
+    except Exception:
+        die("Something went wrong in `try_open()`!", code=2)
+
+    file.close()
+    return success
+
+
+def has_excluded(dir: str) -> bool:
+    """
+    Check whether a directory list contains any excluded directories.
+
+    Parameters
+    ----------
+    dir : str
+        The directory to check.
+
+    Returns
+    -------
+    bool
+        Whether an excluded directory was found.
+    """
+    dir = dir.rstrip("/")
+    for excluded in EXCLUDED_DIRS:
+        if dir.endswith(excluded):
+            return True
+
+    return False
+
 
 def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
     """
@@ -34,11 +92,22 @@ def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
     """
     result = list()
     for path in paths:
-        if not isdir(path):
+        if not isdir(path) or has_excluded(path):
             continue
 
-        file: str
+        root: str
+        dirs: List[str]
+        files: List[str]
         for root, dirs, files in walk(path):
+            excluded = False
+            for dir in dirs:
+                if has_excluded(dir):
+                    excluded = True
+                    break
+
+            if excluded:
+                continue
+
             for file in files:
                 for ext in exts:
                     if not file.endswith(ext):
@@ -66,6 +135,9 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
     result = dict()
     for path in paths:
         fpath, ext = path["fpath"], path["ft_ext"]
+        if not try_open(fpath):
+            continue
+
         try:
             result[fpath] = {"file": open(fpath, "rb"), "ft_ext": ext}
         except KeyboardInterrupt:
