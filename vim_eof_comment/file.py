@@ -67,7 +67,7 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
     for path in paths:
         fpath, ext = path["fpath"], path["ft_ext"]
         try:
-            result[fpath] = {"file": open(fpath, "r"), "ft_ext": ext}
+            result[fpath] = {"file": open(fpath, "rb"), "ft_ext": ext}
         except KeyboardInterrupt:
             die("\nProgram interrupted!", code=1)  # Kills the program
         except FileNotFoundError:
@@ -101,7 +101,8 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     matching: bool = kwargs.get("matching", False)
     newline: bool = kwargs.get("newline", False)
 
-    data: List[str] = file.read().split("\n")
+    bdata: str = file.read().decode(encoding="utf8")
+    data: List[str] = bdata.split("\n")
     file.close()
 
     data_len = len(data)
@@ -143,7 +144,8 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     LineBool
         An object containing both the last line in a string and a boolean indicating a newline.
     """
-    data: List[str] = file.read().split("\n")
+    bdata: str = file.read().decode(encoding="utf8")
+    data: List[str] = bdata.split("\n")
     file.close()
 
     had_newline, line = False, ""

@@ -77,7 +77,7 @@ def eof_comment_search(
         if last_line != comment_map[ext] or (newline and not had_nwl):
             verbose_print(f"{_BRIGHT}{_RED}CHANGED", verbose=verbose)
             result[path] = EOFCommentSearch(
-                state=IOWrapperBool(file=open(path, "r", encoding="utf8"), had_nwl=had_nwl),
+                state=IOWrapperBool(file=open(path, "rb"), had_nwl=had_nwl),
                 lang=ext,
                 match=matches(last_line, verbose)
             )
