@@ -229,6 +229,7 @@ version_info = VersionInfo([
     (0, 3, 20),
     (0, 3, 21),
     (0, 4, 0),
+    (0, 4, 1),
 ])
 
 __version__: str = str(version_info)
