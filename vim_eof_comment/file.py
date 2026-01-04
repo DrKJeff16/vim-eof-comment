@@ -5,7 +5,15 @@ File management utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["bootstrap_paths", "open_batch_paths", "modify_file", "get_last_line"]
+__all__ = [
+    "EXCLUDED_DIRS",
+    "bootstrap_paths",
+    "get_last_line",
+    "has_excluded",
+    "modify_file",
+    "open_batch_paths",
+    "try_open",
+]
 
 from io import TextIOWrapper
 from os import walk
