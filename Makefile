@@ -75,7 +75,7 @@ local-install: build
 
 run-script:
 	@echo -e "Running vim-eof-comment...\n"
-	@vim-eof-comment -e py,pyi,Makefile -n -v .
+	@vim-eof-comment -e py,pyi,Makefile,md -nv .
 	@echo -e "\nDone!"
 
 upload: sign

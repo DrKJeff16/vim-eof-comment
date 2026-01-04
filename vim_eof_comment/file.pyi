@@ -2,9 +2,7 @@ from io import TextIOWrapper
 
 from .types import BatchPairDict, BatchPathDict, LineBool
 
-__all__ = ['EXCLUDED_DIRS', 'bootstrap_paths', 'get_last_line', 'has_excluded', 'modify_file', 'open_batch_paths', 'try_open']
-
-EXCLUDED_DIRS: list[str]
+__all__ = ['bootstrap_paths', 'get_last_line', 'modify_file', 'open_batch_paths', 'try_open']
 
 def try_open(fpath: str) -> bool:
     """
@@ -19,20 +17,6 @@ def try_open(fpath: str) -> bool:
     -------
     bool
         Whether the file triggers a ``UnicodeDecodeError`` or not.
-    """
-def has_excluded(dir: str) -> bool:
-    """
-    Check whether a directory list contains any excluded directories.
-
-    Parameters
-    ----------
-    dir : str
-        The directory to check.
-
-    Returns
-    -------
-    bool
-        Whether an excluded directory was found.
     """
 def bootstrap_paths(paths: list[str], exts: list[str]) -> list[BatchPairDict]:
     """

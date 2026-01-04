@@ -6,10 +6,8 @@ File management utilities.
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 __all__ = [
-    "EXCLUDED_DIRS",
     "bootstrap_paths",
     "get_last_line",
-    "has_excluded",
     "modify_file",
     "open_batch_paths",
     "try_open",
@@ -47,39 +45,16 @@ def try_open(fpath: str) -> bool:
     bool
         Whether the file triggers a ``UnicodeDecodeError`` or not.
     """
-    file = open(fpath, "rb")
-    success: bool = True
-    try:
-        file.read().decode(encoding="utf8")
-    except UnicodeDecodeError:
-        success = False
-    except Exception:
-        die("Something went wrong in `try_open()`!", code=2)
+    with open(fpath, "r") as file:
+        success: bool = True
+        try:
+            file.read()
+        except UnicodeDecodeError:
+            success = False
+        except Exception:
+            die("Something went wrong in `try_open()`!", code=2)
 
-    file.close()
     return success
-
-
-def has_excluded(dir: str) -> bool:
-    """
-    Check whether a directory list contains any excluded directories.
-
-    Parameters
-    ----------
-    dir : str
-        The directory to check.
-
-    Returns
-    -------
-    bool
-        Whether an excluded directory was found.
-    """
-    dir = dir.rstrip("/")
-    for excluded in EXCLUDED_DIRS:
-        if dir.endswith(excluded):
-            return True
-
-    return False
 
 
 def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
@@ -100,22 +75,13 @@ def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
     """
     result = list()
     for path in paths:
-        if not isdir(path) or has_excluded(path):
+        if not isdir(path):
             continue
 
         root: str
         dirs: List[str]
         files: List[str]
         for root, dirs, files in walk(path):
-            excluded = False
-            for dir in dirs:
-                if has_excluded(dir):
-                    excluded = True
-                    break
-
-            if excluded:
-                continue
-
             for file in files:
                 for ext in exts:
                     if not file.endswith(ext):
@@ -147,7 +113,7 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
             continue
 
         try:
-            result[fpath] = {"file": open(fpath, "rb"), "ft_ext": ext}
+            result[fpath] = {"file": open(fpath, "r"), "ft_ext": ext}
         except KeyboardInterrupt:
             die("\nProgram interrupted!", code=1)  # Kills the program
         except FileNotFoundError:
@@ -181,7 +147,7 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     matching: bool = kwargs.get("matching", False)
     newline: bool = kwargs.get("newline", False)
 
-    bdata: str = file.read().decode(encoding="utf8")
+    bdata: str = file.read()
     data: List[str] = bdata.split("\n")
     file.close()
 
@@ -224,7 +190,7 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     LineBool
         An object containing both the last line in a string and a boolean indicating a newline.
     """
-    bdata: str = file.read().decode(encoding="utf8")
+    bdata: str = file.read()
     data: List[str] = bdata.split("\n")
     file.close()
 
