@@ -4,7 +4,7 @@ from ..types import IndentHandler, ParserSpec
 
 __all__ = ['gen_parser_specs', 'bootstrap_args', 'arg_parser_init', 'indent_handler']
 
-def gen_parser_specs(*specs) -> tuple[ParserSpec]:
+def gen_parser_specs(*specs) -> list[ParserSpec]:
     """
     Generate a ``ParserSpec`` object.
 
@@ -15,10 +15,10 @@ def gen_parser_specs(*specs) -> tuple[ParserSpec]:
 
     Returns
     -------
-    Tuple[ParserSpec]
-        The converted dictionaries inside a tuple.
+    List[ParserSpec]
+        The converted dictionaries inside a list.
     """
-def bootstrap_args(parser: ArgumentParser, specs: tuple[ParserSpec]) -> Namespace:
+def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace:
     """
     Bootstrap the program arguments.
 

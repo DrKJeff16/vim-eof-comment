@@ -17,7 +17,7 @@ from ..util import die
 from .completion import complete_parser
 
 
-def gen_parser_specs(*specs) -> Tuple[ParserSpec]:
+def gen_parser_specs(*specs) -> List[ParserSpec]:
     """
     Generate a ``ParserSpec`` object.
 
@@ -28,13 +28,13 @@ def gen_parser_specs(*specs) -> Tuple[ParserSpec]:
 
     Returns
     -------
-    Tuple[ParserSpec]
-        The converted dictionaries inside a tuple.
+    List[ParserSpec]
+        The converted dictionaries inside a list.
     """
-    return tuple([ParserSpec(**d) for d in [*specs]])
+    return [ParserSpec(**d) for d in [*specs]]
 
 
-def bootstrap_args(parser: ArgumentParser, specs: Tuple[ParserSpec]) -> Namespace:
+def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace:
     """
     Bootstrap the program arguments.
 
@@ -92,7 +92,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         add_help=True,
         allow_abbrev=True
     )
-    spec: Tuple[ParserSpec] = gen_parser_specs(
+    spec: List[ParserSpec] = gen_parser_specs(
         {
             "opts": ["directories"],
             "kwargs": {

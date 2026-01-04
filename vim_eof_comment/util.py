@@ -5,7 +5,12 @@ EOF comments checker utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["die", "error", "gen_indent_maps", "verbose_print"]
+__all__ = [
+    "die",
+    "error",
+    "gen_indent_maps",
+    "verbose_print",
+]
 
 from sys import exit as Exit
 from sys import stderr, stdout
@@ -15,7 +20,7 @@ from .types import IndentHandler, IndentMap
 
 
 def error(*msg, **kwargs) -> NoReturn:
-    r"""
+    """
     Print to stderr.
 
     Parameters
@@ -29,11 +34,14 @@ def error(*msg, **kwargs) -> NoReturn:
     --------
     print : This function is essentially being wrapped around here.
     """
-    print(*msg, file=stderr, **kwargs)
+    end: str = kwargs.get("end", "\n")
+    sep: str = kwargs.get("sep", " ")
+    flush: bool = kwargs.get("flush", False)
+    print(*msg, file=stderr, end=end, sep=sep, flush=flush)
 
 
 def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> NoReturn:
-    r"""
+    """
     Kill the program execution.
 
     Summons ``sys.exit()`` with a provided code and optionally prints code to stderr or stdout
@@ -107,12 +115,12 @@ def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> NoReturn:
     --------
     print : This function is essentially being wrapped around here.
     """
+    if verbose is None or not verbose:
+        return
+
     end: str = kwargs.get("end", "\n")
     sep: str = kwargs.get("sep", " ")
     flush: bool = kwargs.get("flush", False)
-
-    if verbose is None or not verbose:
-        return
 
     print(*msg, end=end, sep=sep, flush=flush)
 
@@ -150,10 +158,10 @@ def gen_indent_maps(maps: List[IndentHandler]) -> Dict[str, IndentMap] | None:
             continue
 
         mapping_len = mapping_len if mapping_len <= 3 else 3
-        map_d[ext] = {
-            "level": level,
-            "expandtab": True if mapping_len == 2 else mapping["expandtab"],
-        }
+        map_d[ext] = IndentMap(
+            level=level,
+            expandtab=True if mapping_len == 2 else mapping["expandtab"]
+        )
 
     return map_d
 

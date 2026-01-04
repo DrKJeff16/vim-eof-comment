@@ -108,7 +108,7 @@ class Comments():
             self.langs = self.__DEFAULT.copy()
             return
 
-        langs = dict()
+        langs: Dict[str, IndentMap] = dict()
         for lang, mapping in mappings.items():
             if not (self.__is_available(lang)) or len(mapping) == 0:
                 continue
@@ -117,7 +117,7 @@ class Comments():
             if len(mapping) > 1:
                 expandtab = mapping["expandtab"]
 
-            langs[lang] = {"level": indent, "expandtab": expandtab}
+            langs[lang] = IndentMap(level=indent, expandtab=expandtab)
 
         self.__fill_langs(langs)
 

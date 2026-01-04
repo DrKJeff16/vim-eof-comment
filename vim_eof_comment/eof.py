@@ -153,10 +153,9 @@ def main() -> int:
     dirs: List[str] = ns.directories
     exts: List[str] = ns.exts.split(",")
     newline: bool = ns.newline
-    indent: List[IndentHandler] = indent_handler(ns.indent)
     verbose: bool = ns.verbose
-
     dry_run: bool = ns.dry_run
+    indent: List[IndentHandler] = indent_handler(ns.indent)
 
     if dry_run:
         verbose = True

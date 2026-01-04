@@ -106,14 +106,14 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
     Dict[str, BatchPathDict]
         A ``str`` to ``BatchPathDict``` dictionary.
     """
-    result = dict()
+    result: Dict[str, BatchPathDict] = dict()
     for path in paths:
         fpath, ext = path["fpath"], path["ft_ext"]
         if not try_open(fpath):
             continue
 
         try:
-            result[fpath] = {"file": open(fpath, "r"), "ft_ext": ext}
+            result[fpath] = BatchPathDict(file=open(fpath, "r"), ft_ext=ext)
         except KeyboardInterrupt:
             die("\nProgram interrupted!", code=1)  # Kills the program
         except FileNotFoundError:
