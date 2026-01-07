@@ -5,7 +5,13 @@ Per-filetype modeline comment class.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["Comments", "export_json", "import_json", "list_filetypes"]
+__all__ = [
+    "Comments",
+    "export_json",
+    "generate_list_items",
+    "import_json",
+    "list_filetypes",
+]
 
 import json
 import os

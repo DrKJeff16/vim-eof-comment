@@ -2,7 +2,7 @@ from typing import Iterator, NoReturn
 
 from ..types import IndentMap
 
-__all__ = ['Comments', 'export_json', 'import_json', 'list_filetypes']
+__all__ = ['Comments', 'export_json', 'generate_list_items', 'import_json', 'list_filetypes']
 
 def import_json() -> tuple[dict[str, str], dict[str, IndentMap]]:
     """
@@ -113,6 +113,24 @@ class Comments:
             Either the file extension string, or if not available then ``None``.
         """
 
+def generate_list_items(ft: str, level: int, expandtab: str) -> str:
+    '''
+    Generate a colored string for filetypes listing.
+
+    Parameters
+    ----------
+    ft : str
+        The filetype item in question.
+    level : int
+        Indent size.
+    expandtab : str
+        Either ``"Yes"`` or ``"No"``.
+
+    Returns
+    -------
+    str
+        The generated string.
+    '''
 def list_filetypes() -> NoReturn:
     """List all available filetypes."""
 def export_json() -> NoReturn:

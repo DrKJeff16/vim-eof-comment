@@ -5,7 +5,7 @@ Argument parsing completion utilities for ``vim-eof-comment``.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
-__all__ = ["complete_parser"]
+__all__ = ["complete_parser", "complete_validator"]
 
 from argparse import ArgumentParser
 from typing import List, NoReturn
