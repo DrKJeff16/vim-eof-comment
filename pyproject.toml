@@ -21,7 +21,7 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-dependencies = ["argcomplete", "argparse", "colorama", "setuptools", "wheel"]
+dependencies = ["argcomplete", "argparse", "colorama"]
 description = "Adds Vim EOF modeline comments for given filetypes in given directories"
 keywords = [
     "eof comments",

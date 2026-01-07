@@ -4,19 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-setuptools = "*"
-wheel = "*"
 argparse = "*"
-pyproject = "*"
 colorama = "*"
 argcomplete = "*"
-pynvim = "*"
 
 [dev-packages]
+pyproject = "*"
+setuptools = "*"
+wheel = "*"
 pynvim = "*"
 build = "*"
 pip = "*"
-pyproject = "*"
 twine = "*"
 pypi-attestations = "*"
 pre-commit = "*"
