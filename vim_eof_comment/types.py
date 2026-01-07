@@ -19,7 +19,7 @@ __all__ = [
 
 from typing import Any, Dict, List, TextIO, TypedDict
 
-from argcomplete.completers import DirectoriesCompleter
+import argcomplete
 
 
 class ParserSpec(TypedDict):
@@ -40,7 +40,7 @@ class ParserSpec(TypedDict):
 
     opts: List[str]
     kwargs: Dict[str, Any]
-    completer: DirectoriesCompleter
+    completer: argcomplete.DirectoriesCompleter
 
 
 class CommentMap(TypedDict):

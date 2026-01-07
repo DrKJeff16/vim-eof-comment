@@ -1,6 +1,6 @@
 from typing import Any, TextIO, TypedDict
 
-from argcomplete.completers import DirectoriesCompleter
+import argcomplete
 
 __all__ = ['BatchPairDict', 'BatchPathDict', 'CommentMap', 'EOFCommentSearch', 'IOWrapperBool', 'IndentHandler', 'IndentMap', 'LineBool', 'ParserSpec']
 
@@ -21,7 +21,7 @@ class ParserSpec(TypedDict):
     """
     opts: list[str]
     kwargs: dict[str, Any]
-    completer: DirectoriesCompleter
+    completer: argcomplete.DirectoriesCompleter
 
 class CommentMap(TypedDict):
     """
