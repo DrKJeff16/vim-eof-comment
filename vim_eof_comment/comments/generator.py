@@ -28,7 +28,6 @@ from ..util import die
 COMMENT_STR: str = "vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:"
 
 _JSON_FILE: str = realpath("./vim_eof_comment/comments/filetypes.json")
-
 _BLUE: int = Fore.BLUE
 _YELLOW: int = Fore.YELLOW
 _CYAN: int = Fore.CYAN
@@ -94,6 +93,7 @@ class Comments():
     __is_available(lang)
     __fill_langs(langs)
     get_defaults()
+    get_ft()
     """
 
     __DEFAULT: Dict[str, IndentMap] = _DEFAULT.copy()

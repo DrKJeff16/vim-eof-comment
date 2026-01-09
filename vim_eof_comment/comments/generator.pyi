@@ -41,6 +41,7 @@ class Comments:
     __is_available(lang)
     __fill_langs(langs)
     get_defaults()
+    get_ft()
     """
     __DEFAULT: dict[str, IndentMap]
     __formats: dict[str, str]
