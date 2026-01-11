@@ -14,7 +14,6 @@ setuptools = "*"
 wheel = "*"
 pynvim = "*"
 build = "*"
-pip = "*"
 twine = "*"
 pypi-attestations = "*"
 pre-commit = "*"
@@ -28,6 +27,7 @@ renku-sphinx-theme = "*"
 sphinxawesome-theme = "*"
 numpydoc = "*"
 vim-eof-comment = "*"
+pip = "*"
 
 [scripts]
 lint = "flake8 --statistics --show-source --color always --max-line-length 100 --docstring-convention numpy --ignore=D401 ."
@@ -39,4 +39,4 @@ install = "python3 -m pip install"
 stubs = "stubgen -p vim_eof_comment -o ."
 
 [requires]
-python_version = "3.13"
+python_version = "3.14"
