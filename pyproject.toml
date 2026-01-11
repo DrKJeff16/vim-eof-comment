@@ -40,7 +40,7 @@ maintainers = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com
 name = "vim-eof-comment"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.4.2"
+version = "0.5.0"
 
     [project.scripts]
     vim-eof-comment = "vim_eof_comment.eof:main"
