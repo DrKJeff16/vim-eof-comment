@@ -79,7 +79,7 @@ def eof_comment_search(
             result[path] = EOFCommentSearch(
                 state=IOWrapperBool(file=open(path, "r"), had_nwl=had_nwl),
                 lang=ext,
-                match=matches(last_line, verbose)
+                match=matches(last_line)
             )
         else:
             verbose_print(f"{_BRIGHT}{_GREEN}OK", verbose=verbose)

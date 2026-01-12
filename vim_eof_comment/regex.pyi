@@ -1,6 +1,6 @@
 __all__ = ['matches']
 
-def matches(s: str, verbose: bool = False) -> bool:
+def matches(s: str) -> bool:
     """
     Check if given string matches any of the given patterns.
 
@@ -8,8 +8,6 @@ def matches(s: str, verbose: bool = False) -> bool:
     ----------
     s : str
         The string to be matched.
-    verbose : bool, optional, default=False
-        Enables verbose mode.
 
     Returns
     -------

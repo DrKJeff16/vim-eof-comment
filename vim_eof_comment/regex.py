@@ -7,11 +7,11 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 __all__ = ["matches"]
 
-from re import compile
-from typing import Tuple
+from re import Pattern, compile
+from typing import AnyStr, List
 
 
-def matches(s: str, verbose: bool = False) -> bool:
+def matches(s: str) -> bool:
     """
     Check if given string matches any of the given patterns.
 
@@ -19,21 +19,18 @@ def matches(s: str, verbose: bool = False) -> bool:
     ----------
     s : str
         The string to be matched.
-    verbose : bool, optional, default=False
-        Enables verbose mode.
 
     Returns
     -------
     bool
         Whether the string matches the default regex.
     """
-    pats: Tuple[str, str] = (
-        "vim:([a-zA-Z]+(=[a-zA-Z0-9_]*)?:)+",
-        "vim:\\sset(\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?)*\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?:"
-    )
-    for pattern in [compile(pat) for pat in pats]:
-        match = pattern.search(s)
-        if match is not None:
+    pats: List[Pattern[AnyStr]] = [
+        compile("vim:([a-zA-Z]+(=[a-zA-Z0-9_]*)?:)+"),
+        compile("vim:\\sset(\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?)*\\s[a-zA-Z]+(=[a-zA-Z0-9_]*)?:"),
+    ]
+    for pattern in pats:
+        if pattern.search(s) is not None:
             return True
 
     return False
