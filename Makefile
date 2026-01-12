@@ -1,27 +1,26 @@
-.PHONY: all help lint build local-install upload clean sign run-script docs
+.PHONY: all help lint build local-install clean run-script docs
 
-all:
-	@$(MAKE) clean
+all: clean
 	@$(MAKE) local-install
 	@$(MAKE) run-script
 
 clean:
 	@echo "Cleaning..."
 	@rm -rf build dist *.egg-info
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 distclean: clean
 	@echo "Cleaning Everything..."
 	@rm -rf .mypy_cache .ropeproject .pytest_cache
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 docs:
-	@echo -e "Generating docs...\n"
+	@echo -e "Generating docs..."
 	@$(MAKE) -C docs html
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 help:
-	@echo -e "\nAvailable targets:"
+	@echo -e "Available targets:\n"
 	@echo "  build"
 	@echo "  clean"
 	@echo "  distclean"
@@ -30,13 +29,11 @@ help:
 	@echo "  lint"
 	@echo "  local-install"
 	@echo "  run-script"
-	@echo "  sign"
 	@echo "  stubs"
-	@echo "  upload"
 	@echo
 
 lint:
-	@echo -e "Linting...\n"
+	@echo "Linting..."
 	@flake8 --statistics --show-source --color=always --max-line-length=100 --ignore=D401 \
 		--per-file-ignores=__init__.py:F401 \
 		--exclude .tox,.git,*staticfiles*,build,locale,docs,tools,venv,.venv,*migrations*,*.pyc,*.pyi,__pycache__,test_*.py \
@@ -45,42 +42,30 @@ lint:
 	@autopep8 --aggressive --aggressive --aggressive --in-place --recursive vim_eof_comment
 	$(eval files := $(shell fd --full-path vim_eof_comment -e py))
 	@numpydoc lint $(files)
-	@echo -e "\nDone!"
+	@echo "Done!"
 
 stubs: lint
-	@echo -e "Generating stubs...\n"
+	@echo "Generating stubs..."
 	@stubgen --include-docstrings --include-private -v -p vim_eof_comment -o .
-	@echo -e "\nDone!"
-	@echo -e "\nRunning isort...\n"
+	@echo -e "Done!\nRunning isort..."
 	@isort vim_eof_comment
-	@echo -e "\nDone!"
-	@echo -e "\nLinting with mypy...\n"
+	@echo -e "Done!\nLinting with mypy..."
 	@mypy vim_eof_comment
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 build: stubs
-	@echo -e "Building...\n"
+	@echo -e "Building..."
 	@python3 -m build
-	@echo -e "\nDone!"
-
-sign: build
-	@echo -e "Signing build...\n"
-	@pypi-attestations sign dist/*
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 local-install: build
-	@echo -e "Installing locally...\n"
+	@echo -e "Installing locally..."
 	@python3 -m pip install .
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 run-script:
-	@echo -e "Running vim-eof-comment...\n"
+	@echo -e "Running vim-eof-comment..."
 	@vim-eof-comment -e py,pyi,Makefile,md -nv .
-	@echo -e "\nDone!"
-
-upload: sign
-	@echo -e "Uploading to PyPI...\n"
-	@twine upload dist/*
-	@echo -e "\nDone!"
+	@echo -e "Done!"
 
 # vim: set ts=4 sts=4 sw=0 noet ai si sta:
