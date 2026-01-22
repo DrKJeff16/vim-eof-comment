@@ -9,7 +9,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = ["append_eof_comment", "eof_comment_search", "main"]
 
 from io import TextIOWrapper
-from typing import Dict, List, NoReturn
+from typing import Dict, List, NoReturn, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -32,7 +32,7 @@ def eof_comment_search(
     files: Dict[str, BatchPathDict],
     comments: Comments,
     **kwargs
-) -> Dict[str, EOFCommentSearch]:
+) -> Tuple[Dict[str, EOFCommentSearch], bool]:
     """
     Search through opened files.
 
@@ -71,7 +71,7 @@ def eof_comment_search(
         ext: str = file["ft_ext"]
 
         wrapper = get_last_line(file_obj)
-        last_line, had_nwl = wrapper["line"], wrapper["had_nwl"]
+        last_line, had_nwl, crlf = wrapper["line"], wrapper["had_nwl"], wrapper["crlf"]
 
         verbose_print(f"{_RESET} - {path} ==> ", verbose=verbose, end="", sep="")
         if last_line != comment_map[ext] or (newline and not had_nwl):
@@ -84,13 +84,14 @@ def eof_comment_search(
         else:
             verbose_print(f"{_BRIGHT}{_GREEN}OK", verbose=verbose)
 
-    return result
+    return result, crlf
 
 
 def append_eof_comment(
     files: Dict[str, EOFCommentSearch],
     comments: Comments,
-    newline: bool
+    newline: bool,
+    crlf: bool
 ) -> NoReturn:
     """
     Append a Vim EOF comment to files missing it.
@@ -103,6 +104,8 @@ def append_eof_comment(
         The ``Comments`` object containing the hardcoded comments per file extension.
     newline : bool
         Indicates whether a newline should be added before the comment.
+    crlf : bool
+        Whether the file is CRLF-terminated.
     """
     comment_map = comments.generate()
     for path, file in files.items():
@@ -166,9 +169,9 @@ def main() -> int:
         die("No matching files found!", code=code)
 
     comments = Comments(gen_indent_maps(indent.copy()))
-    results = eof_comment_search(files, comments, verbose=verbose, newline=newline)
+    results, crlf = eof_comment_search(files, comments, verbose=verbose, newline=newline)
     if len(results) > 0 and not dry_run:
-        append_eof_comment(results, comments, newline)
+        append_eof_comment(results, comments, newline, crlf)
 
     return 0
 

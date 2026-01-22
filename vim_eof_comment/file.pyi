@@ -61,7 +61,7 @@ def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwarg
     ext : str
         The file-type/file-extension given by the user.
     **kwargs
-        Contains the ``newline``, and ``matching`` boolean attributes.
+        Contains the ``newline``, ``matching`` and ``crlf`` boolean attributes.
 
     Returns
     -------

@@ -137,7 +137,7 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     ext : str
         The file-type/file-extension given by the user.
     **kwargs
-        Contains the ``newline``, and ``matching`` boolean attributes.
+        Contains the ``newline``, ``matching`` and ``crlf`` boolean attributes.
 
     Returns
     -------
@@ -146,10 +146,14 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     """
     matching: bool = kwargs.get("matching", False)
     newline: bool = kwargs.get("newline", False)
+    crlf: bool = kwargs.get("crlf", False)
 
     bdata: str = file.read()
-    data: List[str] = bdata.split("\n")
     file.close()
+
+    data: List[str] = bdata.split("\n")
+    if crlf:
+        data[-2] = ""
 
     data_len = len(data)
     comment = comments[ext]
@@ -173,6 +177,9 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
         if not newline and data[-3] == "":
             data.pop(-3)
 
+    if crlf:
+        data.insert(-1, "\r")
+
     return "\n".join(data)
 
 
@@ -194,15 +201,22 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     data: List[str] = bdata.split("\n")
     file.close()
 
-    had_newline, line = False, ""
-    if len(data) <= 1:
+    if data[-1] != "":
+        data.append("")
+
+    had_nwl, crlf, line = False, False, ""
+    if len(data) == 0:
+        line = ""
+    elif len(data) == 1:
         line = data[0]
     elif len(data) >= 2:
         line: str = data[-2]
+        if line == "\r":
+            line, crlf = "", True
 
         if len(data) >= 3:
-            had_newline = data[-3] == ""
+            had_nwl = data[-3] == ""
 
-    return LineBool(line=line, had_nwl=had_newline)
+    return LineBool(line=line, had_nwl=had_nwl, crlf=crlf)
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
