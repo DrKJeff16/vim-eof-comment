@@ -148,27 +148,27 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     newline: bool = kwargs.get("newline", False)
     crlf: bool = kwargs.get("crlf", False)
 
-    bdata: str = file.read()
+    data: List[str] = file.read().split("\n")
     file.close()
 
-    data: List[str] = bdata.split("\n")
+    if len(data) >= 1 and data[-1] != "":
+        data.append("")
+
     if crlf:
         data[-2] = ""
 
-    data_len = len(data)
-    comment = comments[ext]
-    if data_len == 0:
-        data = [comment, ""]
-    elif data_len == 1:
+    if len(data) == 0:
+        data = [comments[ext], ""]
+    elif len(data) == 1:
         if matching:
-            data = [comment, ""]
+            data = [comments[ext], ""]
         else:
-            data.insert(0, comment)
-    elif data_len >= 2:
+            data.insert(0, comments[ext])
+    elif len(data) >= 2:
         if matching:
-            data[-2] = comment
+            data[-2] = comments[ext]
         else:
-            data.insert(-1, comment)
+            data.insert(-1, comments[ext])
 
     if len(data) >= 3:
         if newline and data[-3] != "":
@@ -197,8 +197,7 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     LineBool
         An object containing both the last line in a string and a boolean indicating a newline.
     """
-    bdata: str = file.read()
-    data: List[str] = bdata.split("\n")
+    data: List[str] = file.read().split("\n")
     file.close()
 
     if data[-1] != "":

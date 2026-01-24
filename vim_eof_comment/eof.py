@@ -120,12 +120,11 @@ def append_eof_comment(
             ext=ext,
             newline=newline,
             had_nwl=had_nwl,
-            matching=matching
+            matching=matching,
+            crlf=crlf
         )
-        file_obj = open(path, "w")
-
-        file_obj.write(txt)
-        file_obj.close()
+        with open(path, "w") as file_obj:
+            file_obj.write(txt)
 
 
 def main() -> int:
