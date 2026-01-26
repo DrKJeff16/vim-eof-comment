@@ -9,7 +9,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = ["append_eof_comment", "eof_comment_search", "main"]
 
 from io import TextIOWrapper
-from typing import Dict, List, NoReturn, Tuple
+from typing import Dict, List, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -67,17 +67,17 @@ def eof_comment_search(
 
     verbose_print(f"{_RESET}Analyzing files...\n", verbose=verbose)
     for path, file in files.items():
-        file_obj: TextIOWrapper = file["file"]
-        ext: str = file["ft_ext"]
+        file_obj: TextIOWrapper = file.file
+        ext: str = file.ft_ext
 
         wrapper = get_last_line(file_obj)
-        last_line, had_nwl, crlf = wrapper["line"], wrapper["had_nwl"], wrapper["crlf"]
+        last_line, had_nwl, crlf = wrapper.line, wrapper.had_nwl, wrapper.crlf
 
         verbose_print(f"{_RESET} - {path} ==> ", verbose=verbose, end="", sep="")
         if last_line != comment_map[ext] or (newline and not had_nwl):
             verbose_print(f"{_BRIGHT}{_RED}CHANGED", verbose=verbose)
             result[path] = EOFCommentSearch(
-                state=IOWrapperBool(file=open(path, "r"), had_nwl=had_nwl),
+                state=IOWrapperBool(file=open(path, "r"), had_nwl=had_nwl, crlf=crlf),
                 lang=ext,
                 match=matches(last_line)
             )
@@ -92,7 +92,7 @@ def append_eof_comment(
     comments: Comments,
     newline: bool,
     crlf: bool
-) -> NoReturn:
+) -> None:
     """
     Append a Vim EOF comment to files missing it.
 
@@ -109,10 +109,10 @@ def append_eof_comment(
     """
     comment_map = comments.generate()
     for path, file in files.items():
-        file_obj = file["state"]["file"]
-        had_nwl = file["state"]["had_nwl"]
-        matching = file["match"]
-        ext = file["lang"]
+        file_obj = file.state.file
+        had_nwl = file.state.had_nwl
+        matching = file.match
+        ext = file.lang
 
         txt = modify_file(
             file_obj,

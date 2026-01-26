@@ -17,7 +17,7 @@ import json
 import os
 from io import TextIOWrapper
 from os.path import exists, isdir, realpath
-from typing import Dict, Iterator, List, NoReturn, Tuple
+from typing import Dict, Iterator, List, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -119,9 +119,9 @@ class Comments():
             if not (self.__is_available(lang)) or len(mapping) == 0:
                 continue
 
-            indent, expandtab = mapping["level"], True
+            indent, expandtab = mapping.level, True
             if len(mapping) > 1:
-                expandtab = mapping["expandtab"]
+                expandtab = mapping.expandtab
 
             langs[lang] = IndentMap(level=indent, expandtab=expandtab)
 
@@ -148,7 +148,7 @@ class Comments():
         """
         return lang in self.__DEFAULT.keys()
 
-    def __fill_langs(self, langs: Dict[str, IndentMap]) -> NoReturn:
+    def __fill_langs(self, langs: Dict[str, IndentMap]) -> None:
         """
         Fill languages dict.
 
@@ -242,7 +242,7 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     return txt
 
 
-def list_filetypes() -> NoReturn:
+def list_filetypes() -> None:
     """List all available filetypes."""
     color_init()
 
@@ -262,7 +262,7 @@ def list_filetypes() -> NoReturn:
     die(*txt, code=0, sep="\n")
 
 
-def export_json() -> NoReturn:
+def export_json() -> None:
     """Export default vars to JSON."""
     if not (exists("./vim_eof_comment/comments") and isdir("./vim_eof_comment/comments")):
         return

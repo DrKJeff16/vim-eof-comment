@@ -2,7 +2,9 @@ from io import TextIOWrapper
 
 from .types import BatchPairDict, BatchPathDict, LineBool
 
-__all__ = ['bootstrap_paths', 'get_last_line', 'modify_file', 'open_batch_paths', 'try_open']
+__all__ = ['EXCLUDED_DIRS', 'bootstrap_paths', 'get_last_line', 'modify_file', 'open_batch_paths', 'try_open']
+
+EXCLUDED_DIRS: list[str]
 
 def try_open(fpath: str) -> bool:
     """

@@ -34,12 +34,9 @@ help:
 
 lint:
 	@echo "Linting..."
-	@flake8 --statistics --show-source --color=always --max-line-length=100 --ignore=D401 \
-		--per-file-ignores=__init__.py:F401 \
-		--exclude .tox,.git,*staticfiles*,build,locale,docs,tools,venv,.venv,*migrations*,*.pyc,*.pyi,__pycache__,test_*.py \
-		vim_eof_comment
+	@flake8 vim_eof_comment
 	@pydocstyle --convention=numpy --match='.*\.py' vim_eof_comment
-	@autopep8 --aggressive --aggressive --aggressive --in-place --recursive vim_eof_comment
+	# @autopep8 --aggressive --aggressive --aggressive --in-place --recursive vim_eof_comment
 	$(eval files := $(shell fd --full-path vim_eof_comment -e py))
 	@numpydoc lint $(files)
 	@echo "Done!"

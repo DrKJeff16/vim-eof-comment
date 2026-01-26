@@ -1,4 +1,4 @@
-from typing import Iterator, NoReturn
+from typing import Iterator
 
 from ..types import IndentMap
 
@@ -72,7 +72,7 @@ class Comments:
         bool
             Represents whether the file extension has been included in the defaults.
         """
-    def __fill_langs(self, langs: dict[str, IndentMap]) -> NoReturn:
+    def __fill_langs(self, langs: dict[str, IndentMap]) -> None:
         """
         Fill languages dict.
 
@@ -132,9 +132,9 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     str
         The generated string.
     '''
-def list_filetypes() -> NoReturn:
+def list_filetypes() -> None:
     """List all available filetypes."""
-def export_json() -> NoReturn:
+def export_json() -> None:
     """Export default vars to JSON."""
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

@@ -1,10 +1,10 @@
-from typing import Callable, NoReturn, TextIO
+from typing import Callable, TextIO
 
 from .types import IndentHandler, IndentMap
 
 __all__ = ['die', 'error', 'gen_indent_maps', 'verbose_print']
 
-def error(*msg, **kwargs) -> NoReturn:
+def error(*msg, **kwargs) -> None:
     """
     Print to stderr.
 
@@ -19,7 +19,7 @@ def error(*msg, **kwargs) -> NoReturn:
     --------
     print : This function is essentially being wrapped around here.
     """
-def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> NoReturn:
+def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> None:
     '''
     Kill the program execution.
 
@@ -60,7 +60,7 @@ def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwa
     >>> die("foo", "bar")
     foo bar
     '''
-def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> NoReturn:
+def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> None:
     """
     Only prints the given data if verbose mode is activated.
 

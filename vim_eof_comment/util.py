@@ -14,12 +14,12 @@ __all__ = [
 
 from sys import exit as Exit
 from sys import stderr, stdout
-from typing import Callable, Dict, List, NoReturn, TextIO
+from typing import Callable, Dict, List, TextIO
 
 from .types import IndentHandler, IndentMap
 
 
-def error(*msg, **kwargs) -> NoReturn:
+def error(*msg, **kwargs) -> None:
     """
     Print to stderr.
 
@@ -40,7 +40,7 @@ def error(*msg, **kwargs) -> NoReturn:
     print(*msg, file=stderr, end=end, sep=sep, flush=flush)
 
 
-def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> NoReturn:
+def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwargs) -> None:
     """
     Kill the program execution.
 
@@ -98,7 +98,7 @@ def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwa
     Exit(code)
 
 
-def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> NoReturn:
+def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> None:
     """
     Only prints the given data if verbose mode is activated.
 
@@ -153,14 +153,14 @@ def gen_indent_maps(maps: List[IndentHandler]) -> Dict[str, IndentMap] | None:
         if mapping_len <= 1:
             raise ValueError(f"One of the custom mappings is not formatted properly! (`{mapping}`)")
 
-        ext, level = mapping["ft_ext"], mapping["level"]
+        ext, level = mapping.ft_ext, mapping.level
         if ext in map_d.keys():
             continue
 
         mapping_len = mapping_len if mapping_len <= 3 else 3
         map_d[ext] = IndentMap(
             level=level,
-            expandtab=True if mapping_len == 2 else mapping["expandtab"]
+            expandtab=True if mapping_len == 2 else mapping.expandtab
         )
 
     return map_d

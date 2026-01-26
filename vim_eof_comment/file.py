@@ -6,6 +6,7 @@ File management utilities.
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 __all__ = [
+    "EXCLUDED_DIRS",
     "bootstrap_paths",
     "get_last_line",
     "modify_file",
@@ -108,7 +109,7 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
     """
     result: Dict[str, BatchPathDict] = dict()
     for path in paths:
-        fpath, ext = path["fpath"], path["ft_ext"]
+        fpath, ext = path.fpath, path.ft_ext
         if not try_open(fpath):
             continue
 

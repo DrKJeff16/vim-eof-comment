@@ -23,7 +23,7 @@ from typing import Any, Dict, List, TextIO, Tuple, TypedDict
 import argcomplete
 
 
-class VersionInfo():
+class VersionInfo:
     """
     A ``sys.version_info``-like object type.
 
@@ -142,7 +142,6 @@ class VersionInfo():
         if not isinstance(b, VersionInfo):
             return False
 
-        b: VersionInfo = b
         return self.major == b.major and self.minor == b.minor and self.patch == b.patch
 
     def get_current_version(self) -> Tuple[int, int, int]:
@@ -189,11 +188,18 @@ class VersionInfo():
         return result
 
 
-class ParserSpec(TypedDict):
+class ParserSpec:
     """
     Stores the spec for ``argparse`` operations in a constant value.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    opts : List[str]
+        A list containing all the relevant iterations of the same option.
+    kwargs : Dict[str, Any]
+        Extra arguments for ``argparse.ArgumentParser``.
+    completer : argcomplete.DirectoriesCompleter
+        An ``argcomplete`` completer object.
 
     Attributes
     ----------
@@ -209,12 +215,40 @@ class ParserSpec(TypedDict):
     kwargs: Dict[str, Any]
     completer: argcomplete.DirectoriesCompleter
 
+    def __init__(
+        self,
+        opts: List[str],
+        kwargs: Dict[str, Any],
+        completer: argcomplete.DirectoriesCompleter
+    ):
+        self.opts = opts
+        self.kwargs = kwargs
+        self.completer = completer
 
-class CommentMap(TypedDict):
+    def __iterables(self) -> Tuple[List[str], Dict[str, Any], argcomplete.DirectoriesCompleter]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[List[str], Dict[str, Any], argcomplete.DirectoriesCompleter]
+            The ``opts``, ``kwargs`` and ``completer`` attributes.
+        """
+        return (self.opts, self.kwargs, self.completer)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
+
+class CommentMap:
     """
-    Stores a dict with a ``level`` key.
+    An object containing ``level``.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    level : int
+        The indentation level.
 
     Attributes
     ----------
@@ -224,12 +258,28 @@ class CommentMap(TypedDict):
 
     level: int
 
+    def __init__(self, level: int):
+        self.level = level
+
+    def __iterables(self) -> Tuple[int]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[int]
+            The ``opts`` attribute (inside a tuple).
+        """
+        return (self.level,)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
 
 class IndentMap(TypedDict):
     """
-    A dict containing ``level`` and ``expandtab`` as keys.
-
-    This is a ``TypedDict``-like object.
+    An object containing ``level`` and ``expandtab``.
 
     Attributes
     ----------
@@ -243,11 +293,18 @@ class IndentMap(TypedDict):
     expandtab: bool
 
 
-class IndentHandler(TypedDict):
+class IndentHandler:
     """
-    A dict containing ``ft_ext``, ``level`` and ``expandtab`` as keys.
+    An object containing ``ft_ext``, ``level`` and ``expandtab``.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    ft_ext : str
+        The file-extension/file-type.
+    level : str
+        The string representation of the indent level.
+    expandtab : bool
+        Whether to expand tabs or not.
 
     Attributes
     ----------
@@ -263,12 +320,39 @@ class IndentHandler(TypedDict):
     level: str
     expandtab: bool
 
+    def __init__(self, ft_ext: str, level: str, expandtab: bool):
+        self.ft_ext = ft_ext
+        self.level = level
+        self.expandtab = expandtab
 
-class IOWrapperBool(TypedDict):
+    def __iterables(self) -> Tuple[str, str, bool]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[str, str, bool]
+            The ``ft_ext``, ``level`` and ``expandtab`` attributes.
+        """
+        return (self.ft_ext, self.level, self.expandtab)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
+
+class IOWrapperBool:
     """
-    A dict containing ``file``, ``had_nwl`` and ``crlf`` as keys.
+    An object containing ``file``, ``had_nwl`` and ``crlf``.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    file : TextIO
+        The opened file as a ``TextIO`` wrapper.
+    had_nwl : bool
+        Whether the file has a newline or not.
+    crlf : bool
+        Whether the file is CRLF-terminated.
 
     Attributes
     ----------
@@ -284,12 +368,39 @@ class IOWrapperBool(TypedDict):
     had_nwl: bool
     crlf: bool
 
+    def __init__(self, file: TextIO, had_nwl: bool, crlf: bool):
+        self.file = file
+        self.had_nwl = had_nwl
+        self.crlf = crlf
 
-class LineBool(TypedDict):
+    def __iterables(self) -> Tuple[TextIO, bool, bool]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[TextIO, bool, bool]
+            The ``file``, ``had_nwl`` and ``crlf`` attributes.
+        """
+        return (self.file, self.had_nwl, self.crlf)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
+
+class LineBool:
     """
-    A dict containing ``line``, ``had_nwl`` and ``crlf`` as keys.
+    An object containing ``line``, ``had_nwl`` and ``crlf``.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    line : str
+        The last line of the target file.
+    had_nwl : bool
+        Whether the file has a newline or not.
+    crlf : bool
+        Whether the file is CRLF-terminated.
 
     Attributes
     ----------
@@ -305,12 +416,37 @@ class LineBool(TypedDict):
     had_nwl: bool
     crlf: bool
 
+    def __init__(self, line: str, had_nwl: bool, crlf: bool):
+        self.line = line
+        self.had_nwl = had_nwl
+        self.crlf = crlf
 
-class BatchPathDict(TypedDict):
+    def __iterables(self) -> Tuple[str, bool, bool]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[str, bool, bool]
+            The ``line``, ``had_nwl`` and ``crlf`` attributes.
+        """
+        return (self.line, self.had_nwl, self.crlf)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
+
+class BatchPathDict:
     """
-    A dict containing ``file`` and ``ft_ext`` as keys.
+    An object containing ``file`` and ``ft_ext``.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    file : TextIO
+        The opened file as a ``TextIO`` wrapper.
+    ft_ext : str
+        The file-type/file-extension.
 
     Attributes
     ----------
@@ -323,12 +459,36 @@ class BatchPathDict(TypedDict):
     file: TextIO
     ft_ext: str
 
+    def __init__(self, file: TextIO, ft_ext: str):
+        self.file = file
+        self.ft_ext = ft_ext
 
-class BatchPairDict(TypedDict):
+    def __iterables(self) -> Tuple[TextIO, str]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[TextIO, str]
+            The ``file`` and ``ft_ext`` attributes.
+        """
+        return (self.file, self.ft_ext)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
+
+class BatchPairDict:
     """
-    A dict containing ``fpath`` and ``ft_ext`` as keys.
+    An object containing ``fpath`` and ``ft_ext``.
 
-    This is a ``TypedDict``-like object.
+    Parameters
+    ----------
+    fpath : str
+        The target file's path.
+    ft_ext : str
+        The file-type/file-extension.
 
     Attributes
     ----------
@@ -341,12 +501,40 @@ class BatchPairDict(TypedDict):
     fpath: str
     ft_ext: str
 
+    def __init__(self, fpath: str, ft_ext: str):
+        self.fpath = fpath
+        self.ft_ext = ft_ext
 
-class EOFCommentSearch(TypedDict):
+    def __iterables(self) -> Tuple[str, str]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[str, str]
+            The ``fpath`` and ``ft_ext`` attributes.
+        """
+        return (self.fpath, self.ft_ext)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
+
+
+class EOFCommentSearch:
     """
     A dict containing ``state``, ``lang`` and ``match`` as keys.
 
     This is a ``TypedDict``-like object.
+
+    Parameters
+    ----------
+    state : IOWrapperBool
+        The target ``IOWrapperBool`` object.
+    lang : str
+        The file language.
+    match : bool
+        Whether it has a variation of an EOF comment at the end.
 
     Attributes
     ----------
@@ -361,5 +549,25 @@ class EOFCommentSearch(TypedDict):
     state: IOWrapperBool
     lang: str
     match: bool
+
+    def __init__(self, state: IOWrapperBool, lang: str, match: bool):
+        self.state = state
+        self.lang = lang
+        self.match = match
+
+    def __iterables(self) -> Tuple[IOWrapperBool, str, bool]:
+        """
+        Generate iterables.
+
+        Returns
+        -------
+        Tuple[IOWrapperBool, str, bool]
+            The ``state``, ``lang`` and ``match`` attributes.
+        """
+        return (self.state, self.lang, self.match)
+
+    def __iter__(self):
+        """Iterate over objects."""
+        yield from self.__iterables()
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

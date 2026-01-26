@@ -8,7 +8,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = ["complete_parser", "complete_validator"]
 
 from argparse import ArgumentParser
-from typing import List, NoReturn
+from typing import List
 
 from argcomplete import autocomplete
 
@@ -32,7 +32,7 @@ def complete_validator(completion_candidate: List[str], current_input: str) -> b
     return current_input in completion_candidate
 
 
-def complete_parser(parser: ArgumentParser, **kwargs) -> NoReturn:
+def complete_parser(parser: ArgumentParser, **kwargs) -> None:
     """
     Complete the script argument parser.
 

@@ -1,5 +1,4 @@
 from argparse import ArgumentParser
-from typing import NoReturn
 
 __all__ = ['complete_parser', 'complete_validator']
 
@@ -19,7 +18,7 @@ def complete_validator(completion_candidate: list[str], current_input: str) -> b
     bool
         Whether the current input fits the completion candidates pool.
     """
-def complete_parser(parser: ArgumentParser, **kwargs) -> NoReturn:
+def complete_parser(parser: ArgumentParser, **kwargs) -> None:
     """
     Complete the script argument parser.
 

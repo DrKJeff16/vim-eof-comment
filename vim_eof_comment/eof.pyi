@@ -1,5 +1,3 @@
-from typing import NoReturn
-
 from .comments.generator import Comments
 from .types import BatchPathDict, EOFCommentSearch
 
@@ -30,7 +28,7 @@ def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, **kw
     vim_eof_comment.types.EOFCommentSearch
         The object type for the returning dictionary values.
     """
-def append_eof_comment(files: dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool) -> NoReturn:
+def append_eof_comment(files: dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool) -> None:
     """
     Append a Vim EOF comment to files missing it.
 

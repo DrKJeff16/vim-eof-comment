@@ -51,9 +51,9 @@ def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace
         The generated ``argparse.Namespace`` object.
     """
     for spec in specs:
-        opts, kwargs = spec["opts"], spec["kwargs"]
-        if spec["completer"] is not None:
-            parser.add_argument(*opts, **kwargs).completer = spec["completer"]
+        opts, kwargs = spec.opts, spec.kwargs
+        if spec.completer is not None:
+            parser.add_argument(*opts, **kwargs).completer = spec.completer
         else:
             parser.add_argument(*opts, **kwargs)
 
