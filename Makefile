@@ -62,7 +62,7 @@ local-install: build
 
 run-script:
 	@echo -e "Running vim-eof-comment..."
-	@vim-eof-comment -e py,pyi,Makefile,md -nv .
+	@vim-eof-comment -e py,pyi,Makefile,md,yaml,yml,toml -nv .
 	@echo -e "Done!"
 
 # vim: set ts=4 sts=4 sw=0 noet ai si sta:

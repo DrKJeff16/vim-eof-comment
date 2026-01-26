@@ -219,18 +219,9 @@ class IndentMap(TypedDict):
     level: int
     expandtab: bool
 
-class IndentHandler:
+class IndentHandler(TypedDict):
     """
     An object containing ``ft_ext``, ``level`` and ``expandtab``.
-
-    Parameters
-    ----------
-    ft_ext : str
-        The file-extension/file-type.
-    level : str
-        The string representation of the indent level.
-    expandtab : bool
-        Whether to expand tabs or not.
 
     Attributes
     ----------
@@ -244,18 +235,6 @@ class IndentHandler:
     ft_ext: str
     level: str
     expandtab: bool
-    def __init__(self, ft_ext: str, level: str, expandtab: bool) -> None: ...
-    def __iterables(self) -> tuple[str, str, bool]:
-        """
-        Generate iterables.
-
-        Returns
-        -------
-        Tuple[str, str, bool]
-            The ``ft_ext``, ``level`` and ``expandtab`` attributes.
-        """
-    def __iter__(self):
-        """Iterate over objects."""
 
 class IOWrapperBool:
     """

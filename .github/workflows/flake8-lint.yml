@@ -38,3 +38,5 @@ jobs:
           path: "vim_eof_comment"
           plugins: "flake8-pyi"
           exclude: ".tox,.git,*staticfiles*,build,locale,docs,tools,venv,.venv,*migrations*,*.pyc,*.pyi,__pycache__,test_*.py"
+
+# vim: set ts=2 sts=2 sw=2 et ai si sta:

@@ -119,9 +119,9 @@ class Comments():
             if not (self.__is_available(lang)) or len(mapping) == 0:
                 continue
 
-            indent, expandtab = mapping.level, True
+            indent, expandtab = mapping["level"], True
             if len(mapping) > 1:
-                expandtab = mapping.expandtab
+                expandtab = mapping["expandtab"]
 
             langs[lang] = IndentMap(level=indent, expandtab=expandtab)
 
