@@ -7,9 +7,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 __all__ = [
     "Comments",
-    "export_json",
     "generate_list_items",
-    "import_json",
     "list_filetypes",
 ]
 
@@ -25,8 +23,7 @@ from colorama import init as color_init
 from ..types import IndentMap
 from ..util import die
 
-COMMENT_STR: str = "vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:"
-
+_COMMENT_STR: str = "vim: set ts={ts} sts={sts} sw={sw} {et} ai si sta:"
 _JSON_FILE: str = realpath("./vim_eof_comment/comments/filetypes.json")
 _BLUE: int = Fore.BLUE
 _YELLOW: int = Fore.YELLOW
@@ -60,12 +57,9 @@ def import_json() -> Tuple[Dict[str, str], Dict[str, IndentMap]]:
     maps = result[1]
 
     for k, v in comments.items():
-        comments[k] = v.format(comment=COMMENT_STR)
+        comments[k] = v.format(comment=_COMMENT_STR)
 
     return comments, maps
-
-
-_formats, _DEFAULT = import_json()
 
 
 class Comments():
@@ -96,8 +90,8 @@ class Comments():
     get_ft()
     """
 
-    __DEFAULT: Dict[str, IndentMap] = _DEFAULT.copy()
-    __formats: Dict[str, str] = _formats.copy()
+    __DEFAULT: Dict[str, IndentMap]
+    __formats: Dict[str, str]
     comments: Dict[str, str]
     langs: Dict[str, IndentMap]
 
@@ -110,6 +104,8 @@ class Comments():
         mappings : Dict[str, IndentMap], optional, default=None
             The ``str`` to ``IndentMap`` dictionary.
         """
+        self.__formats, self.__DEFAULT = import_json()
+
         if mappings is None or len(mappings) == 0:
             self.langs = self.__DEFAULT.copy()
             return
@@ -268,7 +264,7 @@ def export_json() -> None:
         return
 
     try:
-        data: str = json.dumps((_formats, _DEFAULT), ensure_ascii=False)
+        data: str = json.dumps(import_json(), ensure_ascii=False)
     except KeyboardInterrupt:
         die(code=1)
     except Exception:

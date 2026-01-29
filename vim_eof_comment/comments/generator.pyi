@@ -2,19 +2,7 @@ from typing import Iterator
 
 from ..types import IndentMap
 
-__all__ = ['Comments', 'export_json', 'generate_list_items', 'import_json', 'list_filetypes']
-
-def import_json() -> tuple[dict[str, str], dict[str, IndentMap]]:
-    """
-    Import default vars from JSON file.
-
-    Returns
-    -------
-    comments : Dict[str, str]
-        The default ``Dict[str, str]``.
-    map_dict : Dict[str, IndentMap]
-        The default indent mappings dict.
-    """
+__all__ = ['Comments', 'generate_list_items', 'list_filetypes']
 
 class Comments:
     """
@@ -134,7 +122,5 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     '''
 def list_filetypes() -> None:
     """List all available filetypes."""
-def export_json() -> None:
-    """Export default vars to JSON."""
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
