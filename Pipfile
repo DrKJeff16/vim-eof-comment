@@ -1,0 +1,42 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+argparse = "*"
+colorama = "*"
+argcomplete = "*"
+
+[dev-packages]
+pyproject = "*"
+setuptools = "*"
+wheel = "*"
+pynvim = "*"
+build = "*"
+pre-commit = "*"
+furo = "*"
+sphinx-rtd-theme = "*"
+renku-sphinx-theme = "*"
+sphinxawesome-theme = "*"
+numpydoc = "*"
+vim-eof-comment = "*"
+pip = "*"
+update-version = "*"
+python-lsp-server = {extras = ["all"], version = "*"}
+pylsp-mypy = "*"
+pylsp-rope = "*"
+python-lsp-isort = "*"
+mypy = "*"
+mypy-extensions = "*"
+ruff = "*"
+
+[scripts]
+lint = "flake8 --statistics --show-source --color always --max-line-length 100 --docstring-convention numpy --ignore=D401 ."
+build = "python3 -m build"
+local-install = "python3 -m pip install ."
+install = "python3 -m pip install"
+stubs = "stubgen -p vim_eof_comment -o ."
+
+[requires]
+python_version = "3.14"

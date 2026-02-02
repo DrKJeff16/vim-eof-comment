@@ -5,6 +5,7 @@ Comment class module for ``vim-eof-comment``.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = ["generator"]
 
 from . import generator

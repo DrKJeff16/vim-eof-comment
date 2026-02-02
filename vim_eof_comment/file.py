@@ -5,6 +5,7 @@ File management utilities.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = [
     "EXCLUDED_DIRS",
     "bootstrap_paths",
@@ -218,5 +219,6 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
             had_nwl = data[-3] == ""
 
     return LineBool(line=line, had_nwl=had_nwl, crlf=crlf)
+
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

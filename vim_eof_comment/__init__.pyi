@@ -5,12 +5,10 @@ from . import file as file
 from . import regex as regex
 from . import types as types
 from . import util as util
+from . import version as version
 from .eof import main as main
 from .version import __version__ as __version__
 
 __all__ = ['__version__', 'args', 'comments', 'eof', 'file', 'main', 'regex', 'types', 'util', 'version']
-
-# Names in __all__ with no definition:
-#   version
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

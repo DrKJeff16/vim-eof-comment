@@ -6,6 +6,7 @@ Main entrypoint for `vim-eof-comment`.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 import sys
 
 from .eof import main

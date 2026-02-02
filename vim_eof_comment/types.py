@@ -5,6 +5,7 @@ Custom vim-eof-comment ``TypedDict`` objects.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = [
     "BatchPairDict",
     "BatchPathDict",
@@ -157,7 +158,7 @@ class VersionInfo:
         patch : int
             Patch component.
         """
-        return (self.major, self. minor, self.patch)
+        return (self.major, self.minor, self.patch)
 
     def get_all_versions(self) -> str:
         """
@@ -216,10 +217,7 @@ class ParserSpec:
     completer: argcomplete.DirectoriesCompleter
 
     def __init__(
-        self,
-        opts: List[str],
-        kwargs: Dict[str, Any],
-        completer: argcomplete.DirectoriesCompleter
+        self, opts: List[str], kwargs: Dict[str, Any], completer: argcomplete.DirectoriesCompleter
     ):
         self.opts = opts
         self.kwargs = kwargs
@@ -540,5 +538,6 @@ class EOFCommentSearch:
     def __iter__(self):
         """Iterate over objects."""
         yield from self.__iterables()
+
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

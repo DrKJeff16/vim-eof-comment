@@ -1,68 +1,58 @@
 .PHONY: all help lint build local-install clean run-script docs
 
-all: clean
-	@$(MAKE) local-install
-	@$(MAKE) run-script
+all: help
 
 clean:
-	@echo "Cleaning..."
+	@echo "Cleaning..." ## Clean built files
 	@rm -rf build dist *.egg-info
 	@echo -e "Done!"
 
-distclean: clean
+distclean: clean ## Clean everything
 	@echo "Cleaning Everything..."
 	@rm -rf .mypy_cache .ropeproject .pytest_cache
 	@echo -e "Done!"
 
-docs:
+docs: ## Generate Sphinx docs
 	@echo -e "Generating docs..."
 	@$(MAKE) -C docs html
 	@echo -e "Done!"
 
-help:
-	@echo -e "Available targets:\n"
-	@echo "  build"
-	@echo "  clean"
-	@echo "  distclean"
-	@echo "  docs"
-	@echo "  help"
-	@echo "  lint"
-	@echo "  local-install"
-	@echo "  run-script"
-	@echo "  stubs"
+help: ## Show help
+	@echo -e "Usage: make [target]\n\nAvailable targets:"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-15s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 	@echo
 
-lint:
+lint: ## Lint files
 	@echo "Linting..."
-	@flake8 vim_eof_comment
-	@pydocstyle --convention=numpy --match='.*\.py' vim_eof_comment
+	@pipenv run flake8 vim_eof_comment
+	@pipenv run pydocstyle --convention=numpy --match='.*\.py' vim_eof_comment
 	# @autopep8 --aggressive --aggressive --aggressive --in-place --recursive vim_eof_comment
 	$(eval files := $(shell fd --full-path vim_eof_comment -e py))
-	@numpydoc lint $(files)
+	@pipenv run numpydoc lint $(files)
 	@echo "Done!"
 
-stubs: lint
+stubs: lint ## Generate mypy stubs
 	@echo "Generating stubs..."
-	@stubgen --include-docstrings --include-private -v -p vim_eof_comment -o .
+	@pipenv run stubgen --include-docstrings --include-private -v -p vim_eof_comment -o .
 	@echo -e "Done!\nRunning isort..."
-	@isort vim_eof_comment
+	@pipenv run isort vim_eof_comment
 	@echo -e "Done!\nLinting with mypy..."
-	@mypy vim_eof_comment
+	@pipenv run mypy vim_eof_comment
 	@echo -e "Done!"
 
-build: stubs
+build: stubs ## Build project
 	@echo -e "Building..."
-	@python3 -m build
+	@pipenv run python -m build
 	@echo -e "Done!"
 
-local-install: build
+local-install: build ## Install project in current pipenv virtual environment
 	@echo -e "Installing locally..."
-	@python3 -m pip install .
+	@pipenv run python -m pip install .
 	@echo -e "Done!"
 
-run-script:
+run-script: local-install ## Run the built project
 	@echo -e "Running vim-eof-comment..."
-	@vim-eof-comment -e py,pyi,Makefile,md,yaml,yml,toml -nv .
+	@pipenv run vim-eof-comment -e py,pyi,Makefile,md,yaml,yml,toml -nv .
 	@echo -e "Done!"
 
 # vim: set ts=4 sts=4 sw=0 noet ai si sta:

@@ -5,6 +5,7 @@ Per-filetype modeline comment class.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = [
     "Comments",
     "generate_list_items",
@@ -62,7 +63,7 @@ def import_json() -> Tuple[Dict[str, str], Dict[str, IndentMap]]:
     return comments, maps
 
 
-class Comments():
+class Comments:
     """
     Vim EOF comments class.
 
@@ -280,5 +281,6 @@ def export_json() -> None:
         raise IOError("Failed to write data properly!")
 
     file.close()
+
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

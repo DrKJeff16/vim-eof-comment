@@ -6,6 +6,7 @@ Ensure EOF Vim comment in specific filetypes.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = ["append_eof_comment", "eof_comment_search", "main"]
 
 from io import TextIOWrapper
@@ -29,9 +30,7 @@ _RESET: int = Style.RESET_ALL
 
 
 def eof_comment_search(
-    files: Dict[str, BatchPathDict],
-    comments: Comments,
-    **kwargs
+    files: Dict[str, BatchPathDict], comments: Comments, **kwargs
 ) -> Tuple[Dict[str, EOFCommentSearch], bool]:
     """
     Search through opened files.
@@ -79,7 +78,7 @@ def eof_comment_search(
             result[path] = EOFCommentSearch(
                 state=IOWrapperBool(file=open(path, "r"), had_nwl=had_nwl, crlf=crlf),
                 lang=ext,
-                match=matches(last_line)
+                match=matches(last_line),
             )
         else:
             verbose_print(f"{_BRIGHT}{_GREEN}OK", verbose=verbose)
@@ -88,10 +87,7 @@ def eof_comment_search(
 
 
 def append_eof_comment(
-    files: Dict[str, EOFCommentSearch],
-    comments: Comments,
-    newline: bool,
-    crlf: bool
+    files: Dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool
 ) -> None:
     """
     Append a Vim EOF comment to files missing it.
@@ -121,7 +117,7 @@ def append_eof_comment(
             newline=newline,
             had_nwl=had_nwl,
             matching=matching,
-            crlf=crlf
+            crlf=crlf,
         )
         with open(path, "w") as file_obj:
             file_obj.write(txt)
@@ -173,5 +169,6 @@ def main() -> int:
         append_eof_comment(results, comments, newline, crlf)
 
     return 0
+
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

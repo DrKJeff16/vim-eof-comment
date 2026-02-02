@@ -5,6 +5,7 @@ Ensure EOF Vim comments.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = [
     "__version__",
     "args",
@@ -18,7 +19,7 @@ __all__ = [
     "version",
 ]
 
-from . import args, comments, eof, file, regex, types, util
+from . import args, comments, eof, file, regex, types, util, version
 from .eof import main
 from .version import __version__
 

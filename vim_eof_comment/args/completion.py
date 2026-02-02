@@ -5,6 +5,7 @@ Argument parsing completion utilities for ``vim-eof-comment``.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = ["complete_parser", "complete_validator"]
 
 from argparse import ArgumentParser
@@ -44,5 +45,6 @@ def complete_parser(parser: ArgumentParser, **kwargs) -> None:
         Extra parameters to be passed to ``argcomplete.autocomplete()``.
     """
     autocomplete(parser, validator=complete_validator, **kwargs)
+
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

@@ -5,6 +5,7 @@ Argument parsing utilities for ``vim-eof-comment``.
 
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
+
 __all__ = ["gen_parser_specs", "bootstrap_args", "arg_parser_init", "indent_handler"]
 
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentError, ArgumentParser, Namespace
@@ -90,7 +91,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         exit_on_error=False,
         formatter_class=ArgumentDefaultsHelpFormatter,
         add_help=True,
-        allow_abbrev=True
+        allow_abbrev=True,
     )
     spec: List[ParserSpec] = gen_parser_specs(
         {
@@ -168,7 +169,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
             "kwargs": {
                 "required": False,
                 "metavar": "EXT1[,EXT2[,EXT3[,...]]]",
-                "help": "A comma-separated list of file extensions (e.g. \"lua,c,cpp,cc,c++\")",
+                "help": 'A comma-separated list of file extensions (e.g. "lua,c,cpp,cc,c++")',
                 "dest": "exts",
             },
         },
@@ -223,5 +224,6 @@ def indent_handler(indent: str) -> List[IndentHandler]:
         maps.append(IndentHandler(ft_ext=ext, level=ind_level, expandtab=et))
 
     return maps
+
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
