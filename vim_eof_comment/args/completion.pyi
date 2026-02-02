@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-__all__ = ['complete_parser', 'complete_validator']
+__all__ = ["complete_parser", "complete_validator"]
 
 def complete_validator(completion_candidate: list[str], current_input: str) -> bool:
     """
@@ -18,6 +18,7 @@ def complete_validator(completion_candidate: list[str], current_input: str) -> b
     bool
         Whether the current input fits the completion candidates pool.
     """
+
 def complete_parser(parser: ArgumentParser, **kwargs) -> None:
     """
     Complete the script argument parser.

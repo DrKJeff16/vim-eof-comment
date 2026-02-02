@@ -1,4 +1,4 @@
-__all__ = ['matches']
+__all__ = ["matches"]
 
 def matches(s: str) -> bool:
     """

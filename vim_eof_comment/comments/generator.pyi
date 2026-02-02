@@ -2,7 +2,7 @@ from typing import Iterator
 
 from ..types import IndentMap
 
-__all__ = ['Comments', 'generate_list_items', 'list_filetypes']
+__all__ = ["Comments", "generate_list_items", "list_filetypes"]
 
 class Comments:
     """
@@ -31,6 +31,7 @@ class Comments:
     get_defaults()
     get_ft()
     """
+
     __DEFAULT: dict[str, IndentMap]
     __formats: dict[str, str]
     comments: dict[str, str]
@@ -103,7 +104,7 @@ class Comments:
         """
 
 def generate_list_items(ft: str, level: int, expandtab: str) -> str:
-    '''
+    """
     Generate a colored string for filetypes listing.
 
     Parameters
@@ -119,7 +120,8 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     -------
     str
         The generated string.
-    '''
+    """
+
 def list_filetypes() -> None:
     """List all available filetypes."""
 

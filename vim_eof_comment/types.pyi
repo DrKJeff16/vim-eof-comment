@@ -2,7 +2,18 @@ from typing import Any, TextIO, TypedDict
 
 import argcomplete
 
-__all__ = ['BatchPairDict', 'BatchPathDict', 'CommentMap', 'EOFCommentSearch', 'IOWrapperBool', 'IndentHandler', 'IndentMap', 'LineBool', 'ParserSpec', 'VersionInfo']
+__all__ = [
+    "BatchPairDict",
+    "BatchPathDict",
+    "CommentMap",
+    "EOFCommentSearch",
+    "IOWrapperBool",
+    "IndentHandler",
+    "IndentMap",
+    "LineBool",
+    "ParserSpec",
+    "VersionInfo",
+]
 
 class VersionInfo:
     """
@@ -29,6 +40,7 @@ class VersionInfo:
     -------
     get_all_versions()
     """
+
     major: int
     minor: int
     patch: int
@@ -161,10 +173,13 @@ class ParserSpec:
     completer : argcomplete.DirectoriesCompleter
         An ``argcomplete`` completer object.
     """
+
     opts: list[str]
     kwargs: dict[str, Any]
     completer: argcomplete.DirectoriesCompleter
-    def __init__(self, opts: list[str], kwargs: dict[str, Any], completer: argcomplete.DirectoriesCompleter) -> None: ...
+    def __init__(
+        self, opts: list[str], kwargs: dict[str, Any], completer: argcomplete.DirectoriesCompleter
+    ) -> None: ...
     def __iterables(self) -> tuple[list[str], dict[str, Any], argcomplete.DirectoriesCompleter]:
         """
         Generate iterables.
@@ -191,6 +206,7 @@ class CommentMap:
     level : int
         The indentation level.
     """
+
     level: int
     def __init__(self, level: int) -> None: ...
     def __iterables(self) -> tuple[int]:
@@ -216,6 +232,7 @@ class IndentMap(TypedDict):
     expandtab : bool
         Whether to expand tabs or not.
     """
+
     level: int
     expandtab: bool
 
@@ -232,6 +249,7 @@ class IndentHandler(TypedDict):
     expandtab : bool
         Whether to expand tabs or not.
     """
+
     ft_ext: str
     level: str
     expandtab: bool
@@ -258,6 +276,7 @@ class IOWrapperBool:
     crlf : bool
         Whether the file is CRLF-terminated.
     """
+
     file: TextIO
     had_nwl: bool
     crlf: bool
@@ -296,6 +315,7 @@ class LineBool:
     crlf : bool
         Whether the file is CRLF-terminated.
     """
+
     line: str
     had_nwl: bool
     crlf: bool
@@ -330,6 +350,7 @@ class BatchPathDict:
     ft_ext : str
         The file-type/file-extension.
     """
+
     file: TextIO
     ft_ext: str
     def __init__(self, file: TextIO, ft_ext: str) -> None: ...
@@ -363,6 +384,7 @@ class BatchPairDict:
     ft_ext : str
         The file-type/file-extension.
     """
+
     fpath: str
     ft_ext: str
     def __init__(self, fpath: str, ft_ext: str) -> None: ...
@@ -402,6 +424,7 @@ class EOFCommentSearch:
     match : bool
         Whether it has a variation of an EOF comment at the end.
     """
+
     state: IOWrapperBool
     lang: str
     match: bool

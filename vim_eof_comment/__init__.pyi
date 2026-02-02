@@ -9,6 +9,17 @@ from . import version as version
 from .eof import main as main
 from .version import __version__ as __version__
 
-__all__ = ['__version__', 'args', 'comments', 'eof', 'file', 'main', 'regex', 'types', 'util', 'version']
+__all__ = [
+    "__version__",
+    "args",
+    "comments",
+    "eof",
+    "file",
+    "main",
+    "regex",
+    "types",
+    "util",
+    "version",
+]
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:
