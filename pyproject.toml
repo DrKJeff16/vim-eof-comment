@@ -43,7 +43,7 @@ requires-python = ">=3.10"
 version = "0.6.2"
 
     [project.scripts]
-    vim-eof-comment = "vim_eof_comment.eof:main"
+    vim-eof-comment = "vim_eof_comment.main:main"
 
     [project.urls]
     Download   = "https://github.com/DrKJeff16/vim-eof-comment/releases/latest"

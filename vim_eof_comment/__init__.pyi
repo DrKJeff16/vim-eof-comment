@@ -1,19 +1,21 @@
 from . import args as args
 from . import comments as comments
-from . import eof as eof
 from . import file as file
 from . import regex as regex
 from . import types as types
 from . import util as util
 from . import version as version
-from .eof import main as main
+from .main import append_eof_comment as append_eof_comment
+from .main import eof_comment_search as eof_comment_search
+from .main import main as main
 from .version import __version__ as __version__
 
 __all__ = [
     "__version__",
+    "append_eof_comment",
     "args",
     "comments",
-    "eof",
+    "eof_comment_search",
     "file",
     "main",
     "regex",
