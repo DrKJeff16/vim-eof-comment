@@ -16,4 +16,5 @@ repos:
         verbose: true
       - id: forbid-crlf # Forbid files containing CRLF end-lines to be committed
         verbose: true
+
 # vim: set ts=2 sts=2 sw=2 et ai si sta:
