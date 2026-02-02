@@ -16,5 +16,14 @@ repos:
         verbose: true
       - id: forbid-crlf # Forbid files containing CRLF end-lines to be committed
         verbose: true
+  - repo: local
+    hooks:
+      - id: build
+        name: Build and run project
+        language: system
+        entry: make
+        always_run: true
+        types: [python]
+        verbose: true
 
 # vim: set ts=2 sts=2 sw=2 et ai si sta:

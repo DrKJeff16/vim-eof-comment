@@ -1,6 +1,6 @@
-.PHONY: all help lint build local-install clean run-script docs
+.PHONY: all help lint build local-install clean run-script docs format
 
-all: help
+all: run-script
 
 clean: ## Clean built files
 	@echo "Cleaning..."
