@@ -9,7 +9,7 @@ clean: ## Clean built files
 
 distclean: clean ## Clean everything
 	@echo "Cleaning Everything..."
-	@rm -rf .mypy_cache .ropeproject .pytest_cache
+	@rm -rf .mypy_cache .ropeproject .pytest_cache .ruff_cache
 	@echo "Done!"
 
 docs: ## Generate Sphinx docs
