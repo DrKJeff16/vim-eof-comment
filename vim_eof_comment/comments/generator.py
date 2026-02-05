@@ -16,7 +16,7 @@ import json
 import os
 from io import TextIOWrapper
 from os.path import exists, isdir, realpath
-from typing import Dict, Iterator, List, Tuple
+from typing import Dict, List, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -123,11 +123,6 @@ class Comments:
             langs[lang] = IndentMap(level=indent, expandtab=expandtab)
 
         self.__fill_langs(langs)
-
-    def __iter__(self) -> Iterator[str]:
-        """Iterate through comment langs."""
-        for k, v in self.langs.items():
-            yield (k, v)
 
     def __is_available(self, lang: str) -> bool:
         """

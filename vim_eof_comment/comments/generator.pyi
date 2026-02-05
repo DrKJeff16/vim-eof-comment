@@ -1,5 +1,3 @@
-from typing import Iterator
-
 from ..types import IndentMap
 
 __all__ = ["Comments", "generate_list_items", "list_filetypes"]
@@ -45,8 +43,6 @@ class Comments:
         mappings : Dict[str, IndentMap], optional, default=None
             The ``str`` to ``IndentMap`` dictionary.
         """
-    def __iter__(self) -> Iterator[str]:
-        """Iterate through comment langs."""
     def __is_available(self, lang: str) -> bool:
         """
         Check if a given lang is available within the class.
