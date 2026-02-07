@@ -2,15 +2,32 @@ from . import args as args
 from . import comments as comments
 from . import file as file
 from . import regex as regex
-from . import types as types
 from . import util as util
 from . import version as version
 from .main import append_eof_comment as append_eof_comment
 from .main import eof_comment_search as eof_comment_search
 from .main import main as main
+from .types import BatchPairDict as BatchPairDict
+from .types import BatchPathDict as BatchPathDict
+from .types import CommentMap as CommentMap
+from .types import EOFCommentSearch as EOFCommentSearch
+from .types import IndentHandler as IndentHandler
+from .types import IndentMap as IndentMap
+from .types import LineBool as LineBool
+from .types import ParserSpec as ParserSpec
+from .types import VersionInfo as VersionInfo
 from .version import __version__ as __version__
 
 __all__ = [
+    "BatchPairDict",
+    "BatchPathDict",
+    "CommentMap",
+    "EOFCommentSearch",
+    "IndentHandler",
+    "IndentMap",
+    "LineBool",
+    "ParserSpec",
+    "VersionInfo",
     "__version__",
     "append_eof_comment",
     "args",
@@ -19,7 +36,6 @@ __all__ = [
     "file",
     "main",
     "regex",
-    "types",
     "util",
     "version",
 ]

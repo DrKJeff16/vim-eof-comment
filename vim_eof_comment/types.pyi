@@ -1,4 +1,5 @@
-from typing import Any, TextIO, TypedDict
+from io import TextIOWrapper
+from typing import Any, TypedDict
 
 from argcomplete.completers import DirectoriesCompleter
 
@@ -238,8 +239,8 @@ class IOWrapperBool:
 
     Parameters
     ----------
-    file : TextIO
-        The opened file as a ``TextIO`` wrapper.
+    file : io.TextIOWrapper
+        The opened file as a ``io.TextIOWrapper`` wrapper.
     had_nwl : bool
         Whether the file has a newline or not.
     crlf : bool
@@ -247,25 +248,25 @@ class IOWrapperBool:
 
     Attributes
     ----------
-    file : TextIO
-        The opened file as a ``TextIO`` wrapper.
+    file : io.TextIOWrapper
+        The opened file as a ``io.TextIOWrapper`` wrapper.
     had_nwl : bool
         Whether the file has a newline or not.
     crlf : bool
         Whether the file is CRLF-terminated.
     """
 
-    file: TextIO
+    file: TextIOWrapper
     had_nwl: bool
     crlf: bool
-    def __init__(self, file: TextIO, had_nwl: bool, crlf: bool) -> None: ...
-    def __iterables(self) -> tuple[TextIO, bool, bool]:
+    def __init__(self, file: TextIOWrapper, had_nwl: bool, crlf: bool) -> None: ...
+    def __iterables(self) -> tuple[TextIOWrapper, bool, bool]:
         """
         Generate iterables.
 
         Returns
         -------
-        Tuple[TextIO, bool, bool]
+        Tuple[io.TextIOWrapper, bool, bool]
             The ``file``, ``had_nwl`` and ``crlf`` attributes.
         """
     def __iter__(self):
@@ -316,29 +317,29 @@ class BatchPathDict:
 
     Parameters
     ----------
-    file : TextIO
+    file : io.TextIOWrapper
         The opened file as a ``TextIO`` wrapper.
     ft_ext : str
         The file-type/file-extension.
 
     Attributes
     ----------
-    file : TextIO
+    file : io.TextIOWrapper
         The opened file as a ``TextIO`` wrapper.
     ft_ext : str
         The file-type/file-extension.
     """
 
-    file: TextIO
+    file: TextIOWrapper
     ft_ext: str
-    def __init__(self, file: TextIO, ft_ext: str) -> None: ...
-    def __iterables(self) -> tuple[TextIO, str]:
+    def __init__(self, file: TextIOWrapper, ft_ext: str) -> None: ...
+    def __iterables(self) -> tuple[TextIOWrapper, str]:
         """
         Generate iterables.
 
         Returns
         -------
-        Tuple[TextIO, str]
+        Tuple[io.TextIOWrapper, str]
             The ``file`` and ``ft_ext`` attributes.
         """
     def __iter__(self):
