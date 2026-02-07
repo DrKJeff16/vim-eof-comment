@@ -1,6 +1,6 @@
 from typing import Any, TextIO, TypedDict
 
-import argcomplete
+from argcomplete.completers import DirectoriesCompleter
 
 __all__ = [
     "BatchPairDict",
@@ -161,7 +161,7 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.DirectoriesCompleter
+    completer : argcomplete.completers.DirectoriesCompleter
         An ``argcomplete`` completer object.
 
     Attributes
@@ -170,27 +170,16 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.DirectoriesCompleter
+    completer : argcomplete.completers.DirectoriesCompleter
         An ``argcomplete`` completer object.
     """
 
     opts: list[str]
     kwargs: dict[str, Any]
-    completer: argcomplete.DirectoriesCompleter
+    completer: DirectoriesCompleter
     def __init__(
-        self, opts: list[str], kwargs: dict[str, Any], completer: argcomplete.DirectoriesCompleter
+        self, opts: list[str], kwargs: dict[str, Any], completer: DirectoriesCompleter
     ) -> None: ...
-    def __iterables(self) -> tuple[list[str], dict[str, Any], argcomplete.DirectoriesCompleter]:
-        """
-        Generate iterables.
-
-        Returns
-        -------
-        Tuple[List[str], Dict[str, Any], argcomplete.DirectoriesCompleter]
-            The ``opts``, ``kwargs`` and ``completer`` attributes.
-        """
-    def __iter__(self):
-        """Iterate over objects."""
 
 class CommentMap:
     """
@@ -209,17 +198,6 @@ class CommentMap:
 
     level: int
     def __init__(self, level: int) -> None: ...
-    def __iterables(self) -> tuple[int]:
-        """
-        Generate iterables.
-
-        Returns
-        -------
-        Tuple[int]
-            The ``opts`` attribute (inside a tuple).
-        """
-    def __iter__(self):
-        """Iterate over objects."""
 
 class IndentMap(TypedDict):
     """

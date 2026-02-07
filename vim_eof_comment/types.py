@@ -21,7 +21,7 @@ __all__ = [
 
 from typing import Any, Dict, List, TextIO, Tuple, TypedDict
 
-import argcomplete
+from argcomplete.completers import DirectoriesCompleter
 
 
 class VersionInfo:
@@ -199,7 +199,7 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.DirectoriesCompleter
+    completer : argcomplete.completers.DirectoriesCompleter
         An ``argcomplete`` completer object.
 
     Attributes
@@ -208,35 +208,18 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.DirectoriesCompleter
+    completer : argcomplete.completers.DirectoriesCompleter
         An ``argcomplete`` completer object.
     """
 
     opts: List[str]
     kwargs: Dict[str, Any]
-    completer: argcomplete.DirectoriesCompleter
+    completer: DirectoriesCompleter
 
-    def __init__(
-        self, opts: List[str], kwargs: Dict[str, Any], completer: argcomplete.DirectoriesCompleter
-    ):
+    def __init__(self, opts: List[str], kwargs: Dict[str, Any], completer: DirectoriesCompleter):
         self.opts = opts
         self.kwargs = kwargs
         self.completer = completer
-
-    def __iterables(self) -> Tuple[List[str], Dict[str, Any], argcomplete.DirectoriesCompleter]:
-        """
-        Generate iterables.
-
-        Returns
-        -------
-        Tuple[List[str], Dict[str, Any], argcomplete.DirectoriesCompleter]
-            The ``opts``, ``kwargs`` and ``completer`` attributes.
-        """
-        return (self.opts, self.kwargs, self.completer)
-
-    def __iter__(self):
-        """Iterate over objects."""
-        yield from self.__iterables()
 
 
 class CommentMap:
@@ -258,21 +241,6 @@ class CommentMap:
 
     def __init__(self, level: int):
         self.level = level
-
-    def __iterables(self) -> Tuple[int]:
-        """
-        Generate iterables.
-
-        Returns
-        -------
-        Tuple[int]
-            The ``opts`` attribute (inside a tuple).
-        """
-        return (self.level,)
-
-    def __iter__(self):
-        """Iterate over objects."""
-        yield from self.__iterables()
 
 
 class IndentMap(TypedDict):
