@@ -1,6 +1,6 @@
 from ..types import IndentMap
 
-__all__ = ["Comments", "generate_list_items", "list_filetypes"]
+__all__ = ["Comments", "generate_list_items", "get_extensions", "list_comments", "list_filetypes"]
 
 class Comments:
     """
@@ -15,7 +15,7 @@ class Comments:
     ----------
     __DEFAULT : Dict[str, IndentMap]
         The default/fallback alternative to ``langs``.
-    __formats : Dict[str, str]
+    formats : Dict[str, str]
         The default/fallback alternative to ``comments``.
     langs : Dict[str, IndentMap]
         A dictionary of ``IndentMap`` type objects.
@@ -31,7 +31,7 @@ class Comments:
     """
 
     __DEFAULT: dict[str, IndentMap]
-    __formats: dict[str, str]
+    formats: dict[str, str]
     comments: dict[str, str]
     langs: dict[str, IndentMap]
     def __init__(self, mappings: dict[str, IndentMap] | None = None) -> None:
@@ -118,7 +118,34 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
         The generated string.
     """
 
+def list_comments(exts: list[str]) -> None:
+    """
+    List the supported comments per-file extension, then stop command execution.
+
+    Parameter can be an empty list, in which case all available comments will be printed.
+
+    Parameters
+    ----------
+    exts : List[str]
+        List of supported file extensions (can be empty).
+
+    Raises
+    ------
+    ValueError
+        Raised when a given extension is not supported.
+    """
+
+def get_extensions() -> list[str]:
+    """
+    Return the list of supported file extensions.
+
+    Returns
+    -------
+    List[str]
+        List of strings with all the available file extensions.
+    """
+
 def list_filetypes() -> None:
-    """List all available filetypes."""
+    """List all available filetypes, then stop command execution."""
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

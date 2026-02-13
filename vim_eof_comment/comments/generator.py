@@ -9,6 +9,8 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = [
     "Comments",
     "generate_list_items",
+    "get_extensions",
+    "list_comments",
     "list_filetypes",
 ]
 
@@ -31,6 +33,7 @@ _YELLOW: int = Fore.YELLOW
 _CYAN: int = Fore.CYAN
 _BRIGHT: int = Style.BRIGHT
 _RESET: int = Style.RESET_ALL
+_BOLD: int = Style.BRIGHT
 
 
 def import_json() -> Tuple[Dict[str, str], Dict[str, IndentMap]]:
@@ -76,7 +79,7 @@ class Comments:
     ----------
     __DEFAULT : Dict[str, IndentMap]
         The default/fallback alternative to ``langs``.
-    __formats : Dict[str, str]
+    formats : Dict[str, str]
         The default/fallback alternative to ``comments``.
     langs : Dict[str, IndentMap]
         A dictionary of ``IndentMap`` type objects.
@@ -92,7 +95,7 @@ class Comments:
     """
 
     __DEFAULT: Dict[str, IndentMap]
-    __formats: Dict[str, str]
+    formats: Dict[str, str]
     comments: Dict[str, str]
     langs: Dict[str, IndentMap]
 
@@ -105,7 +108,7 @@ class Comments:
         mappings : Dict[str, IndentMap], optional, default=None
             The ``str`` to ``IndentMap`` dictionary.
         """
-        self.__formats, self.__DEFAULT = import_json()
+        self.formats, self.__DEFAULT = import_json()
 
         if mappings is None or len(mappings) == 0:
             self.langs = self.__DEFAULT.copy()
@@ -179,7 +182,7 @@ class Comments:
             The customly generated comments dictionary.
         """
         comments: Dict[str, str] = dict()
-        for lang, fmt in self.__formats.items():
+        for lang, fmt in self.formats.items():
             lvl, expandtab = self.langs[lang]["level"], self.langs[lang]["expandtab"]
             et, sw = "noet", 0
 
@@ -234,8 +237,71 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     return txt
 
 
+def list_comments(exts: List[str]) -> None:
+    """
+    List the supported comments per-file extension, then stop command execution.
+
+    Parameter can be an empty list, in which case all available comments will be printed.
+
+    Parameters
+    ----------
+    exts : List[str]
+        List of supported file extensions (can be empty).
+
+    Raises
+    ------
+    ValueError
+        Raised when a given extension is not supported.
+    """
+    color_init()
+
+    formats: Dict[str, str] = Comments().formats
+    max_len: int = 0
+    extensions: Dict[str, str] = dict()
+    for ext, comment in formats.items():
+        extensions[ext] = comment
+        if len(ext) > max_len:
+            max_len = len(ext)
+
+    fmt_exts: Dict[str, Tuple[str, str]] = dict()
+    for ext, comment in extensions.items():
+        prefix = f"{_RESET}{_BOLD}{_BLUE}{ext}"
+        suffix = (" " * (max_len - len(ext) + 2)) + f"{_RESET}"
+        fmt_exts[ext] = (prefix + suffix, f"{_BOLD}{_YELLOW}{comment}{_RESET}")
+
+    if len(exts) == 0:
+        die(
+            "\n".join([f"{extension[0]}==>  {extension[1]}" for extension in fmt_exts.values()]),
+            code=0,
+        )
+
+    dedup_exts: List[str] = list()
+    for ext in exts:
+        if ext not in fmt_exts.keys():
+            raise ValueError(f"`{ext}` is not supported!")
+
+        if ext not in dedup_exts:
+            dedup_exts.append(ext)
+
+    data: List[str] = [f"{fmt_exts[ext][0]}==>  {fmt_exts[ext][1]}" for ext in dedup_exts]
+    die("\n".join(data), code=0)
+
+
+def get_extensions() -> List[str]:
+    """
+    Return the list of supported file extensions.
+
+    Returns
+    -------
+    List[str]
+        List of strings with all the available file extensions.
+    """
+    res: List[str] = [ext for ext in Comments().get_defaults().keys()]
+    return res
+
+
 def list_filetypes() -> None:
-    """List all available filetypes."""
+    """List all available filetypes, then stop command execution."""
     color_init()
 
     defaults = Comments().get_defaults()

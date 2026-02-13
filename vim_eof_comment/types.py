@@ -22,7 +22,7 @@ __all__ = [
 from io import TextIOWrapper
 from typing import Any, Dict, List, Tuple, TypedDict
 
-from argcomplete.completers import DirectoriesCompleter
+from argcomplete.completers import ChoicesCompleter, DirectoriesCompleter
 
 
 class VersionInfo:
@@ -200,7 +200,7 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.completers.DirectoriesCompleter
+    completer : DirectoriesCompleter or ChoicesCompleter
         An ``argcomplete`` completer object.
 
     Attributes
@@ -209,15 +209,20 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.completers.DirectoriesCompleter
+    completer : DirectoriesCompleter or ChoicesCompleter
         An ``argcomplete`` completer object.
     """
 
     opts: List[str]
     kwargs: Dict[str, Any]
-    completer: DirectoriesCompleter
+    completer: ChoicesCompleter | DirectoriesCompleter
 
-    def __init__(self, opts: List[str], kwargs: Dict[str, Any], completer: DirectoriesCompleter):
+    def __init__(
+        self,
+        opts: List[str],
+        kwargs: Dict[str, Any],
+        completer: ChoicesCompleter | DirectoriesCompleter,
+    ):
         self.opts = opts
         self.kwargs = kwargs
         self.completer = completer

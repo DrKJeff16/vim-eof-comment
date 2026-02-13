@@ -11,8 +11,9 @@ __all__ = ["gen_parser_specs", "bootstrap_args", "arg_parser_init", "indent_hand
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentError, ArgumentParser, Namespace
 from typing import List, Tuple
 
-from argcomplete.completers import DirectoriesCompleter
+from argcomplete.completers import ChoicesCompleter, DirectoriesCompleter
 
+from ..comments.generator import get_extensions
 from ..types import IndentHandler, ParserSpec
 from ..util import die
 from .completion import complete_parser
@@ -96,62 +97,80 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
     spec: List[ParserSpec] = gen_parser_specs(
         {
             "opts": ["directories"],
+            "completer": DirectoriesCompleter(),
             "kwargs": {
                 "nargs": "*",
                 "help": "The target directories to be checked",
                 "metavar": "/path/to/directory",
             },
-            "completer": DirectoriesCompleter(),
-        },
-        {
-            "opts": ["-v", "--verbose"],
-            "kwargs": {
-                "required": False,
-                "action": "store_true",
-                "help": "Enable verbose mode",
-                "dest": "verbose",
-            },
-            "completer": None,
         },
         {
             "opts": ["-V", "--version"],
+            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
                 "help": "Show version",
                 "dest": "version",
             },
+        },
+        {
+            "opts": ["-v", "--verbose"],
             "completer": None,
+            "kwargs": {
+                "required": False,
+                "action": "store_true",
+                "help": "Enable verbose mode",
+                "dest": "verbose",
+            },
         },
         {
             "opts": ["-L", "--list-versions"],
+            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
                 "help": "List all versions of this script.",
                 "dest": "list_versions",
             },
-            "completer": None,
+        },
+        {
+            "opts": ["-c", "--show-comment"],
+            "completer": ChoicesCompleter(tuple(get_extensions())),
+            "kwargs": {
+                "required": False,
+                "choices": tuple(get_extensions()),
+                "help": """
+                Show default comment for either a specific file extension or,
+                if none passed, all of the available ones.
+                Can be called multiple times to display different comments
+                """,
+                "action": "append",
+                "nargs": "?",
+                "type": str,
+                "metavar": "EXT",
+                "dest": "show_comments",
+            },
         },
         {
             "opts": ["-D", "--dry-run"],
+            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
                 "help": "Don't modify the files, but do execute the rest",
                 "dest": "dry_run",
             },
-            "completer": None,
         },
         {
             "opts": ["-l", "--list-filetypes"],
+            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
                 "help": "List available filetypes",
                 "dest": "list_fts",
             },
-            "completer": None,
         },
         {
             "opts": ["-n", "--newline"],
@@ -159,7 +178,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
             "kwargs": {
                 "required": False,
                 "action": "store_true",
-                "help": "Add newline before inserted comment",
+                "help": "Add newline before inserted comment (WIP)",
                 "dest": "newline",
             },
         },
@@ -221,7 +240,7 @@ def indent_handler(indent: str) -> List[IndentHandler]:
         if len(inds) >= 3 and inds[2].upper() in ("Y", "N"):
             et = not inds[2].upper() == "N"
 
-        maps.append(IndentHandler(ft_ext=ext, level=ind_level, expandtab=et))
+        maps.append(IndentHandler(ft_ext=ext, level=str(ind_level), expandtab=et))
 
     return maps
 

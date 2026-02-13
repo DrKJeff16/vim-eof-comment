@@ -16,7 +16,7 @@ from colorama import Fore, Style
 from colorama import init as color_init
 
 from .args.parsing import arg_parser_init, indent_handler
-from .comments.generator import Comments, list_filetypes
+from .comments.generator import Comments, list_comments, list_filetypes
 from .file import bootstrap_paths, get_last_line, modify_file, open_batch_paths
 from .regex import matches
 from .types import BatchPathDict, EOFCommentSearch, IndentHandler, IOWrapperBool
@@ -138,6 +138,14 @@ def main() -> int:
 
     if ns.version:
         version_print(__version__)
+
+    if ns.show_comments:
+        show_comments: List[str] = list()
+        for comment in ns.show_comments:
+            if comment is not None and comment not in show_comments:
+                show_comments.append(comment)
+
+        list_comments(show_comments)
 
     if ns.list_fts:
         list_filetypes()

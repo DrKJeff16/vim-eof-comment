@@ -6,7 +6,13 @@ Custom vim-eof-comment versioning objects.
 Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 """
 
-__all__ = ["VersionInfo", "list_versions", "version_info", "version_print", "__version__"]
+__all__ = [
+    "VersionInfo",
+    "__version__",
+    "list_versions",
+    "version_info",
+    "version_print",
+]
 
 from .types import VersionInfo
 from .util import die

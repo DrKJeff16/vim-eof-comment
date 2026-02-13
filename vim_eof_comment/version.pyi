@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from .types import VersionInfo as VersionInfo
 
-__all__ = ["VersionInfo", "list_versions", "version_info", "version_print", "__version__"]
+__all__ = ["VersionInfo", "__version__", "list_versions", "version_info", "version_print"]
 
 version_info: Incomplete
 __version__: str

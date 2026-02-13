@@ -1,7 +1,7 @@
 from io import TextIOWrapper
 from typing import Any, TypedDict
 
-from argcomplete.completers import DirectoriesCompleter
+from argcomplete.completers import ChoicesCompleter, DirectoriesCompleter
 
 __all__ = [
     "BatchPairDict",
@@ -162,7 +162,7 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.completers.DirectoriesCompleter
+    completer : DirectoriesCompleter or ChoicesCompleter
         An ``argcomplete`` completer object.
 
     Attributes
@@ -171,15 +171,18 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : Dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : argcomplete.completers.DirectoriesCompleter
+    completer : DirectoriesCompleter or ChoicesCompleter
         An ``argcomplete`` completer object.
     """
 
     opts: list[str]
     kwargs: dict[str, Any]
-    completer: DirectoriesCompleter
+    completer: ChoicesCompleter | DirectoriesCompleter
     def __init__(
-        self, opts: list[str], kwargs: dict[str, Any], completer: DirectoriesCompleter
+        self,
+        opts: list[str],
+        kwargs: dict[str, Any],
+        completer: ChoicesCompleter | DirectoriesCompleter,
     ) -> None: ...
 
 class CommentMap:
