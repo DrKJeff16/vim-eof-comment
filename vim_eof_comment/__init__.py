@@ -29,9 +29,18 @@ __all__ = [
 ]
 
 from . import args, comments, file, regex, util, version
-from .main import append_eof_comment, eof_comment_search, main
-from .types import (BatchPairDict, BatchPathDict, CommentMap, EOFCommentSearch, IndentHandler,
-                    IndentMap, LineBool, ParserSpec, VersionInfo)
+from .core import append_eof_comment, eof_comment_search, main
+from .types import (
+    BatchPairDict,
+    BatchPathDict,
+    CommentMap,
+    EOFCommentSearch,
+    IndentHandler,
+    IndentMap,
+    LineBool,
+    ParserSpec,
+    VersionInfo,
+)
 from .version import __version__
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

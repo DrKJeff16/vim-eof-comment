@@ -9,7 +9,7 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 
 import sys
 
-from .main import main
+from .core import main
 
 if __name__ == "__main__":
     sys.exit(main())

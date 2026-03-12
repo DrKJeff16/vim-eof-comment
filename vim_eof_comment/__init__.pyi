@@ -4,9 +4,9 @@ from . import file as file
 from . import regex as regex
 from . import util as util
 from . import version as version
-from .main import append_eof_comment as append_eof_comment
-from .main import eof_comment_search as eof_comment_search
-from .main import main as main
+from .core import append_eof_comment as append_eof_comment
+from .core import eof_comment_search as eof_comment_search
+from .core import main as main
 from .types import BatchPairDict as BatchPairDict
 from .types import BatchPathDict as BatchPathDict
 from .types import CommentMap as CommentMap
