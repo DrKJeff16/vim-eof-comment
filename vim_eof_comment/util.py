@@ -160,7 +160,7 @@ def gen_indent_maps(maps: List[IndentHandler]) -> Dict[str, IndentMap] | None:
 
         mapping_len = mapping_len if mapping_len <= 3 else 3
         map_d[ext] = IndentMap(
-            level=level, expandtab=True if mapping_len == 2 else mapping["expandtab"]
+            level=int(level), expandtab=True if mapping_len == 2 else mapping["expandtab"]
         )
 
     return map_d
