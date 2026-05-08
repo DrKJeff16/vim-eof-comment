@@ -4,9 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+argcomplete = "*"
 argparse = "*"
 colorama = "*"
-argcomplete = "*"
+progress = "*"
 
 [dev-packages]
 pyproject = "*"

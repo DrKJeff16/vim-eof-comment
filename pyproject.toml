@@ -53,10 +53,10 @@ version = "0.8.1"
 
 [tool.numpydoc_validation]
 checks = [
-    "all",  # report on all checks, except the below
     "ES01",
     "EX01",
     "SA01",
+    "all",  # report on all checks, except the below
 ]
 exclude = [
     '\.undocumented_method$',
@@ -94,9 +94,7 @@ verbose    = true
 
 [tool.autopep8]
 aggressive      = 3
-in-place        = true
 max_line_length = 100
-recursive       = true
 verbose         = true
 
 [tool.isort]
@@ -130,7 +128,7 @@ validate_objectdb = true
 [tool.ruff]
 line-length = 100
 
-[tool.ruff.lint.pydocstyle]
-convention = "numpy"
+    [tool.ruff.lint.pydocstyle]
+    convention = "numpy"
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

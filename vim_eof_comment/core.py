@@ -10,10 +10,12 @@ Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
 __all__ = ["append_eof_comment", "eof_comment_search", "main"]
 
 from io import TextIOWrapper
+from time import sleep
 from typing import Dict, List, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
+from progress.bar import Bar
 
 from .args.parsing import arg_parser_init, indent_handler
 from .comments.generator import Comments, list_comments, list_filetypes
@@ -74,7 +76,7 @@ def eof_comment_search(
 
         verbose_print(f"{_RESET} - {path} ==> ", verbose=verbose, end="", sep="")
         if last_line != comment_map[ext] or (newline and not had_nwl):
-            verbose_print(f"{_BRIGHT}{_RED}CHANGED", verbose=verbose)
+            verbose_print(f"{_BRIGHT}{_RED}CHANGED{_RESET}", verbose=verbose)
             result[path] = EOFCommentSearch(
                 state=IOWrapperBool(file=open(path, "r"), had_nwl=had_nwl, crlf=crlf),
                 lang=ext,
@@ -104,7 +106,16 @@ def append_eof_comment(
         Whether the file is CRLF-terminated.
     """
     comment_map = comments.generate()
+    total: int = len(files.keys())
+    bar: Bar = Bar(
+        "Checking Vim Modeline Comments...",
+        fill="*",
+        max=total,
+        suffix="%(index)d/%(max)d (%(percent)d%%)",
+    )
     for path, file in files.items():
+        sleep(5 / total)
+
         file_obj = file.state.file
         had_nwl = file.state.had_nwl
         matching = file.match
@@ -121,6 +132,10 @@ def append_eof_comment(
         )
         with open(path, "w") as file_obj:
             file_obj.write(txt)
+
+        bar.next()
+
+    bar.finish()
 
 
 def main() -> int:
