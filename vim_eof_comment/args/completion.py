@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
+# Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 Argument parsing completion utilities for ``vim-eof-comment``.
 
-Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
+Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 
 __all__ = ["complete_parser", "complete_validator"]

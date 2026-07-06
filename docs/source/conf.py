@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path("..", "src").resolve()))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project: str = "vim-eof-comment"
-copyright: str = "2025, Guennadi Maximov C"
+copyright: str = "2026, Guennadi Maximov C"
 author: str = "Guennadi Maximov C"
 release: str = "0.1.33"
 

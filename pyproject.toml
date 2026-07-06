@@ -92,10 +92,10 @@ convention = "numpy"
 match      = ".*\\.py"
 verbose    = true
 
-[tool.autopep8]
-aggressive      = 3
-max_line_length = 100
-verbose         = true
+# [tool.autopep8]
+# aggressive      = 3
+# max_line_length = 100
+# verbose         = true
 
 [tool.isort]
 line_length    = 100

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
+# Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 # PYTHON_ARGCOMPLETE_OK
 """
 Ensure EOF Vim comment in specific filetypes.
 
-Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
+Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 
 __all__ = ["append_eof_comment", "eof_comment_search", "main"]
@@ -114,7 +114,8 @@ def append_eof_comment(
         suffix="%(index)d/%(max)d (%(percent)d%%)",
     )
     for path, file in files.items():
-        sleep(5 / total)
+        sleep(1 / total)
+        bar.next()
 
         file_obj = file.state.file
         had_nwl = file.state.had_nwl
@@ -132,8 +133,6 @@ def append_eof_comment(
         )
         with open(path, "w") as file_obj:
             file_obj.write(txt)
-
-        bar.next()
 
     bar.finish()
 

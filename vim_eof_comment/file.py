@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
+# Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 File management utilities.
 
-Copyright (c) 2025 Guennadi Maximov C. All Rights Reserved.
+Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 
 __all__ = [
@@ -205,13 +205,15 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     if data[-1] != "":
         data.append("")
 
-    had_nwl, crlf, line = False, False, ""
+    had_nwl: bool = False
+    crlf: bool = False
+    line: str = ""
     if len(data) == 0:
         line = ""
     elif len(data) == 1:
         line = data[0]
     elif len(data) >= 2:
-        line: str = data[-2]
+        line = data[-2]
         if line == "\r":
             line, crlf = "", True
 

@@ -31,6 +31,7 @@ python-lsp-isort = "*"
 mypy = "*"
 mypy-extensions = "*"
 ruff = "*"
+2to3 = "*"
 
 [scripts]
 lint = "flake8 --statistics --show-source --color always --max-line-length 100 --docstring-convention numpy --ignore=D401 ."
