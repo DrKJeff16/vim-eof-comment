@@ -40,7 +40,7 @@ maintainers = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com
 name = "vim-eof-comment"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.8.1"
+version = "0.9.0"
 
     [project.scripts]
     vim-eof-comment = "vim_eof_comment.core:main"
@@ -83,7 +83,7 @@ vim-eof-comment = "vim_eof_comment"
 [tool.mypy]
 exclude_gitignore      = true
 follow_untyped_imports = true
-python_version         = "3.13"
+python_version         = "3.14"
 warn_return_any        = true
 warn_unused_configs    = true
 
