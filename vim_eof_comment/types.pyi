@@ -1,20 +1,7 @@
 from io import TextIOWrapper
 from typing import Any, TypedDict
 
-from argcomplete.completers import ChoicesCompleter, DirectoriesCompleter
-
-__all__ = [
-    "BatchPairDict",
-    "BatchPathDict",
-    "CommentMap",
-    "EOFCommentSearch",
-    "IOWrapperBool",
-    "IndentHandler",
-    "IndentMap",
-    "LineBool",
-    "ParserSpec",
-    "VersionInfo",
-]
+__all__ = ['BatchPairDict', 'BatchPathDict', 'CommentMap', 'EOFCommentSearch', 'IOWrapperBool', 'IndentHandler', 'IndentMap', 'LineBool', 'ParserSpec', 'VersionInfo']
 
 class VersionInfo:
     """
@@ -22,7 +9,7 @@ class VersionInfo:
 
     Parameters
     ----------
-    all_versions : List[Tuple[int, int, int]]
+    all_versions : list[tuple[int, int, int]]
         A list of three number tuples, containing (in order) the major, minor and patch
         components.
 
@@ -34,14 +21,13 @@ class VersionInfo:
         The minor component of the version.
     patch : int
         The patch component of the version.
-    all_versions : List[Tuple[int, int, int]]
+    all_versions : list[tuple[int, int, int]]
         A list of tuples containing all the versions in the object instance.
 
     Methods
     -------
     get_all_versions()
     """
-
     major: int
     minor: int
     patch: int
@@ -52,59 +38,9 @@ class VersionInfo:
 
         Parameters
         ----------
-        all_versions : List[Tuple[int, int, int]]
+        all_versions : list[tuple[int, int, int]]
             A list of tuples of three-integers, containing (in order) the major, minor and patch
             components.
-        """
-    def __str__(self) -> str:
-        """
-        Representate this object as a string.
-
-        This is what is returned when using ``str(VersionInfo(...))``.
-
-        Returns
-        -------
-        str
-            The string representation of the instance.
-
-        Examples
-        --------
-        Only one definition in constructor.
-
-        >>> from vim_eof_comment.version import VersionInfo
-        >>> print(str(VersionInfo([(0, 0, 1)])))
-        0.0.1
-
-        Multiple definitions in constructor.
-
-        >>> from vim_eof_comment.version import VersionInfo
-        >>> print(str(VersionInfo([(0, 0, 1), (0, 0, 2)])))
-        0.0.2
-        """
-    def __repr__(self) -> str:
-        """
-        Representate this object as a string.
-
-        This is what is returned when using ``print(VersionInfo(...))``.
-
-        Returns
-        -------
-        str
-            The string representation of the instance.
-
-        Examples
-        --------
-        Only one definition in constructor.
-
-        >>> from vim_eof_comment.version import VersionInfo
-        >>> print(repr(VersionInfo([(0, 0, 1)])))
-        0.0.1
-
-        Multiple definitions in constructor.
-
-        >>> from vim_eof_comment.version import VersionInfo
-        >>> print(repr(VersionInfo([(0, 0, 1), (0, 0, 2)])))
-        0.0.2
         """
     def __eq__(self, b) -> bool:
         """
@@ -158,32 +94,21 @@ class ParserSpec:
 
     Parameters
     ----------
-    opts : List[str]
+    opts : list[str]
         A list containing all the relevant iterations of the same option.
-    kwargs : Dict[str, Any]
+    kwargs : dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : DirectoriesCompleter or ChoicesCompleter
-        An ``argcomplete`` completer object.
 
     Attributes
     ----------
-    opts : List[str]
+    opts : list[str]
         A list containing all the relevant iterations of the same option.
-    kwargs : Dict[str, Any]
+    kwargs : dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
-    completer : DirectoriesCompleter or ChoicesCompleter
-        An ``argcomplete`` completer object.
     """
-
     opts: list[str]
     kwargs: dict[str, Any]
-    completer: ChoicesCompleter | DirectoriesCompleter
-    def __init__(
-        self,
-        opts: list[str],
-        kwargs: dict[str, Any],
-        completer: ChoicesCompleter | DirectoriesCompleter,
-    ) -> None: ...
+    def __init__(self, opts: list[str], kwargs: dict[str, Any]) -> None: ...
 
 class CommentMap:
     """
@@ -199,7 +124,6 @@ class CommentMap:
     level : int
         The indentation level.
     """
-
     level: int
     def __init__(self, level: int) -> None: ...
 
@@ -214,7 +138,6 @@ class IndentMap(TypedDict):
     expandtab : bool
         Whether to expand tabs or not.
     """
-
     level: int
     expandtab: bool
 
@@ -231,7 +154,6 @@ class IndentHandler(TypedDict):
     expandtab : bool
         Whether to expand tabs or not.
     """
-
     ft_ext: str
     level: str
     expandtab: bool
@@ -258,7 +180,6 @@ class IOWrapperBool:
     crlf : bool
         Whether the file is CRLF-terminated.
     """
-
     file: TextIOWrapper
     had_nwl: bool
     crlf: bool
@@ -269,7 +190,7 @@ class IOWrapperBool:
 
         Returns
         -------
-        Tuple[io.TextIOWrapper, bool, bool]
+        tuple[io.TextIOWrapper, bool, bool]
             The ``file``, ``had_nwl`` and ``crlf`` attributes.
         """
     def __iter__(self):
@@ -297,7 +218,6 @@ class LineBool:
     crlf : bool
         Whether the file is CRLF-terminated.
     """
-
     line: str
     had_nwl: bool
     crlf: bool
@@ -308,7 +228,7 @@ class LineBool:
 
         Returns
         -------
-        Tuple[str, bool, bool]
+        tuple[str, bool, bool]
             The ``line``, ``had_nwl`` and ``crlf`` attributes.
         """
     def __iter__(self):
@@ -332,7 +252,6 @@ class BatchPathDict:
     ft_ext : str
         The file-type/file-extension.
     """
-
     file: TextIOWrapper
     ft_ext: str
     def __init__(self, file: TextIOWrapper, ft_ext: str) -> None: ...
@@ -342,7 +261,7 @@ class BatchPathDict:
 
         Returns
         -------
-        Tuple[io.TextIOWrapper, str]
+        tuple[io.TextIOWrapper, str]
             The ``file`` and ``ft_ext`` attributes.
         """
     def __iter__(self):
@@ -366,7 +285,6 @@ class BatchPairDict:
     ft_ext : str
         The file-type/file-extension.
     """
-
     fpath: str
     ft_ext: str
     def __init__(self, fpath: str, ft_ext: str) -> None: ...
@@ -376,7 +294,7 @@ class BatchPairDict:
 
         Returns
         -------
-        Tuple[str, str]
+        tuple[str, str]
             The ``fpath`` and ``ft_ext`` attributes.
         """
     def __iter__(self):
@@ -406,7 +324,6 @@ class EOFCommentSearch:
     match : bool
         Whether it has a variation of an EOF comment at the end.
     """
-
     state: IOWrapperBool
     lang: str
     match: bool
@@ -417,7 +334,7 @@ class EOFCommentSearch:
 
         Returns
         -------
-        Tuple[IOWrapperBool, str, bool]
+        tuple[IOWrapperBool, str, bool]
             The ``state``, ``lang`` and ``match`` attributes.
         """
     def __iter__(self):

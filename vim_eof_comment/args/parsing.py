@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 Argument parsing utilities for ``vim-eof-comment``.
@@ -6,20 +5,21 @@ Argument parsing utilities for ``vim-eof-comment``.
 Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 
-__all__ = ["gen_parser_specs", "bootstrap_args", "arg_parser_init", "indent_handler"]
+__all__ = [
+    "arg_parser_init",
+    "bootstrap_args",
+    "gen_parser_specs",
+    "indent_handler",
+]
 
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentError, ArgumentParser, Namespace
-from typing import List, Tuple
-
-from argcomplete.completers import ChoicesCompleter, DirectoriesCompleter
 
 from ..comments.generator import get_extensions
 from ..types import IndentHandler, ParserSpec
 from ..util import die
-from .completion import complete_parser
 
 
-def gen_parser_specs(*specs) -> List[ParserSpec]:
+def gen_parser_specs(*specs) -> list[ParserSpec]:
     """
     Generate a ``ParserSpec`` object.
 
@@ -30,13 +30,13 @@ def gen_parser_specs(*specs) -> List[ParserSpec]:
 
     Returns
     -------
-    List[ParserSpec]
+    list[ParserSpec]
         The converted dictionaries inside a list.
     """
     return [ParserSpec(**d) for d in [*specs]]
 
 
-def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace:
+def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace:
     """
     Bootstrap the program arguments.
 
@@ -44,7 +44,7 @@ def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace
     ----------
     parser : argparse.ArgumentParser
         The ``argparse.ArgumentParser`` object.
-    specs : List[vim_eof_comment.types.ParserSpec]
+    specs : list[vim_eof_comment.types.ParserSpec]
         A list containing ``ParserSpec`` objects.
 
     Returns
@@ -54,12 +54,7 @@ def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace
     """
     for spec in specs:
         opts, kwargs = spec.opts, spec.kwargs
-        if spec.completer is not None:
-            parser.add_argument(*opts, **kwargs).completer = spec.completer
-        else:
-            parser.add_argument(*opts, **kwargs)
-
-    complete_parser(parser)
+        parser.add_argument(*opts, **kwargs)
 
     try:
         namespace: Namespace = parser.parse_args()
@@ -69,7 +64,7 @@ def bootstrap_args(parser: ArgumentParser, specs: List[ParserSpec]) -> Namespace
     return namespace
 
 
-def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Namespace]:
+def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Namespace]:
     """
     Generate the argparse namespace.
 
@@ -94,10 +89,9 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         add_help=True,
         allow_abbrev=True,
     )
-    spec: List[ParserSpec] = gen_parser_specs(
+    spec: list[ParserSpec] = gen_parser_specs(
         {
             "opts": ["directories"],
-            "completer": DirectoriesCompleter(),
             "kwargs": {
                 "nargs": "*",
                 "help": "The target directories to be checked",
@@ -106,7 +100,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-V", "--version"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
@@ -116,7 +109,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-v", "--verbose"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
@@ -126,7 +118,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-L", "--list-versions"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
@@ -136,7 +127,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-c", "--show-comment"],
-            "completer": ChoicesCompleter(tuple(get_extensions())),
             "kwargs": {
                 "required": False,
                 "choices": tuple(get_extensions()),
@@ -154,7 +144,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-D", "--dry-run"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
@@ -164,7 +153,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-l", "--list-filetypes"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
@@ -174,7 +162,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-n", "--newline"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "action": "store_true",
@@ -184,7 +171,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-e", "--extensions"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "metavar": "EXT1[,EXT2[,EXT3[,...]]]",
@@ -194,7 +180,6 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
         },
         {
             "opts": ["-i", "--indents"],
-            "completer": None,
             "kwargs": {
                 "required": False,
                 "metavar": "EXT1:INDENT1[:<Y|N>][,...]",
@@ -212,7 +197,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> Tuple[ArgumentParser, Name
     return parser, bootstrap_args(parser, spec)
 
 
-def indent_handler(indent: str) -> List[IndentHandler]:
+def indent_handler(indent: str) -> list[IndentHandler]:
     """
     Parse indent levels defined by the user.
 
@@ -223,22 +208,22 @@ def indent_handler(indent: str) -> List[IndentHandler]:
 
     Returns
     -------
-    List[vim_eof_comment.types.IndentHandler]
+    list[vim_eof_comment.types.IndentHandler]
         A list of ``IndentHandler`` objects.
     """
     if indent == "":
-        return list()
+        return []
 
-    indents: List[str] = indent.split(",")
-    maps: List[IndentHandler] = list()
+    indents: list[str] = indent.split(",")
+    maps: list[IndentHandler] = []
     for ind in indents:
-        inds: List[str] = ind.split(":")
+        inds: list[str] = ind.split(":")
         if len(inds) <= 1:
             continue
 
         ext, ind_level, et = inds[0], int(inds[1]), True
         if len(inds) >= 3 and inds[2].upper() in ("Y", "N"):
-            et = not inds[2].upper() == "N"
+            et = inds[2].upper() != "N"
 
         maps.append(IndentHandler(ft_ext=ext, level=str(ind_level), expandtab=et))
 

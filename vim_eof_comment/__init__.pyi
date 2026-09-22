@@ -18,26 +18,6 @@ from .types import ParserSpec as ParserSpec
 from .types import VersionInfo as VersionInfo
 from .version import __version__ as __version__
 
-__all__ = [
-    "BatchPairDict",
-    "BatchPathDict",
-    "CommentMap",
-    "EOFCommentSearch",
-    "IndentHandler",
-    "IndentMap",
-    "LineBool",
-    "ParserSpec",
-    "VersionInfo",
-    "__version__",
-    "append_eof_comment",
-    "args",
-    "comments",
-    "eof_comment_search",
-    "file",
-    "main",
-    "regex",
-    "util",
-    "version",
-]
+__all__ = ['BatchPairDict', 'BatchPathDict', 'CommentMap', 'EOFCommentSearch', 'IndentHandler', 'IndentMap', 'LineBool', 'ParserSpec', 'VersionInfo', '__version__', 'append_eof_comment', 'args', 'comments', 'eof_comment_search', 'file', 'main', 'regex', 'util', 'version']
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

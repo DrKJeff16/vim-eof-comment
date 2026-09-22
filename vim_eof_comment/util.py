@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 EOF comments checker utilities.
@@ -13,9 +12,10 @@ __all__ = [
     "verbose_print",
 ]
 
+from collections.abc import Callable
 from sys import exit as Exit
 from sys import stderr, stdout
-from typing import Callable, Dict, List, TextIO
+from typing import TextIO
 
 from .types import IndentHandler, IndentMap
 
@@ -84,7 +84,7 @@ def die(*msg, code: int = 0, func: Callable[[TextIO], None] | None = None, **kwa
     """
     try:
         code = int(code)
-    except Exception:
+    except ValueError:
         code = 1
 
     if func is not None and callable(func):
@@ -126,18 +126,18 @@ def verbose_print(*msg, verbose: bool | None = None, **kwargs) -> None:
     print(*msg, end=end, sep=sep, flush=flush)
 
 
-def gen_indent_maps(maps: List[IndentHandler]) -> Dict[str, IndentMap] | None:
+def gen_indent_maps(maps: list[IndentHandler]) -> dict[str, IndentMap] | None:
     """
     Generate a dictionary from the custom indent maps.
 
     Parameters
     ----------
-    maps : List[IndentHandler]
+    maps : list[IndentHandler]
         A list of IndentHandler objects.
 
     Returns
     -------
-    Dict[str, IndentMap]
+    dict[str, IndentMap]
         The generated indent map dictionary.
 
     Raises
@@ -148,19 +148,20 @@ def gen_indent_maps(maps: List[IndentHandler]) -> Dict[str, IndentMap] | None:
     if len(maps) == 0:
         return None
 
-    map_d: Dict[str, IndentMap] = dict()
+    map_d: dict[str, IndentMap] = {}
     for mapping in maps:
         mapping_len = len(mapping)
         if mapping_len <= 1:
             raise ValueError(f"One of the custom mappings is not formatted properly! (`{mapping}`)")
 
         ext, level = mapping["ft_ext"], mapping["level"]
-        if ext in map_d.keys():
+        if ext in map_d:
             continue
 
-        mapping_len = mapping_len if mapping_len <= 3 else 3
+        mapping_len = min(mapping_len, 3)
         map_d[ext] = IndentMap(
-            level=int(level), expandtab=True if mapping_len == 2 else mapping["expandtab"]
+            level=int(level),
+            expandtab=True if mapping_len == 2 else mapping["expandtab"],
         )
 
     return map_d

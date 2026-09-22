@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 Per-filetype modeline comment class.
@@ -16,9 +15,7 @@ __all__ = [
 
 import json
 import os
-from io import TextIOWrapper
 from os.path import exists, isdir, realpath
-from typing import Dict, List, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -36,27 +33,26 @@ _RESET: int = Style.RESET_ALL
 _BOLD: int = Style.BRIGHT
 
 
-def import_json() -> Tuple[Dict[str, str], Dict[str, IndentMap]]:
+def import_json() -> tuple[dict[str, str], dict[str, IndentMap]]:
     """
     Import default vars from JSON file.
 
     Returns
     -------
-    comments : Dict[str, str]
-        The default ``Dict[str, str]``.
-    map_dict : Dict[str, IndentMap]
+    comments : dict[str, str]
+        The default ``dict[str, str]``.
+    map_dict : dict[str, IndentMap]
         The default indent mappings dict.
     """
     splitter: str = "/" if os.name != "nt" else "\\"
     split = __file__.split(splitter)
     length = len(split) - 1
     parent: str = splitter.join(split[:length])
-    file: TextIOWrapper = open(parent + f"{splitter}filetypes.json", "r")
 
-    data: str = "".join(file.read().split("\n"))
-    file.close()
+    with open(parent + f"{splitter}filetypes.json", "r") as file:
+        data: str = "".join(file.read().split("\n"))
 
-    result: Tuple[Dict[str, str], Dict[str, IndentMap]] = json.loads(data)
+    result: tuple[dict[str, str], dict[str, IndentMap]] = json.loads(data)
     comments = result[0]
     maps = result[1]
 
@@ -72,18 +68,18 @@ class Comments:
 
     Parameters
     ----------
-    mappings : Dict[str, IndentMap], optional, default=None
+    mappings : dict[str, IndentMap], optional, default=None
         The ``str`` to ``IndentMap`` dictionary.
 
     Attributes
     ----------
-    __DEFAULT : Dict[str, IndentMap]
+    __DEFAULT : dict[str, IndentMap]
         The default/fallback alternative to ``langs``.
-    formats : Dict[str, str]
+    formats : dict[str, str]
         The default/fallback alternative to ``comments``.
-    langs : Dict[str, IndentMap]
+    langs : dict[str, IndentMap]
         A dictionary of ``IndentMap`` type objects.
-    comments : Dict[str, str]
+    comments : dict[str, str]
         A dictionary of file-extension-to-EOF-comment mappings.
 
     Methods
@@ -94,18 +90,18 @@ class Comments:
     get_ft()
     """
 
-    __DEFAULT: Dict[str, IndentMap]
-    formats: Dict[str, str]
-    comments: Dict[str, str]
-    langs: Dict[str, IndentMap]
+    __DEFAULT: dict[str, IndentMap]
+    formats: dict[str, str]
+    comments: dict[str, str]
+    langs: dict[str, IndentMap]
 
-    def __init__(self, mappings: Dict[str, IndentMap] | None = None):
+    def __init__(self, mappings: dict[str, IndentMap] | None = None):
         """
         Create a new Vim EOF comment object.
 
         Parameters
         ----------
-        mappings : Dict[str, IndentMap], optional, default=None
+        mappings : dict[str, IndentMap], optional, default=None
             The ``str`` to ``IndentMap`` dictionary.
         """
         self.formats, self.__DEFAULT = import_json()
@@ -114,7 +110,7 @@ class Comments:
             self.langs = self.__DEFAULT.copy()
             return
 
-        langs: Dict[str, IndentMap] = dict()
+        langs: dict[str, IndentMap] = {}
         for lang, mapping in mappings.items():
             if not (self.__is_available(lang)) or len(mapping) == 0:
                 continue
@@ -141,15 +137,15 @@ class Comments:
         bool
             Represents whether the file extension has been included in the defaults.
         """
-        return lang in self.__DEFAULT.keys()
+        return lang in self.__DEFAULT
 
-    def __fill_langs(self, langs: Dict[str, IndentMap]) -> None:
+    def __fill_langs(self, langs: dict[str, IndentMap]) -> None:
         """
         Fill languages dict.
 
         Parameters
         ----------
-        langs : Dict[str, IndentMap]
+        langs : dict[str, IndentMap]
             A dictionary of ``IndentMap`` type objects.
         """
         if len(langs) == 0:
@@ -161,27 +157,27 @@ class Comments:
 
         self.langs = langs.copy()
 
-    def get_defaults(self) -> Dict[str, IndentMap]:
+    def get_defaults(self) -> dict[str, IndentMap]:
         """
         Retrieve the default comment dictionary.
 
         Returns
         -------
-        Dict[str, IndentMap]
+        dict[str, IndentMap]
             A dictionary of ``IndentMap`` type objects.
         """
         return self.__DEFAULT
 
-    def generate(self) -> Dict[str, str]:
+    def generate(self) -> dict[str, str]:
         """
         Generate the comments list.
 
         Returns
         -------
-        Dict[str, str]
+        dict[str, str]
             The customly generated comments dictionary.
         """
-        comments: Dict[str, str] = dict()
+        comments: dict[str, str] = {}
         for lang, fmt in self.formats.items():
             lvl, expandtab = self.langs[lang]["level"], self.langs[lang]["expandtab"]
             et, sw = "noet", 0
@@ -191,7 +187,7 @@ class Comments:
 
             comments[lang] = fmt.format(ts=lvl, sts=lvl, sw=sw, et=et)
 
-        self.comments: Dict[str, str] = comments.copy()
+        self.comments: dict[str, str] = comments.copy()
         return self.comments
 
     def get_ft(self, ext: str) -> str | None:
@@ -208,7 +204,7 @@ class Comments:
         str or None
             Either the file extension string, or if not available then ``None``.
         """
-        comments: Dict[str, str] = self.generate()
+        comments: dict[str, str] = self.generate()
         return comments.get(ext, None)
 
 
@@ -237,7 +233,7 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     return txt
 
 
-def list_comments(exts: List[str]) -> None:
+def list_comments(exts: list[str]) -> None:
     """
     List the supported comments per-file extension, then stop command execution.
 
@@ -245,7 +241,7 @@ def list_comments(exts: List[str]) -> None:
 
     Parameters
     ----------
-    exts : List[str]
+    exts : list[str]
         List of supported file extensions (can be empty).
 
     Raises
@@ -255,15 +251,14 @@ def list_comments(exts: List[str]) -> None:
     """
     color_init()
 
-    formats: Dict[str, str] = Comments().formats
+    formats: dict[str, str] = Comments().formats
     max_len: int = 0
-    extensions: Dict[str, str] = dict()
+    extensions: dict[str, str] = {}
     for ext, comment in formats.items():
         extensions[ext] = comment
-        if len(ext) > max_len:
-            max_len = len(ext)
+        max_len = max(max_len, len(ext))
 
-    fmt_exts: Dict[str, Tuple[str, str]] = dict()
+    fmt_exts: dict[str, tuple[str, str]] = {}
     for ext, comment in extensions.items():
         prefix = f"{_RESET}{_BOLD}{_BLUE}{ext}"
         suffix = (" " * (max_len - len(ext) + 2)) + f"{_RESET}"
@@ -275,28 +270,28 @@ def list_comments(exts: List[str]) -> None:
             code=0,
         )
 
-    dedup_exts: List[str] = list()
+    dedup_exts: list[str] = []
     for ext in exts:
-        if ext not in fmt_exts.keys():
+        if ext not in fmt_exts:
             raise ValueError(f"`{ext}` is not supported!")
 
         if ext not in dedup_exts:
             dedup_exts.append(ext)
 
-    data: List[str] = [f"{fmt_exts[ext][0]}==>  {fmt_exts[ext][1]}" for ext in dedup_exts]
+    data: list[str] = [f"{fmt_exts[ext][0]}==>  {fmt_exts[ext][1]}" for ext in dedup_exts]
     die("\n".join(data), code=0)
 
 
-def get_extensions() -> List[str]:
+def get_extensions() -> list[str]:
     """
     Return the list of supported file extensions.
 
     Returns
     -------
-    List[str]
+    list[str]
         List of strings with all the available file extensions.
     """
-    res: List[str] = [ext for ext in Comments().get_defaults().keys()]
+    res: list[str] = [ext for ext in Comments().get_defaults()]
     return res
 
 
@@ -305,16 +300,16 @@ def list_filetypes() -> None:
     color_init()
 
     defaults = Comments().get_defaults()
-    items: Dict[str, Tuple[int, str]] = dict()
+    items: dict[str, tuple[int, str]] = {}
     for ft_ext, indents in defaults.items():
         level: int = indents.get("level", 4)
         et = "Yes" if indents.get("expandtab") else "No"
         items[ft_ext] = (level, et)
 
-    keys: List[str] = list(items.keys())
+    keys: list[str] = list(items.keys())
     keys.sort()
 
-    sorted_items: Dict[str, Tuple[int, str]] = {i: items[i] for i in keys}
+    sorted_items: dict[str, tuple[int, str]] = {i: items[i] for i in keys}
 
     txt = [generate_list_items(k, v[0], v[1]) for k, v in sorted_items.items()]
     die(*txt, code=0, sep="\n")
@@ -322,26 +317,14 @@ def list_filetypes() -> None:
 
 def export_json() -> None:
     """Export default vars to JSON."""
-    if not (exists("./vim_eof_comment/comments") and isdir("./vim_eof_comment/comments")):
-        return
+    if exists("./vim_eof_comment/comments") and isdir("./vim_eof_comment/comments"):
+        try:
+            data: str = json.dumps(import_json(), ensure_ascii=False)
+        except KeyboardInterrupt:
+            die(code=1)
 
-    try:
-        data: str = json.dumps(import_json(), ensure_ascii=False)
-    except KeyboardInterrupt:
-        die(code=1)
-    except Exception:
-        raise RuntimeError("Data encoding failed!")
-
-    try:
-        file: TextIOWrapper = open(_JSON_FILE, "w")
-    except Exception:
-        die("Failed to write encoded data!", code=5)
-
-    if file.write(data + "\n") != len(data) + 1:
-        file.close()
-        raise IOError("Failed to write data properly!")
-
-    file.close()
+        with open(_JSON_FILE, "w") as file_o:
+            file_o.write(data + "\n")
 
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

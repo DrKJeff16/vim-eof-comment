@@ -2,7 +2,7 @@ from argparse import ArgumentParser, Namespace
 
 from ..types import IndentHandler, ParserSpec
 
-__all__ = ["gen_parser_specs", "bootstrap_args", "arg_parser_init", "indent_handler"]
+__all__ = ['arg_parser_init', 'bootstrap_args', 'gen_parser_specs', 'indent_handler']
 
 def gen_parser_specs(*specs) -> list[ParserSpec]:
     """
@@ -15,10 +15,9 @@ def gen_parser_specs(*specs) -> list[ParserSpec]:
 
     Returns
     -------
-    List[ParserSpec]
+    list[ParserSpec]
         The converted dictionaries inside a list.
     """
-
 def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace:
     """
     Bootstrap the program arguments.
@@ -27,7 +26,7 @@ def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace
     ----------
     parser : argparse.ArgumentParser
         The ``argparse.ArgumentParser`` object.
-    specs : List[vim_eof_comment.types.ParserSpec]
+    specs : list[vim_eof_comment.types.ParserSpec]
         A list containing ``ParserSpec`` objects.
 
     Returns
@@ -35,9 +34,8 @@ def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace
     argparse.Namespace
         The generated ``argparse.Namespace`` object.
     """
-
-def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Namespace]:
-    """
+def arg_parser_init(prog: str = 'vim-eof-comment') -> tuple[ArgumentParser, Namespace]:
+    '''
     Generate the argparse namespace.
 
     Parameters
@@ -51,8 +49,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Name
         The generated ``argparse.ArgumentParser`` object.
     namespace : argparse.Namespace
         The generated ``argparse.Namespace`` object.
-    """
-
+    '''
 def indent_handler(indent: str) -> list[IndentHandler]:
     """
     Parse indent levels defined by the user.
@@ -64,7 +61,7 @@ def indent_handler(indent: str) -> list[IndentHandler]:
 
     Returns
     -------
-    List[vim_eof_comment.types.IndentHandler]
+    list[vim_eof_comment.types.IndentHandler]
         A list of ``IndentHandler`` objects.
     """
 

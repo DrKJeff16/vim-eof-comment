@@ -1,6 +1,6 @@
 from ..types import IndentMap
 
-__all__ = ["Comments", "generate_list_items", "get_extensions", "list_comments", "list_filetypes"]
+__all__ = ['Comments', 'generate_list_items', 'get_extensions', 'list_comments', 'list_filetypes']
 
 class Comments:
     """
@@ -8,18 +8,18 @@ class Comments:
 
     Parameters
     ----------
-    mappings : Dict[str, IndentMap], optional, default=None
+    mappings : dict[str, IndentMap], optional, default=None
         The ``str`` to ``IndentMap`` dictionary.
 
     Attributes
     ----------
-    __DEFAULT : Dict[str, IndentMap]
+    __DEFAULT : dict[str, IndentMap]
         The default/fallback alternative to ``langs``.
-    formats : Dict[str, str]
+    formats : dict[str, str]
         The default/fallback alternative to ``comments``.
-    langs : Dict[str, IndentMap]
+    langs : dict[str, IndentMap]
         A dictionary of ``IndentMap`` type objects.
-    comments : Dict[str, str]
+    comments : dict[str, str]
         A dictionary of file-extension-to-EOF-comment mappings.
 
     Methods
@@ -29,7 +29,6 @@ class Comments:
     get_defaults()
     get_ft()
     """
-
     __DEFAULT: dict[str, IndentMap]
     formats: dict[str, str]
     comments: dict[str, str]
@@ -40,7 +39,7 @@ class Comments:
 
         Parameters
         ----------
-        mappings : Dict[str, IndentMap], optional, default=None
+        mappings : dict[str, IndentMap], optional, default=None
             The ``str`` to ``IndentMap`` dictionary.
         """
     def __is_available(self, lang: str) -> bool:
@@ -63,7 +62,7 @@ class Comments:
 
         Parameters
         ----------
-        langs : Dict[str, IndentMap]
+        langs : dict[str, IndentMap]
             A dictionary of ``IndentMap`` type objects.
         """
     def get_defaults(self) -> dict[str, IndentMap]:
@@ -72,7 +71,7 @@ class Comments:
 
         Returns
         -------
-        Dict[str, IndentMap]
+        dict[str, IndentMap]
             A dictionary of ``IndentMap`` type objects.
         """
     def generate(self) -> dict[str, str]:
@@ -81,7 +80,7 @@ class Comments:
 
         Returns
         -------
-        Dict[str, str]
+        dict[str, str]
             The customly generated comments dictionary.
         """
     def get_ft(self, ext: str) -> str | None:
@@ -100,7 +99,7 @@ class Comments:
         """
 
 def generate_list_items(ft: str, level: int, expandtab: str) -> str:
-    """
+    '''
     Generate a colored string for filetypes listing.
 
     Parameters
@@ -116,8 +115,7 @@ def generate_list_items(ft: str, level: int, expandtab: str) -> str:
     -------
     str
         The generated string.
-    """
-
+    '''
 def list_comments(exts: list[str]) -> None:
     """
     List the supported comments per-file extension, then stop command execution.
@@ -126,7 +124,7 @@ def list_comments(exts: list[str]) -> None:
 
     Parameters
     ----------
-    exts : List[str]
+    exts : list[str]
         List of supported file extensions (can be empty).
 
     Raises
@@ -134,17 +132,15 @@ def list_comments(exts: list[str]) -> None:
     ValueError
         Raised when a given extension is not supported.
     """
-
 def get_extensions() -> list[str]:
     """
     Return the list of supported file extensions.
 
     Returns
     -------
-    List[str]
+    list[str]
         List of strings with all the available file extensions.
     """
-
 def list_filetypes() -> None:
     """List all available filetypes, then stop command execution."""
 

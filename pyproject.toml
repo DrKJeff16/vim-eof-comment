@@ -126,9 +126,45 @@ split_imports = false
 validate_objectdb = true
 
 [tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+indent-width = 4
 line-length = 100
+target-version = "py314"
 
-    [tool.ruff.lint.pydocstyle]
-    convention = "numpy"
+    [tool.ruff.format]
+    exclude = ["*.pyi"]
+
+    [tool.ruff.lint]
+    ignore = ["SIM115"]
+
+        [tool.ruff.lint.pydocstyle]
+        convention = "numpy"
 
 # vim: set ts=4 sts=4 sw=4 et ai si sta:

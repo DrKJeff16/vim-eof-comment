@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
 """
 File management utilities.
@@ -18,12 +17,11 @@ __all__ = [
 from io import TextIOWrapper
 from os import walk
 from os.path import isdir, join
-from typing import Dict, List
 
 from .types import BatchPairDict, BatchPathDict, LineBool
 from .util import die, error
 
-EXCLUDED_DIRS: List[str] = [
+EXCLUDED_DIRS: list[str] = [
     ".git",
     ".mypy_cache",
     ".ropeproject",
@@ -53,36 +51,34 @@ def try_open(fpath: str) -> bool:
             file.read()
         except UnicodeDecodeError:
             success = False
-        except Exception:
-            die("Something went wrong in `try_open()`!", code=2)
 
     return success
 
 
-def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
+def bootstrap_paths(paths: list[str], exts: list[str]) -> list[BatchPairDict]:
     """
     Bootstrap all the matching paths in current dir and below.
 
     Parameters
     ----------
-    paths : List[str]
+    paths : list[str]
         A list of specified file paths.
-    exts : List[str]
+    exts : list[str]
         A list of specified file extensions.
 
     Returns
     -------
-    List[BatchPairDict]
+    list[BatchPairDict]
         A list of ``BatchPairDict`` type objects.
     """
-    result = list()
+    result = []
     for path in paths:
         if not isdir(path):
             continue
 
         root: str
-        dirs: List[str]
-        files: List[str]
+        dirs: list[str]
+        files: list[str]
         for root, dirs, files in walk(path):
             for file in files:
                 for ext in exts:
@@ -94,21 +90,21 @@ def bootstrap_paths(paths: List[str], exts: List[str]) -> List[BatchPairDict]:
     return result
 
 
-def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
+def open_batch_paths(paths: list[BatchPairDict]) -> dict[str, BatchPathDict]:
     """
     Return a list of TextIO objects given file path strings.
 
     Parameters
     ----------
-    paths : List[BatchPairDict]
+    paths : list[BatchPairDict]
         A list of BatchPairDict type objects.
 
     Returns
     -------
-    Dict[str, BatchPathDict]
+    dict[str, BatchPathDict]
         A ``str`` to ``BatchPathDict``` dictionary.
     """
-    result: Dict[str, BatchPathDict] = dict()
+    result: dict[str, BatchPathDict] = {}
     for path in paths:
         fpath, ext = path.fpath, path.ft_ext
         if not try_open(fpath):
@@ -120,13 +116,11 @@ def open_batch_paths(paths: List[BatchPairDict]) -> Dict[str, BatchPathDict]:
             die("\nProgram interrupted!", code=1)  # Kills the program
         except FileNotFoundError:
             error(f"File `{fpath}` is not available!")
-        except Exception:
-            error(f"Something went wrong while trying to open `{fpath}`!")
 
     return result
 
 
-def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwargs) -> str:
+def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwargs) -> str:
     """
     Modify a file containing a bad EOF comment.
 
@@ -134,7 +128,7 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     ----------
     file : TextIOWrapper
         The file object to be read.
-    comments : Dict[str, str]
+    comments : dict[str, str]
         A filetype-to-comment dictionary.
     ext : str
         The file-type/file-extension given by the user.
@@ -150,7 +144,7 @@ def modify_file(file: TextIOWrapper, comments: Dict[str, str], ext: str, **kwarg
     newline: bool = kwargs.get("newline", False)
     crlf: bool = kwargs.get("crlf", False)
 
-    data: List[str] = file.read().split("\n")
+    data: list[str] = file.read().split("\n")
     file.close()
 
     if len(data) >= 1 and data[-1] != "":
@@ -199,7 +193,7 @@ def get_last_line(file: TextIOWrapper) -> LineBool:
     LineBool
         An object containing both the last line in a string and a boolean indicating a newline.
     """
-    data: List[str] = file.read().split("\n")
+    data: list[str] = file.read().split("\n")
     file.close()
 
     if data[-1] != "":

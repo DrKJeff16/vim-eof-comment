@@ -1,17 +1,15 @@
 from .comments.generator import Comments
 from .types import BatchPathDict, EOFCommentSearch
 
-__all__ = ["append_eof_comment", "eof_comment_search", "main"]
+__all__ = ['append_eof_comment', 'eof_comment_search', 'main']
 
-def eof_comment_search(
-    files: dict[str, BatchPathDict], comments: Comments, **kwargs
-) -> tuple[dict[str, EOFCommentSearch], bool]:
+def eof_comment_search(files: dict[str, BatchPathDict], comments: Comments, **kwargs) -> tuple[dict[str, EOFCommentSearch], bool]:
     """
     Search through opened files.
 
     Parameters
     ----------
-    files : Dict[str, BatchPathDict]
+    files : dict[str, BatchPathDict]
         A dictionary of ``str`` to ``BatchPathDict`` objects.
     comments : Comments
         The ``Comments`` object containing the hardcoded comments per file-type/file-extension.
@@ -20,7 +18,7 @@ def eof_comment_search(
 
     Returns
     -------
-    Dict[str, EOFCommentSearch]
+    dict[str, EOFCommentSearch]
         A dictionary of ``str`` to ``EOFCommentSearch`` objects.
 
     See Also
@@ -30,16 +28,13 @@ def eof_comment_search(
     vim_eof_comment.types.EOFCommentSearch
         The object type for the returning dictionary values.
     """
-
-def append_eof_comment(
-    files: dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool
-) -> None:
+def append_eof_comment(files: dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool) -> None:
     """
     Append a Vim EOF comment to files missing it.
 
     Parameters
     ----------
-    files : Dict[str, EOFCommentSearch]
+    files : dict[str, EOFCommentSearch]
         A dictionary of ``str`` to ``EOFCommentSearch`` objects.
     comments : Comments
         The ``Comments`` object containing the hardcoded comments per file extension.
@@ -48,7 +43,6 @@ def append_eof_comment(
     crlf : bool
         Whether the file is CRLF-terminated.
     """
-
 def main() -> int:
     """
     Execute the main workflow.

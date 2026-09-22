@@ -2,14 +2,7 @@ from io import TextIOWrapper
 
 from .types import BatchPairDict, BatchPathDict, LineBool
 
-__all__ = [
-    "EXCLUDED_DIRS",
-    "bootstrap_paths",
-    "get_last_line",
-    "modify_file",
-    "open_batch_paths",
-    "try_open",
-]
+__all__ = ['EXCLUDED_DIRS', 'bootstrap_paths', 'get_last_line', 'modify_file', 'open_batch_paths', 'try_open']
 
 EXCLUDED_DIRS: list[str]
 
@@ -27,39 +20,36 @@ def try_open(fpath: str) -> bool:
     bool
         Whether the file triggers a ``UnicodeDecodeError`` or not.
     """
-
 def bootstrap_paths(paths: list[str], exts: list[str]) -> list[BatchPairDict]:
     """
     Bootstrap all the matching paths in current dir and below.
 
     Parameters
     ----------
-    paths : List[str]
+    paths : list[str]
         A list of specified file paths.
-    exts : List[str]
+    exts : list[str]
         A list of specified file extensions.
 
     Returns
     -------
-    List[BatchPairDict]
+    list[BatchPairDict]
         A list of ``BatchPairDict`` type objects.
     """
-
 def open_batch_paths(paths: list[BatchPairDict]) -> dict[str, BatchPathDict]:
     """
     Return a list of TextIO objects given file path strings.
 
     Parameters
     ----------
-    paths : List[BatchPairDict]
+    paths : list[BatchPairDict]
         A list of BatchPairDict type objects.
 
     Returns
     -------
-    Dict[str, BatchPathDict]
+    dict[str, BatchPathDict]
         A ``str`` to ``BatchPathDict``` dictionary.
     """
-
 def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwargs) -> str:
     """
     Modify a file containing a bad EOF comment.
@@ -68,7 +58,7 @@ def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwarg
     ----------
     file : TextIOWrapper
         The file object to be read.
-    comments : Dict[str, str]
+    comments : dict[str, str]
         A filetype-to-comment dictionary.
     ext : str
         The file-type/file-extension given by the user.
@@ -80,7 +70,6 @@ def modify_file(file: TextIOWrapper, comments: dict[str, str], ext: str, **kwarg
     str
         The modified contents of the given file.
     """
-
 def get_last_line(file: TextIOWrapper) -> LineBool:
     """
     Return the last line of a file and indicates whether it already has a newline.

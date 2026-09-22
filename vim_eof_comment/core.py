@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2026 Guennadi Maximov C. All Rights Reserved.
-# PYTHON_ARGCOMPLETE_OK
 """
 Ensure EOF Vim comment in specific filetypes.
 
@@ -11,7 +9,6 @@ __all__ = ["append_eof_comment", "eof_comment_search", "main"]
 
 from io import TextIOWrapper
 from time import sleep
-from typing import Dict, List, Tuple
 
 from colorama import Fore, Style
 from colorama import init as color_init
@@ -32,14 +29,14 @@ _RESET: int = Style.RESET_ALL
 
 
 def eof_comment_search(
-    files: Dict[str, BatchPathDict], comments: Comments, **kwargs
-) -> Tuple[Dict[str, EOFCommentSearch], bool]:
+    files: dict[str, BatchPathDict], comments: Comments, **kwargs
+) -> tuple[dict[str, EOFCommentSearch], bool]:
     """
     Search through opened files.
 
     Parameters
     ----------
-    files : Dict[str, BatchPathDict]
+    files : dict[str, BatchPathDict]
         A dictionary of ``str`` to ``BatchPathDict`` objects.
     comments : Comments
         The ``Comments`` object containing the hardcoded comments per file-type/file-extension.
@@ -48,7 +45,7 @@ def eof_comment_search(
 
     Returns
     -------
-    Dict[str, EOFCommentSearch]
+    dict[str, EOFCommentSearch]
         A dictionary of ``str`` to ``EOFCommentSearch`` objects.
 
     See Also
@@ -61,7 +58,7 @@ def eof_comment_search(
     verbose: bool = kwargs.get("verbose", False)
     newline: bool = kwargs.get("newline", False)
 
-    result: Dict[str, EOFCommentSearch] = dict()
+    result: dict[str, EOFCommentSearch] = {}
     comment_map = comments.generate()
 
     color_init()
@@ -89,14 +86,14 @@ def eof_comment_search(
 
 
 def append_eof_comment(
-    files: Dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool
+    files: dict[str, EOFCommentSearch], comments: Comments, newline: bool, crlf: bool
 ) -> None:
     """
     Append a Vim EOF comment to files missing it.
 
     Parameters
     ----------
-    files : Dict[str, EOFCommentSearch]
+    files : dict[str, EOFCommentSearch]
         A dictionary of ``str`` to ``EOFCommentSearch`` objects.
     comments : Comments
         The ``Comments`` object containing the hardcoded comments per file extension.
@@ -106,7 +103,7 @@ def append_eof_comment(
         Whether the file is CRLF-terminated.
     """
     comment_map = comments.generate()
-    total: int = len(files.keys())
+    total: int = len(files)
     bar: Bar = Bar(
         "Checking Vim Modeline Comments...",
         fill="*",
@@ -154,7 +151,7 @@ def main() -> int:
         version_print(__version__)
 
     if ns.show_comments:
-        show_comments: List[str] = list()
+        show_comments: list[str] = []
         for comment in ns.show_comments:
             if comment is not None and comment not in show_comments:
                 show_comments.append(comment)
@@ -170,12 +167,12 @@ def main() -> int:
     if not (ns.directories and ns.exts) or len(ns.directories) == 0 or ns.exts == "":
         die(code=1, func=parser.print_usage)
 
-    dirs: List[str] = ns.directories
-    exts: List[str] = ns.exts.split(",")
+    dirs: list[str] = ns.directories
+    exts: list[str] = ns.exts.split(",")
     newline: bool = ns.newline
     verbose: bool = ns.verbose
     dry_run: bool = ns.dry_run
-    indent: List[IndentHandler] = indent_handler(ns.indent)
+    indent: list[IndentHandler] = indent_handler(ns.indent)
 
     if dry_run:
         verbose = True
