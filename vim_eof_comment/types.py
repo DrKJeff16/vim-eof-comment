@@ -21,6 +21,8 @@ __all__ = [
 from io import TextIOWrapper
 from typing import Any, TypedDict
 
+from shtab import CompleteType
+
 
 class VersionInfo:
     """
@@ -143,6 +145,8 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
+    complete : shtab.CompleteType or dict[str, CompleteType] or None, default=None
+        Opptional ``shtab`` complete type.
 
     Attributes
     ----------
@@ -150,14 +154,23 @@ class ParserSpec:
         A list containing all the relevant iterations of the same option.
     kwargs : dict[str, Any]
         Extra arguments for ``argparse.ArgumentParser``.
+    complete : shtab.CompleteType or dict[str, CompleteType] or None, default=None
+        Opptional ``shtab`` complete type.
     """
 
     opts: list[str]
     kwargs: dict[str, Any]
+    complete: CompleteType | dict[str, CompleteType] | None
 
-    def __init__(self, opts: list[str], kwargs: dict[str, Any]):
+    def __init__(
+        self,
+        opts: list[str],
+        kwargs: dict[str, Any],
+        complete: CompleteType | dict[str, CompleteType] | None = None,
+    ):
         self.opts = opts
         self.kwargs = kwargs
+        self.complete = complete
 
 
 class CommentMap:

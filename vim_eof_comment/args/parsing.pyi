@@ -1,10 +1,11 @@
 from argparse import ArgumentParser, Namespace
+from typing import Any
 
 from ..types import IndentHandler, ParserSpec
 
 __all__ = ['arg_parser_init', 'bootstrap_args', 'gen_parser_specs', 'indent_handler']
 
-def gen_parser_specs(*specs) -> list[ParserSpec]:
+def gen_parser_specs(*specs: dict[str, Any]) -> list[ParserSpec]:
     """
     Generate a ``ParserSpec`` object.
 

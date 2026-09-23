@@ -13,13 +13,16 @@ __all__ = [
 ]
 
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentError, ArgumentParser, Namespace
+from typing import Any
+
+import shtab
 
 from ..comments.generator import get_extensions
 from ..types import IndentHandler, ParserSpec
 from ..util import die
 
 
-def gen_parser_specs(*specs) -> list[ParserSpec]:
+def gen_parser_specs(*specs: dict[str, Any]) -> list[ParserSpec]:
     """
     Generate a ``ParserSpec`` object.
 
@@ -52,9 +55,13 @@ def bootstrap_args(parser: ArgumentParser, specs: list[ParserSpec]) -> Namespace
     argparse.Namespace
         The generated ``argparse.Namespace`` object.
     """
+    shtab.add_argument_to(parser, ["-s", "--shell-completion"])
     for spec in specs:
         opts, kwargs = spec.opts, spec.kwargs
-        parser.add_argument(*opts, **kwargs)
+        if spec.complete is not None:
+            parser.add_argument(*opts, **kwargs).complete = spec.complete
+        else:
+            parser.add_argument(*opts, **kwargs)
 
     try:
         namespace: Namespace = parser.parse_args()
@@ -82,7 +89,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Name
     """
     parser = ArgumentParser(
         prog=prog,
-        description="Checks for Vim EOF comments in all matching files in specific directories",
+        description="Checks for Vim EOF comments in all matching files",
         epilog="Both the directory path(s) and the `-e` option are required!",
         exit_on_error=False,
         formatter_class=ArgumentDefaultsHelpFormatter,
@@ -97,6 +104,7 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Name
                 "help": "The target directories to be checked",
                 "metavar": "/path/to/directory",
             },
+            "complete": shtab.DIRECTORY,
         },
         {
             "opts": ["-V", "--version"],
@@ -141,6 +149,17 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Name
                 "metavar": "EXT",
                 "dest": "show_comments",
             },
+            "complete": {
+                "bash": "_shtab_get_extensions",
+                "fish": "(_shtab_get_extensions)",
+                "tcsh": "_shtab_get_extensions",
+                "zsh": "(" + " ".join(get_extensions()) + ")",
+                "preamble": {
+                    "bash": "_shtab_get_extensions() {\n"
+                    + f"    compgen -W '{' '.join(get_extensions())}' -- $1\n"
+                    + "}",
+                },
+            },
         },
         {
             "opts": ["-D", "--dry-run"],
@@ -176,6 +195,12 @@ def arg_parser_init(prog: str = "vim-eof-comment") -> tuple[ArgumentParser, Name
                 "metavar": "EXT1[,EXT2[,EXT3[,...]]]",
                 "help": 'A comma-separated list of file extensions (e.g. "lua,c,cpp,cc,c++")',
                 "dest": "exts",
+            },
+            "complete": {
+                "bash": "_shtab_get_extensions",
+                "fish": "(_shtab_get_extensions)",
+                "tcsh": "_shtab_get_extensions",
+                "zsh": "(" + " ".join(get_extensions()) + ")",
             },
         },
         {

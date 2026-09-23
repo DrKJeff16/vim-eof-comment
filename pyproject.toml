@@ -22,7 +22,7 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-dependencies = ["argcomplete", "argparse", "colorama"]
+dependencies = ["argparse", "colorama", "shtab"]
 description = "Adds Vim EOF modeline comments for given filetypes in given directories"
 keywords = [
     "eof comments",
@@ -167,4 +167,4 @@ target-version = "py314"
         [tool.ruff.lint.pydocstyle]
         convention = "numpy"
 
-# vim: set ts=4 sts=4 sw=4 et ai si sta:
+        # vim: set ts=4 sts=4 sw=4 et ai si sta:
