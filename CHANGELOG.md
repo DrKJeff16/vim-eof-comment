@@ -1,5 +1,69 @@
 # Changelog
 
+## [0.9.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.9.1) (2026-09-23)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.9.0...0.9.1)
+
+## [0.9.0](https://github.com/DrKJeff16/vim-eof-comment/tree/0.9.0) (2026-09-22)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.8.1...0.9.0)
+
+## [0.8.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.8.1) (2026-03-12)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.8.0...0.8.1)
+
+## [0.8.0](https://github.com/DrKJeff16/vim-eof-comment/tree/0.8.0) (2026-02-13)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.7.2...0.8.0)
+
+## [0.7.2](https://github.com/DrKJeff16/vim-eof-comment/tree/0.7.2) (2026-02-07)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.7.1...0.7.2)
+
+## [0.7.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.7.1) (2026-02-05)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.7.0...0.7.1)
+
+## [0.7.0](https://github.com/DrKJeff16/vim-eof-comment/tree/0.7.0) (2026-02-02)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.6.2...0.7.0)
+
+## [0.6.2](https://github.com/DrKJeff16/vim-eof-comment/tree/0.6.2) (2026-01-28)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.6.1...0.6.2)
+
+## [0.6.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.6.1) (2026-01-26)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.6.0...0.6.1)
+
+## [0.6.0](https://github.com/DrKJeff16/vim-eof-comment/tree/0.6.0) (2026-01-26)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.5.3...0.6.0)
+
+## [0.5.3](https://github.com/DrKJeff16/vim-eof-comment/tree/0.5.3) (2026-01-24)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.5.2...0.5.3)
+
+## [0.5.2](https://github.com/DrKJeff16/vim-eof-comment/tree/0.5.2) (2026-01-22)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.5.1...0.5.2)
+
+## [0.5.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.5.1) (2026-01-13)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.5.0...0.5.1)
+
+## [0.5.0](https://github.com/DrKJeff16/vim-eof-comment/tree/0.5.0) (2026-01-11)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.4.2...0.5.0)
+
+## [0.4.2](https://github.com/DrKJeff16/vim-eof-comment/tree/0.4.2) (2026-01-07)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.4.1...0.4.2)
+
+## [0.4.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.4.1) (2026-01-04)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.4.0...0.4.1)
+
 ## [0.4.0](https://github.com/DrKJeff16/vim-eof-comment/tree/0.4.0) (2026-01-04)
 
 [Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.3.21...0.4.0)

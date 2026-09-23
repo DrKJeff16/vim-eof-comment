@@ -22,7 +22,7 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-dependencies = ["argparse", "colorama", "shtab"]
+dependencies = ["argparse", "colorama", "progress", "shtab"]
 description = "Adds Vim EOF modeline comments for given filetypes in given directories"
 keywords = [
     "eof comments",
