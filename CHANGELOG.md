@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.9.2](https://github.com/DrKJeff16/vim-eof-comment/tree/0.9.2) (2026-09-23)
+
+[Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.9.1...0.9.2)
+
 ## [0.9.1](https://github.com/DrKJeff16/vim-eof-comment/tree/0.9.1) (2026-09-23)
 
 [Full Changelog](https://github.com/DrKJeff16/vim-eof-comment/compare/0.9.0...0.9.1)
