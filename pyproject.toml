@@ -40,7 +40,7 @@ maintainers = [{ name = "Guennadi Maximov C", email = "g.maxc.fox@protonmail.com
 name = "vim-eof-comment"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.9.0"
+version = "0.9.1"
 
     [project.scripts]
     vim-eof-comment = "vim_eof_comment.core:main"
@@ -167,4 +167,4 @@ target-version = "py314"
         [tool.ruff.lint.pydocstyle]
         convention = "numpy"
 
-        # vim: set ts=4 sts=4 sw=4 et ai si sta:
+# vim: set ts=4 sts=4 sw=4 et ai si sta:
